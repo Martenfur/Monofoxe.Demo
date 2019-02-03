@@ -45,6 +45,9 @@
     <None Include="Content\Entities\Player.json" />
     <None Include="Content\Entities\PhysicsBoi.json" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameLogic\Collisions\ColliderType.cs" />
+    <Compile Include="GameLogic\Collisions\CollisionDetector.cs" />
+    <Compile Include="GameLogic\Collisions\ICollider.cs" />
     <Compile Include="GameLogic\Entities\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\PhysicsSystem.cs" />
     <Compile Include="GameLogic\Entities\PlayerComponent.cs" />
@@ -144,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Entities\SolidBoi.json" />
+    <None Include="Content\Entities\_config.json" />
     <None Include="FMOD\x32\fmod.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

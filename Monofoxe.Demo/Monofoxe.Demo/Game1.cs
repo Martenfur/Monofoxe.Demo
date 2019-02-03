@@ -30,7 +30,7 @@ namespace Monofoxe.Demo
 			AudioMgr.Init();
 			MapMgr.Init();
 
-			//new Test();
+			new Test();
 		}
 
 		/// <summary>

@@ -25,6 +25,9 @@
 /processorParam:DebugMode=Auto
 /build:Effects/AlphaBlend.fx
 
+#begin Entities/_config.json
+/copy:Entities/_config.json
+
 #begin Entities/PhysicsBoi.json
 /importer:EntityTemplateImporter
 /processor:EntityTemplateProcessor

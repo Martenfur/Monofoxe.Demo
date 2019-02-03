@@ -2,12 +2,12 @@
 	"tag": "Player",
 	"components": 
 	{
-		"Monofoxe.Demo.GameLogic.Entities.PhysicsComponent":
+		"PhysicsComponent":
 		{
 			"size": {"x" : 32, "y": 32}
 		},
-		"Monofoxe.Demo.GameLogic.Entities.PositionComponent": {},
-		"Monofoxe.Demo.GameLogic.Entities.PlayerComponent": {}
+		"PositionComponent": {},
+		"PlayerComponent": {}
 	}
 }
 

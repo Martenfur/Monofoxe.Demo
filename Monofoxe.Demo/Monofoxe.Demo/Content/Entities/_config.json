@@ -1,0 +1,10 @@
+{
+	"entityNamespaces": 
+	[
+		"Monofoxe.Demo.GameLogic.Entities"
+	],
+	"spriteNamespaces": 
+	[
+		"Resources.Sprites"
+	]
+}

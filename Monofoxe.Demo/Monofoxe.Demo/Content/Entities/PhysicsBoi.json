@@ -2,11 +2,11 @@
 	"tag": "PhysicsBoi",
 	"components": 
 	{
-		"Monofoxe.Demo.GameLogic.Entities.PhysicsComponent":
+		"PhysicsComponent":
 		{
 			"size": {"x" : 32, "y": 32}
 		},
-		"Monofoxe.Demo.GameLogic.Entities.PositionComponent": {}
+		"PositionComponent": {}
 	}
 }
 

@@ -38,7 +38,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					physics.Speed.Y = -player.JumpSpeed;
 				}
 
-				Test.Camera.Pos = player.Owner.GetComponent<PositionComponent>().Position.ToPoint().ToVector2() 
+				Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.ToPoint().ToVector2() 
 				- Test.Camera.Size / 2;
 			
 			}

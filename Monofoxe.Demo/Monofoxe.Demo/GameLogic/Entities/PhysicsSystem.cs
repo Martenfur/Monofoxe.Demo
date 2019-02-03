@@ -37,7 +37,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 				if (Input.CheckButton(Buttons.MouseLeft))
 				{
-					cPhysics.Speed = Input.MousePos - cPosition.Position;
+					cPhysics.Speed = Input.MousePosition - cPosition.Position;
 					cPhysics.Speed.Normalize();
 					cPhysics.Speed *= 150;
 				}
