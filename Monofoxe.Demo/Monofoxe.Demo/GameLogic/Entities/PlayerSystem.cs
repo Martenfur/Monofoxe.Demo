@@ -53,8 +53,8 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			DrawMgr.CurrentColor = physics.Color;
 
 			DrawMgr.DrawRectangle(
-				position.Position.ToPoint().ToVector2() - physics.Size / 2,
-				position.Position.ToPoint().ToVector2() + physics.Size / 2,
+				position.Position.ToPoint().ToVector2() - physics.Collider.Size / 2,
+				position.Position.ToPoint().ToVector2() + physics.Collider.Size / 2,
 				true
 			);
 			/*

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Monofoxe.Demo.GameLogic.Entities;
 using System;
 using Monofoxe.Tiled;
+using Monofoxe.Demo.GameLogic.Collisions;
 
 namespace Monofoxe.Demo
 {
@@ -39,6 +40,9 @@ namespace Monofoxe.Demo
 			*/
 			_test = new Map(Resources.Maps.Test);
 			_test.Load();
+
+			
+			CollisionDetector.Init();
 		}
 		
 		public override void Update()

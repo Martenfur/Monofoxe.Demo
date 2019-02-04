@@ -33,6 +33,11 @@
 /processor:EntityTemplateProcessor
 /build:Entities/PhysicsBoi.json
 
+#begin Entities/Platform.json
+/importer:EntityTemplateImporter
+/processor:EntityTemplateProcessor
+/build:Entities/Platform.json
+
 #begin Entities/Player.json
 /importer:EntityTemplateImporter
 /processor:EntityTemplateProcessor

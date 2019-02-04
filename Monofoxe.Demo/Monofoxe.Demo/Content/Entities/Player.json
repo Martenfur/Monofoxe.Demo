@@ -4,7 +4,7 @@
 	{
 		"PhysicsComponent":
 		{
-			"size": {"x" : 32, "y": 32}
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {},
 		"PlayerComponent": {}

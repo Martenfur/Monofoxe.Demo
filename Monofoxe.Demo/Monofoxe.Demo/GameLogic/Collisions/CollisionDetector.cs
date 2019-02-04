@@ -37,7 +37,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			var id1 = (int)collider1.ColliderType;
 			var id2 = (int)collider2.ColliderType;
 
-			if (id2 > id1) // Only upper half of matrix is being used.
+			if (id2 < id1) // Only upper half of matrix is being used.
 			{
 				return _collisionMatrix[id2, id1](collider2, collider1);
 			}
@@ -63,6 +63,21 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			var rectangle = (RectangleCollider)collider1;
 			var platform = (PlatformCollider)collider2;
 
+			if (
+				rectangle.PreviousPosition.Y + rectangle.Size.Y / 2f 
+				< platform.Position.Y - platform.Size.Y / 2f
+				&&
+				rectangle.Position.Y + rectangle.Size.Y / 2f
+				> platform.Position.Y - platform.Size.Y / 2f
+			)
+			{
+				return GameMath.RectangleInRectangleBySize(
+					rectangle.Position, 
+					rectangle.Size, 
+					platform.Position, 
+					platform.Size
+				);
+			}
 
 			return false;
 		}

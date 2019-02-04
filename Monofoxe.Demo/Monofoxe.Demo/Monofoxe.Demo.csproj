@@ -48,6 +48,8 @@
     <Compile Include="GameLogic\Collisions\ColliderType.cs" />
     <Compile Include="GameLogic\Collisions\CollisionDetector.cs" />
     <Compile Include="GameLogic\Collisions\ICollider.cs" />
+    <Compile Include="GameLogic\Collisions\PlatformCollider.cs" />
+    <Compile Include="GameLogic\Collisions\RectangleCollider.cs" />
     <Compile Include="GameLogic\Entities\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\PhysicsSystem.cs" />
     <Compile Include="GameLogic\Entities\PlayerComponent.cs" />
@@ -56,7 +58,9 @@
     <Compile Include="GameLogic\Entities\PositionSystem.cs" />
     <Compile Include="GameLogic\Entities\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\SolidSystem.cs" />
+    <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\PlayerFactory.cs" />
+    <Compile Include="MapEntityFactories\PlatformFactory.cs" />
     <Compile Include="MapEntityFactories\SolidFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +150,7 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Entities\Platform.json" />
     <None Include="Content\Entities\SolidBoi.json" />
     <None Include="Content\Entities\_config.json" />
     <None Include="FMOD\x32\fmod.dll">

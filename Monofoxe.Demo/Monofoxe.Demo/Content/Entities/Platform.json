@@ -1,10 +1,10 @@
 ﻿{
-	"tag": "SolidBoi",
+	"tag": "Platform",
 	"components": 
 	{
 		"SolidComponent":
 		{
-			"collider": {"type": "rectangle", "w" : 64, "h": 32}
+			"collider": {"type": "platform", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {}
 	}

@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using Monofoxe.Engine.ECS;
-using Microsoft.Xna.Framework;
-using Newtonsoft.Json;
+﻿using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.JsonConverters;
 using Monofoxe.Engine.Converters;
+using Monofoxe.Engine.ECS;
+using Newtonsoft.Json;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
 	public class SolidComponent : Component
 	{
-		[JsonConverter(typeof(Vector2Converter))]
-		public Vector2 Size;
-		
+		[JsonConverter(typeof(ColliderConverter))]
+		public ICollider Collider;
 		
 		public override object Clone()
 		{
-			var positionComponent = new SolidComponent();
-			positionComponent.Size = Size;
+			var component = new SolidComponent();
+			component.Collider = (ICollider)Collider.Clone();
 			
-			return positionComponent;
+			return component;
 		}
 	}
 }
