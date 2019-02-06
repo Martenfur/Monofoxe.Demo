@@ -12,6 +12,8 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		[JsonConverter(typeof(ColliderConverter))]
 		public ICollider Collider;
 		
+		public Vector2 Speed;
+
 		public override object Clone()
 		{
 			var component = new SolidComponent();

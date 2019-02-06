@@ -63,8 +63,8 @@ namespace Monofoxe.Demo
 
 		
 		public override void Draw()
-		{
-			//DrawMgr.DrawSprite(SpritesDefault.Monofoxe, 400, 300);
+		{	
+			DrawMgr.DrawSprite(SpritesDefault.Monofoxe, 400, 300);
 		}
 
 	}

@@ -17,6 +17,10 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		[JsonConverter(typeof(ColliderConverter))]
 		public ICollider Collider;
 
+		public bool InAir;
+
+		public Vector2 PosAdd;
+
 		public override object Clone()
 		{
 			var physicsComponent = new PhysicsComponent();

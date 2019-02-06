@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Utils.Cameras;
+using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -50,7 +51,11 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			var physics = component.Owner.GetComponent<PhysicsComponent>();
 			var position = component.Owner.GetComponent<PositionComponent>();
 
-			DrawMgr.CurrentColor = physics.Color;
+			if (physics.InAir)
+				DrawMgr.CurrentColor = Color.Azure;
+			else
+				DrawMgr.CurrentColor = physics.Color;
+			
 
 			DrawMgr.DrawRectangle(
 				position.Position.ToPoint().ToVector2() - physics.Collider.Size / 2,
