@@ -35,6 +35,9 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			var solid = (SolidComponent)component;
 			var position = solid.Owner.GetComponent<PositionComponent>();
 
+			if (solid.Collider is TilemapCollider)
+				return;			
+
 			if (solid.Collider is PlatformCollider)
 				DrawMgr.CurrentColor = Color.Black * 0.5f;
 			else

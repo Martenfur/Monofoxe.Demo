@@ -9,6 +9,7 @@ using Monofoxe.Demo.GameLogic.Entities;
 using System;
 using Monofoxe.Tiled;
 using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic;
 
 namespace Monofoxe.Demo
 {
@@ -38,7 +39,7 @@ namespace Monofoxe.Demo
 			phy.Size = Vector2.One * 32;
 			entity.AddComponent(phy);
 			*/
-			_test = new Map(Resources.Maps.Test);
+			_test = new ColliderMap(Resources.Maps.Test);
 			_test.Load();
 
 			

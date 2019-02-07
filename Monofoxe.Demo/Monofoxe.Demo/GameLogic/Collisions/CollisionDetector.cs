@@ -19,7 +19,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			 * p | xx | xx  
 			 */
 			 
-			_collisionMatrix = new Func<ICollider, ICollider, bool>[2, 2];
+			_collisionMatrix = new Func<ICollider, ICollider, bool>[3, 3];
 			
 			_collisionMatrix[
 				(int)ColliderType.Rectangle, 
@@ -30,6 +30,13 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 				(int)ColliderType.Rectangle, 
 				(int)ColliderType.Platform
 			] = RectanglePlatform;
+
+			_collisionMatrix[
+				(int)ColliderType.Rectangle, 
+				(int)ColliderType.Tilemap
+			] = RectangleTilemap;
+
+
 		}
 
 		public static bool CheckCollision(ICollider collider1, ICollider collider2)
@@ -79,6 +86,38 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 				);
 			}
 
+			return false;
+		}
+
+		static bool RectangleTilemap(ICollider collider1, ICollider collider2)
+		{
+			var rectangle = (RectangleCollider)collider1;
+			var tilemap = (TilemapCollider)collider2;
+
+			if (
+				GameMath.RectangleInRectangleBySize(
+					rectangle.Position, 
+					rectangle.Size, 
+					tilemap.Position, 
+					tilemap.Size
+				)
+			)
+			{
+				var blockSize = new Vector2(tilemap.Tilemap.TileWidth, tilemap.Tilemap.TileHeight);
+				var blockPosition = (rectangle.Position / blockSize);
+				var tile = tilemap.Tilemap.GetTile((int)blockPosition.X, (int)blockPosition.Y);
+				if (tile != null && tile.Value.GetCollider() != null)
+				{
+					Console.WriteLine(tile.Value.GetCollider() == null);
+					var tileCollider = tile.Value.GetCollider();
+					tileCollider.Position = blockPosition * blockSize + blockSize / 2; 
+					return CheckCollision(collider1, tileCollider);
+				}
+			}
+			else
+			{
+				Console.WriteLine("fail");	
+			}
 			return false;
 		}
 

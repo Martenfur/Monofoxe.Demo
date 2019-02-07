@@ -26,7 +26,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 		public override void Update(List<Component> components)
 		{
-			_solidEntities = SceneMgr.CurrentLayer.GetEntityListByComponent<SolidComponent>();
+			_solidEntities = SceneMgr.CurrentScene.GetEntityListByComponent<SolidComponent>();
 
 			
 			

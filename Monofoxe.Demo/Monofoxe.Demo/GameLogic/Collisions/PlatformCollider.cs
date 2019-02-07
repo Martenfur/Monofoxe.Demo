@@ -12,7 +12,5 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 		public Vector2 Size {get;set;}
 
 		public object Clone() => this;
-		
-
 	}
 }

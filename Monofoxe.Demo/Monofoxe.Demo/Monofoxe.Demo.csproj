@@ -45,11 +45,13 @@
     <None Include="Content\Entities\Player.json" />
     <None Include="Content\Entities\PhysicsBoi.json" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameLogic\ColliderMap.cs" />
     <Compile Include="GameLogic\Collisions\ColliderType.cs" />
     <Compile Include="GameLogic\Collisions\CollisionDetector.cs" />
     <Compile Include="GameLogic\Collisions\ICollider.cs" />
     <Compile Include="GameLogic\Collisions\PlatformCollider.cs" />
     <Compile Include="GameLogic\Collisions\RectangleCollider.cs" />
+    <Compile Include="GameLogic\Collisions\TilemapCollider.cs" />
     <Compile Include="GameLogic\Entities\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\PhysicsSystem.cs" />
     <Compile Include="GameLogic\Entities\PlayerComponent.cs" />
@@ -58,6 +60,10 @@
     <Compile Include="GameLogic\Entities\PositionSystem.cs" />
     <Compile Include="GameLogic\Entities\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\SolidSystem.cs" />
+    <Compile Include="GameLogic\Tiles\ColliderTile.cs" />
+    <Compile Include="GameLogic\Tiles\ColliderTilemapComponent.cs" />
+    <Compile Include="GameLogic\Tiles\ColliderTilemapSystem.cs" />
+    <Compile Include="GameLogic\Tiles\ColliderTileset.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\PlayerFactory.cs" />
     <Compile Include="MapEntityFactories\PlatformFactory.cs" />
