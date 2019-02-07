@@ -1,6 +1,7 @@
 ﻿using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.Utils.Tilemaps;
+using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.GameLogic.Tiles
 {
@@ -8,7 +9,8 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 	{
 		private ICollider[] _colliders;
 
-		public ColliderTileset(Sprite tiles, ICollider[] colliders, int startingIndex = 1) : base(tiles, startingIndex)
+		public ColliderTileset(Sprite tiles, Vector2 offset, ICollider[] colliders, int startingIndex = 1) :
+			base(tiles, offset, startingIndex)
 		{
 			_colliders = colliders;
 		}

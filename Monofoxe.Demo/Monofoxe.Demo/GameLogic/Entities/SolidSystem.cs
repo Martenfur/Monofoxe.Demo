@@ -14,9 +14,13 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 		public override void Update(List<Component> components)
 		{
+			
 			foreach(SolidComponent solid in components)
 			{
 				solid.Speed = Vector2.Zero;
+
+				if (solid.Collider is TilemapCollider)
+					continue;			
 
 				if (Input.CheckButton(Buttons.Up))
 					solid.Speed.Y = -100;

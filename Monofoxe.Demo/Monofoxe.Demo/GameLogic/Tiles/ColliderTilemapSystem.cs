@@ -54,7 +54,7 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 			// Telling whatever is waiting to be drawn to draw itself.
 			// If pipeline mode is not switched, drawing raw sprite batch may interfere with primitives.
 			DrawMgr.SwitchPipelineMode(PipelineMode.Sprites); 
-
+			//Console.WriteLine(tilemap.Offset);
 			for(var y = startY; y < endY; y += 1)
 			{
 				for(var x = startX; x < endX; x += 1)
@@ -84,9 +84,10 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 							// A bunch of Tiled magic.
 
 							// Mass-drawing srpites with spritebatch is a bit faster.
+							
 							DrawMgr.Batch.Draw(
 								tileFrame.Texture,
-								tilemap.Offset + new Vector2(tilemap.TileWidth * x, tilemap.TileHeight * y) - offset,
+								tilemap.Offset + new Vector2(tilemap.TileWidth * x, tilemap.TileHeight * y) - offset + tile.Tileset.Offset,
 								tileFrame.TexturePosition,
 								Color.White,
 								0,
@@ -99,8 +100,18 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 					}
 
 				}
-
 			}
+
+
+			for(var y = startY; y < endY; y += 1)
+			{
+				DrawMgr.DrawLine(tilemap.TileWidth * startX, tilemap.TileHeight * y, tilemap.TileWidth * endY, tilemap.TileHeight * y);
+			}
+			for(var x = startX; x < endX; x += 1)
+			{
+				DrawMgr.DrawLine(tilemap.TileWidth * x, tilemap.TileHeight * startY, tilemap.TileWidth * x, tilemap.TileHeight * endY);
+			}
+
 		}
 
 	}

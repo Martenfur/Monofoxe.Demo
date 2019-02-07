@@ -30,6 +30,7 @@ namespace Monofoxe.Demo.GameLogic
 				
 				var colliderTileset = new ColliderTileset(
 					basicTileset.Tiles, 
+					basicTileset.Offset,
 					GetColliders(tilesets[i]), 
 					basicTileset.StartingIndex
 				);
@@ -91,7 +92,7 @@ namespace Monofoxe.Demo.GameLogic
 					var rectangle = tile.Objects[0];
 					var collider = new RectangleCollider();
 					collider.Size = rectangle.Size;
-					
+					//TODO: Add offset. Somehow.
 					colliders.Add(collider);
 				}
 				else

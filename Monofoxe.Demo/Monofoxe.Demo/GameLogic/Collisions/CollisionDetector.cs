@@ -104,15 +104,25 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			)
 			{
 				var blockSize = new Vector2(tilemap.Tilemap.TileWidth, tilemap.Tilemap.TileHeight);
-				var blockPosition = (rectangle.Position / blockSize);
-				var tile = tilemap.Tilemap.GetTile((int)blockPosition.X, (int)blockPosition.Y);
-				if (tile != null && tile.Value.GetCollider() != null)
+
+				var blockPosition1 = (rectangle.Position - rectangle.Size / 2) / blockSize;
+				var blockPosition2 = (rectangle.Position + rectangle.Size / 2) / blockSize;
+
+				for(var x = (int)blockPosition1.X; x <= (int)blockPosition2.X; x += 1)
 				{
-					Console.WriteLine(tile.Value.GetCollider() == null);
-					var tileCollider = tile.Value.GetCollider();
-					tileCollider.Position = blockPosition * blockSize + blockSize / 2; 
-					return CheckCollision(collider1, tileCollider);
+					for(var y = (int)blockPosition1.Y; y <= (int)blockPosition2.Y; y += 1)
+					{
+						var tile = tilemap.Tilemap.GetTile(x, y);
+						if (tile != null && tile.Value.GetCollider() != null)
+						{
+							var tileCollider = tile.Value.GetCollider();
+							tileCollider.Position = new Vector2(x, y) * blockSize + blockSize / 2; 
+							return CheckCollision(collider1, tileCollider);
+						}
+					}
 				}
+
+				
 			}
 			else
 			{
