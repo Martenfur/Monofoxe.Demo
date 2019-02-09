@@ -1,6 +1,4 @@
-﻿using Monofoxe.Engine.Drawing;
-using Monofoxe.Engine.Utils.Tilemaps;
-
+﻿using Monofoxe.Engine.Utils.Tilemaps;
 using Monofoxe.Demo.GameLogic.Collisions;
 
 namespace Monofoxe.Demo.GameLogic.Tiles
@@ -14,7 +12,6 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 		public bool FlipVer {get; set;}
 		
 		public ColliderTileset Tileset;
-
 		
 		public ColliderTile(int index, ColliderTileset tileset, bool flipHor = false, bool flipVer = false)
 		{
@@ -23,10 +20,6 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 			FlipHor = flipHor;
 			FlipVer = flipVer;
 		}
-
-		public Frame GetFrame() =>
-			Tileset.GetFrame(Index);
-		
 		
 		public ICollider GetCollider()
 		{
@@ -34,6 +27,15 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 				return null;
 
 			return Tileset.GetCollider(Index);
+		}
+		
+		public ITilesetTile GetTilesetTile()
+		{
+			if (Tileset != null)
+			{
+				return Tileset.GetTilesetTile(Index);
+			}
+			return null;
 		}
 		
 

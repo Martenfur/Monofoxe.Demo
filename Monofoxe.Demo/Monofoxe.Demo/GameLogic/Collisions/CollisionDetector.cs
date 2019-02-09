@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Monofoxe.Engine.Utils;
 using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Tiles;
 
 namespace Monofoxe.Demo.GameLogic.Collisions
 {
@@ -113,21 +114,36 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 					for(var y = (int)blockPosition1.Y; y <= (int)blockPosition2.Y; y += 1)
 					{
 						var tile = tilemap.Tilemap.GetTile(x, y);
-						if (tile != null && tile.Value.GetCollider() != null)
+						if (tile != null)
 						{
-							var tileCollider = tile.Value.GetCollider();
-							tileCollider.Position = new Vector2(x, y) * blockSize + blockSize / 2; 
-							return CheckCollision(collider1, tileCollider);
+							var tilesetTile = (ColliderTilesetTile)((ColliderTile)tile).GetTilesetTile();
+
+							if (tilesetTile == null || tilesetTile.CollisionType == TilesetTileCollisionType.None)
+							{
+								continue;
+							}
+							if (tilesetTile.CollisionType == TilesetTileCollisionType.Solid)
+							{
+								return true;
+							}
+							if (tilesetTile.CollisionType == TilesetTileCollisionType.Custom)
+							{			
+								var tileCollider = tile.Value.GetCollider();
+								
+								tileCollider.Position = new Vector2(x, y) * blockSize 
+									+ ((ColliderTilesetTile)tile.Value.GetTilesetTile()).ColliderOffset; 
+								tileCollider.PreviousPosition = tileCollider.Position;
+								
+								if (CheckCollision(collider1, tileCollider))
+								{
+									return true;
+								}
+							}
 						}
 					}
-				}
-
-				
+				}	
 			}
-			else
-			{
-				Console.WriteLine("fail");	
-			}
+			
 			return false;
 		}
 

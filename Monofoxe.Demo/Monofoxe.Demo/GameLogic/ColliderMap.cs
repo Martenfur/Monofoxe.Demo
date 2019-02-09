@@ -29,9 +29,8 @@ namespace Monofoxe.Demo.GameLogic
 				var basicTileset = convertedBasicTilesets[i];
 				
 				var colliderTileset = new ColliderTileset(
-					basicTileset.Tiles, 
-					basicTileset.Offset,
-					GetColliders(tilesets[i]), 
+					ConvertTiles(tilesets[i], convertedBasicTilesets[i]), 
+					basicTileset.Offset, 
 					basicTileset.StartingIndex
 				);
 				convertedColliderTilesets.Add(colliderTileset);
@@ -81,26 +80,55 @@ namespace Monofoxe.Demo.GameLogic
 		}
 
 
-		ICollider[] GetColliders(TiledMapTileset tileset)
+		ITilesetTile[] ConvertTiles(TiledMapTileset tiledTileset, Tileset tileset)
 		{
-			var colliders = new List<ICollider>();
+			var tilesetTiles = new List<ITilesetTile>();
 
-			foreach(var tile in tileset.Tiles)
+			for(var i = 0; i < tileset.Tiles.Length; i += 1)
 			{
-				if (tile.Objects.Length > 0 && tile.Objects[0] is TiledRectangleObject)
+				ICollider collider = null;
+
+				var tiledTile = tiledTileset.Tiles[i];
+				var colliderOffset = Vector2.Zero;
+				
+				if (tiledTile.Objects.Length > 0 && tiledTile.Objects[0] is TiledRectangleObject)
 				{
-					var rectangle = tile.Objects[0];
-					var collider = new RectangleCollider();
-					collider.Size = rectangle.Size;
-					//TODO: Add offset. Somehow.
-					colliders.Add(collider);
+					var rectangle = tiledTile.Objects[0];
+					
+					if (rectangle.Type == "rectangle")
+					{
+						collider = new RectangleCollider();
+						collider.Size = rectangle.Size;
+					}
+					if (rectangle.Type == "platform")
+					{
+						collider = new PlatformCollider();
+						collider.Size = rectangle.Size;
+					}
+					// Here we need to flip y in the offset, because tiles are draw with origin in bottom left corner, 
+					// but colliders take origin as top left corner. Why? Ask Tiled dev.
+					colliderOffset = rectangle.Position + tileset.Offset * new Vector2(1, -1) + rectangle.Size / 2;
 				}
-				else
+				
+				var type = TilesetTileCollisionType.None;
+				//TODO: Cleanup.
+				try
 				{
-					colliders.Add(null);
+					Console.WriteLine(tiledTile.Properties["type"]);
+					type = (TilesetTileCollisionType)Enum.Parse(typeof(TilesetTileCollisionType), tiledTile.Properties["type"]);
 				}
+				catch(Exception e) {}
+
+				var tilesetTile = new ColliderTilesetTile(
+					tileset.Tiles[i].Frame,
+					collider,
+					type,
+					colliderOffset
+				);
+				tilesetTiles.Add(tilesetTile);
 			}
-			return colliders.ToArray();
+
+			return tilesetTiles.ToArray();
 		}
 
 	}

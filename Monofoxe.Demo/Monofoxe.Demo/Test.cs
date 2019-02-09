@@ -48,18 +48,7 @@ namespace Monofoxe.Demo
 		
 		public override void Update()
 		{
-			if (Input.CheckButtonPress(Buttons.MouseRight))
-			{
-				var entity = EntityMgr.CreateEntityFromTemplate(Layer, "SolidBoi");
-				entity.GetComponent<PositionComponent>().Position = Camera.GetRelativeMousePosition();
-			}
 
-			if (Input.CheckButtonPress(Buttons.Space))
-			{
-				var entity = EntityMgr.CreateEntityFromTemplate(Layer, "PhysicsBoi");
-				entity.GetComponent<PositionComponent>().Position = Camera.GetRelativeMousePosition();
-				Console.WriteLine("kok");
-			}
 		}
 
 		

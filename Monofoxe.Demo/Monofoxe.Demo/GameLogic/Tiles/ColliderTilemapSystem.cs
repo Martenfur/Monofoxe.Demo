@@ -64,12 +64,12 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 
 					if (!tile.IsBlank)
 					{
-						var tileFrame = tile.GetFrame();
+						var tilesetTile = tile.GetTilesetTile();
 						
-						if (tileFrame != null)
+						if (tilesetTile != null)
 						{
 							var flip = SpriteEffects.None;
-							var offset = Vector2.UnitY * (tileFrame.Height - tilemap.TileHeight);
+							var offset = Vector2.UnitY * (tilesetTile.Frame.Height - tilemap.TileHeight);
 							
 							// A bunch of Tiled magic.
 							if (tile.FlipHor)
@@ -86,9 +86,9 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 							// Mass-drawing srpites with spritebatch is a bit faster.
 							
 							DrawMgr.Batch.Draw(
-								tileFrame.Texture,
+								tilesetTile.Frame.Texture,
 								tilemap.Offset + new Vector2(tilemap.TileWidth * x, tilemap.TileHeight * y) - offset + tile.Tileset.Offset,
-								tileFrame.TexturePosition,
+								tilesetTile.Frame.TexturePosition,
 								Color.White,
 								0,
 								Vector2.Zero,
@@ -102,10 +102,10 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 				}
 			}
 
-
+			DrawMgr.CurrentColor = Color.Black * 0.3f;
 			for(var y = startY; y < endY; y += 1)
 			{
-				DrawMgr.DrawLine(tilemap.TileWidth * startX, tilemap.TileHeight * y, tilemap.TileWidth * endY, tilemap.TileHeight * y);
+				DrawMgr.DrawLine(tilemap.TileWidth * startX, tilemap.TileHeight * y, tilemap.TileWidth * endX, tilemap.TileHeight * y);
 			}
 			for(var x = startX; x < endX; x += 1)
 			{

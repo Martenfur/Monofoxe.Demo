@@ -20,7 +20,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				solid.Speed = Vector2.Zero;
 
 				if (solid.Collider is TilemapCollider)
-					continue;			
+					continue;
 
 				if (Input.CheckButton(Buttons.Up))
 					solid.Speed.Y = -100;
