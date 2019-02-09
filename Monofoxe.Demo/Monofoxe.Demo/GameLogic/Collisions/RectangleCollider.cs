@@ -1,8 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.GameLogic.Collisions
 {
+	/// <summary>
+	/// Basic rectangle collider.
+	/// </summary>
 	public struct RectangleCollider : ICollider
 	{
 		public ColliderType ColliderType => ColliderType.Rectangle;

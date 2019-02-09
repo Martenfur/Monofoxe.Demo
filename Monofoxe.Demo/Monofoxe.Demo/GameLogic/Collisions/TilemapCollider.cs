@@ -3,6 +3,9 @@ using Monofoxe.Demo.GameLogic.Tiles;
 
 namespace Monofoxe.Demo.GameLogic.Collisions
 {
+	/// <summary>
+	/// Collider based on a tilemap.
+	/// </summary>
 	public class TilemapCollider : ICollider
 	{
 		public ColliderType ColliderType => ColliderType.Tilemap;
@@ -12,6 +15,6 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 
 		public Vector2 Size {get; set;}
 
-		public object Clone() => this;
+		public object Clone() => this; // Not cloning, but this doesn't really matter.
 	}
 }

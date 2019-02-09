@@ -1,15 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using Monofoxe.Engine.Utils;
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Tiles;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Collisions
 {
+	/// <summary>
+	/// Takes two colliders of any type and checks if there was a collision between them.
+	/// </summary>
 	public static class CollisionDetector
 	{
+		/// <summary>
+		/// Matrix contains all allowed collider combinations.
+		/// </summary>
 		private static Func<ICollider, ICollider, bool>[,] _collisionMatrix;
 
+		private const int _collisionMatrixSize = 3;
+
+		/// <summary>
+		/// Initializes collision matrix.
+		/// </summary>
 		public static void Init()
 		{
 			/*
@@ -20,7 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			 * p | xx | xx  
 			 */
 			 
-			_collisionMatrix = new Func<ICollider, ICollider, bool>[3, 3];
+			_collisionMatrix = new Func<ICollider, ICollider, bool>[_collisionMatrixSize, _collisionMatrixSize];
 			
 			_collisionMatrix[
 				(int)ColliderType.Rectangle, 
@@ -36,14 +46,23 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 				(int)ColliderType.Rectangle, 
 				(int)ColliderType.Tilemap
 			] = RectangleTilemap;
-
-
 		}
 
+		/// <summary>
+		/// Checks collision between two colliders of any type.
+		/// </summary>
 		public static bool CheckCollision(ICollider collider1, ICollider collider2)
 		{
+			/*
+			 * Each collider type has its own unique index.
+			 * We are taking them and retrieving appropriate
+			 * collision function.
+			 */
 			var id1 = (int)collider1.ColliderType;
 			var id2 = (int)collider2.ColliderType;
+
+			// Maybe add a null check here to prevent crashes, if some function isn't implemented.
+			// Though, this probably won't be needed.
 
 			if (id2 < id1) // Only upper half of matrix is being used.
 			{
@@ -71,7 +90,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			var rectangle = (RectangleCollider)collider1;
 			var platform = (PlatformCollider)collider2;
 
-			if (
+			if ( // If rectangle enters platform from above.
 				rectangle.PreviousPosition.Y + rectangle.Size.Y / 2f 
 				< platform.PreviousPosition.Y - platform.Size.Y / 2f
 				&&
@@ -95,7 +114,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			var rectangle = (RectangleCollider)collider1;
 			var tilemap = (TilemapCollider)collider2;
 
-			if (
+			if ( // Checking tilemap bounds.
 				GameMath.RectangleInRectangleBySize(
 					rectangle.Position, 
 					rectangle.Size, 
@@ -106,39 +125,51 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			{
 				var blockSize = new Vector2(tilemap.Tilemap.TileWidth, tilemap.Tilemap.TileHeight);
 
-				var blockPosition1 = (rectangle.Position - rectangle.Size / 2) / blockSize;
-				var blockPosition2 = (rectangle.Position + rectangle.Size / 2) / blockSize;
+				var corner1 = (rectangle.Position - rectangle.Size / 2) / blockSize;
+				var corner2 = (rectangle.Position + rectangle.Size / 2) / blockSize;
 
-				for(var x = (int)blockPosition1.X; x <= (int)blockPosition2.X; x += 1)
+				// TODO: Add tilemap offset support.
+
+				// Checking region that tile occupies.
+				for(var x = (int)corner1.X; x <= (int)corner2.X; x += 1)
 				{
-					for(var y = (int)blockPosition1.Y; y <= (int)blockPosition2.Y; y += 1)
+					for(var y = (int)corner1.Y; y <= (int)corner2.Y; y += 1)
 					{
-						var tile = tilemap.Tilemap.GetTile(x, y);
-						if (tile != null)
+						var tilemapTile = tilemap.Tilemap.GetTile(x, y);
+						if (tilemapTile != null)
 						{
-							var tilesetTile = (ColliderTilesetTile)((ColliderTile)tile).GetTilesetTile();
+							// Actual info about collisions is stored in tiles from tileset.
+							var tilesetTile = (ColliderTilesetTile)((ColliderTile)tilemapTile).GetTilesetTile();
 
+							// Empty or non-solid tile.
 							if (tilesetTile == null || tilesetTile.CollisionType == TilesetTileCollisionType.None)
 							{
 								continue;
 							}
+							// Empty or non-solid tile.
+
+							// Fully solid tile.
 							if (tilesetTile.CollisionType == TilesetTileCollisionType.Solid)
 							{
 								return true;
 							}
+							// Fully solid tile.
+
+							// Tile with custom collider.
 							if (tilesetTile.CollisionType == TilesetTileCollisionType.Custom)
-							{			
-								var tileCollider = tile.Value.GetCollider();
+							{	
+								var tileCollider = tilemapTile.Value.GetCollider();
 								
-								tileCollider.Position = new Vector2(x, y) * blockSize 
-									+ ((ColliderTilesetTile)tile.Value.GetTilesetTile()).ColliderOffset; 
+								var colliderOffset = ((ColliderTilesetTile)tilemapTile.Value.GetTilesetTile()).ColliderOffset;
+								tileCollider.Position = new Vector2(x, y) * blockSize + colliderOffset; 
 								tileCollider.PreviousPosition = tileCollider.Position;
 								
 								if (CheckCollision(collider1, tileCollider))
 								{
-									return true;
+									return true; // We don't want to return false until we didn't checked all other tiles.
 								}
 							}
+							// Tile with custom collider.
 						}
 					}
 				}	

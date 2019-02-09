@@ -1,8 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.GameLogic.Collisions
 {
+	/// <summary>
+	/// Same as rectangle collider, but collides only if entered from top.
+	/// </summary>
 	public struct PlatformCollider : ICollider
 	{
 		public ColliderType ColliderType => ColliderType.Platform;
