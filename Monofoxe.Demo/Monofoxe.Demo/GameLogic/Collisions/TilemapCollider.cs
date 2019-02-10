@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Monofoxe.Demo.GameLogic.Tiles;
 using Monofoxe.Engine.Utils.Tilemaps;
 
 namespace Monofoxe.Demo.GameLogic.Collisions

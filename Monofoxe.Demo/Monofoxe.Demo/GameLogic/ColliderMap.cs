@@ -40,8 +40,8 @@ namespace Monofoxe.Demo.GameLogic
 		}
 
 
-		protected override void BuildTileLayers(List<Tileset> tilesets)
-		{
+		protected override List<Layer> BuildTileLayers(List<Tileset> tilesets)
+		{/*
 			foreach(var tileLayer in TiledMap.TileLayers)
 			{
 				var layer = MapScene.CreateLayer(tileLayer.Name);
@@ -76,7 +76,36 @@ namespace Monofoxe.Demo.GameLogic
 				tilemapEntity.AddComponent(solid);
 				tilemapEntity.AddComponent(new PositionComponent(Vector2.Zero));
 
+			}*/
+
+			var layers = base.BuildTileLayers(tilesets);
+
+			foreach(var layer in layers)
+			{
+				var tilemaps = layer.GetEntityListByComponent<BasicTilemapComponent>();
+				
+				Console.WriteLine(tilemaps.Count + " kok " + layer.CountEntities<Entity>());
+				foreach(var tilemap in tilemaps)
+				{
+					var tilemapComponent = tilemap.GetComponent<BasicTilemapComponent>();
+					
+					// Making collider.
+					var collider = new TilemapCollider();
+					collider.Tilemap = tilemapComponent;
+					collider.Size = new Vector2(
+						tilemapComponent.Width * tilemapComponent.TileWidth, 
+						tilemapComponent.Height * tilemapComponent.TileHeight
+					);
+					var solid = new SolidComponent();
+					solid.Collider = collider;
+					// Making collider.
+
+					tilemap.AddComponent(solid);
+					tilemap.AddComponent(new PositionComponent(Vector2.Zero));
+				}
 			}
+
+			return layers;
 		}
 
 
