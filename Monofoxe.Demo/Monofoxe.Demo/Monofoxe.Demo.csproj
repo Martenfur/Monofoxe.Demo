@@ -60,10 +60,6 @@
     <Compile Include="GameLogic\Entities\PositionSystem.cs" />
     <Compile Include="GameLogic\Entities\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\SolidSystem.cs" />
-    <Compile Include="GameLogic\Tiles\ColliderTile.cs" />
-    <Compile Include="GameLogic\Tiles\ColliderTilemapComponent.cs" />
-    <Compile Include="GameLogic\Tiles\ColliderTilemapSystem.cs" />
-    <Compile Include="GameLogic\Tiles\ColliderTileset.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\PlayerFactory.cs" />

@@ -17,7 +17,7 @@ namespace Monofoxe.Demo.GameLogic
 	public class ColliderMap : Map
 	{
 		public ColliderMap(TiledMap tiledMap) : base(tiledMap) {}
-
+		
 		protected override List<Tileset> BuildTilesets(TiledMapTileset[] tilesets)
 		{
 			var convertedBasicTilesets = base.BuildTilesets(tilesets);
@@ -28,7 +28,7 @@ namespace Monofoxe.Demo.GameLogic
 			{
 				var basicTileset = convertedBasicTilesets[i];
 				
-				var colliderTileset = new ColliderTileset(
+				var colliderTileset = new Tileset(
 					ConvertTiles(tilesets[i], convertedBasicTilesets[i]), 
 					basicTileset.Offset, 
 					basicTileset.StartingIndex
@@ -47,7 +47,7 @@ namespace Monofoxe.Demo.GameLogic
 				var layer = MapScene.CreateLayer(tileLayer.Name);
 				layer.Priority = GetLayerPriority(tileLayer);
 				
-				var tilemap = new ColliderTilemapComponent(tileLayer.Width, tileLayer.Height, tileLayer.TileWidth, tileLayer.TileHeight);
+				var tilemap = new BasicTilemapComponent(tileLayer.Width, tileLayer.Height, tileLayer.TileWidth, tileLayer.TileHeight);
 				for(var y = 0; y < tilemap.Height; y += 1)	
 				{
 					for(var x = 0; x < tilemap.Width; x += 1)
@@ -56,9 +56,9 @@ namespace Monofoxe.Demo.GameLogic
 						
 						tilemap.SetTile(
 							x, y, 
-							new ColliderTile(
+							new BasicTile(
 								tileIndex, 
-								(ColliderTileset)GetTilesetFromTileIndex(tileIndex, tilesets),
+								GetTilesetFromTileIndex(tileIndex, tilesets),
 								tileLayer.Tiles[x][y].FlipHor,
 								tileLayer.Tiles[x][y].FlipVer
 							)

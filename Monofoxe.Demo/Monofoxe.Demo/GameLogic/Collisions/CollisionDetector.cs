@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Tiles;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Engine.Utils.Tilemaps;
 
 namespace Monofoxe.Demo.GameLogic.Collisions
 {
@@ -139,7 +140,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 						if (tilemapTile != null)
 						{
 							// Actual info about collisions is stored in tiles from tileset.
-							var tilesetTile = (ColliderTilesetTile)((ColliderTile)tilemapTile).GetTilesetTile();
+							var tilesetTile = (ColliderTilesetTile)((BasicTile)tilemapTile).GetTilesetTile();
 
 							// Empty or non-solid tile.
 							if (tilesetTile == null || tilesetTile.CollisionType == TilesetTileCollisionType.None)
@@ -158,7 +159,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 							// Tile with custom collider.
 							if (tilesetTile.CollisionType == TilesetTileCollisionType.Custom)
 							{	
-								var tileCollider = tilemapTile.Value.GetCollider();
+								var tileCollider = tilesetTile.Collider;//tilemapTile.Value.GetCollider();
 								
 								var colliderOffset = ((ColliderTilesetTile)tilemapTile.Value.GetTilesetTile()).ColliderOffset;
 								tileCollider.Position = new Vector2(x, y) * blockSize + colliderOffset; 

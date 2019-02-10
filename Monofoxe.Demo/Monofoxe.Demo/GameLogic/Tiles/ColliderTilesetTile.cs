@@ -22,6 +22,7 @@ namespace Monofoxe.Demo.GameLogic.Tiles
 		}
 	}
 
+	// TODO: Rename.
 	public enum TilesetTileCollisionType
 	{
 		None = 0, // Tile isn't solid.
