@@ -61,6 +61,7 @@
     <Compile Include="GameLogic\Entities\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\SolidSystem.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
+    <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\PlayerFactory.cs" />
     <Compile Include="MapEntityFactories\PlatformFactory.cs" />

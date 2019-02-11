@@ -30,7 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			 * ------------
 			 * p | xx | xx  
 			 */
-			 
+			
 			_collisionMatrix = new Func<ICollider, ICollider, bool>[_collisionMatrixSize, _collisionMatrixSize];
 			
 			_collisionMatrix[
@@ -114,7 +114,6 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 		{
 			var rectangle = (RectangleCollider)collider1;
 			var tilemap = (TilemapCollider)collider2;
-
 			if ( // Checking tilemap bounds.
 				GameMath.RectangleInRectangleBySize(
 					rectangle.Position, 
@@ -126,8 +125,8 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			{
 				var blockSize = new Vector2(tilemap.Tilemap.TileWidth, tilemap.Tilemap.TileHeight);
 
-				var corner1 = (rectangle.Position - rectangle.Size / 2) / blockSize;
-				var corner2 = (rectangle.Position + rectangle.Size / 2) / blockSize;
+				var corner1 = (rectangle.Position - tilemap.Position - rectangle.Size / 2) / blockSize;
+				var corner2 = (rectangle.Position - tilemap.Position + rectangle.Size / 2) / blockSize;
 
 				// TODO: Add tilemap offset support.
 
@@ -143,26 +142,26 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 							var tilesetTile = (ColliderTilesetTile)((BasicTile)tilemapTile).GetTilesetTile();
 
 							// Empty or non-solid tile.
-							if (tilesetTile == null || tilesetTile.CollisionType == TilesetTileCollisionType.None)
+							if (tilesetTile == null || tilesetTile.CollisionMode == TilesetTileCollisionMode.None)
 							{
 								continue;
 							}
 							// Empty or non-solid tile.
 
 							// Fully solid tile.
-							if (tilesetTile.CollisionType == TilesetTileCollisionType.Solid)
+							if (tilesetTile.CollisionMode == TilesetTileCollisionMode.Solid)
 							{
 								return true;
 							}
 							// Fully solid tile.
 
 							// Tile with custom collider.
-							if (tilesetTile.CollisionType == TilesetTileCollisionType.Custom)
+							if (tilesetTile.CollisionMode == TilesetTileCollisionMode.Custom)
 							{	
 								var tileCollider = tilesetTile.Collider;//tilemapTile.Value.GetCollider();
 								
 								var colliderOffset = ((ColliderTilesetTile)tilemapTile.Value.GetTilesetTile()).ColliderOffset;
-								tileCollider.Position = new Vector2(x, y) * blockSize + colliderOffset; 
+								tileCollider.Position = new Vector2(x, y) * blockSize + colliderOffset + tilemap.Position; 
 								tileCollider.PreviousPosition = tileCollider.Position;
 								
 								if (CheckCollision(collider1, tileCollider))

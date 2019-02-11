@@ -9,8 +9,13 @@ namespace Monofoxe.Demo.GameLogic.Entities
 {
 	public class PhysicsComponent : Component
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		[JsonConverter(typeof(Vector2Converter))]
 		public Vector2 Speed;
+		
+		public Vector2 PosAdd;
 		
 		public Color Color = Color.Black;
 
@@ -19,7 +24,10 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 		public bool InAir;
 
-		public Vector2 PosAdd;
+
+		public float Gravity = 1800;
+
+		public float MaxFallSpeed = 1800; // px/sec
 
 		public override object Clone()
 		{

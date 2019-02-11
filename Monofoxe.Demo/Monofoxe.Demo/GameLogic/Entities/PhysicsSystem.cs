@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Monofoxe.Engine.ECS;
 using Microsoft.Xna.Framework;
-using Monofoxe.Engine;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
-using Monofoxe.Demo.GameLogic.Collisions;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -16,20 +12,23 @@ namespace Monofoxe.Demo.GameLogic.Entities
 	{
 		public override Type ComponentType => typeof(PhysicsComponent);
 
-		private List<Entity> _solidEntities;
-		
 		public override int Priority => 2;
 
-		public float Gravity = 400;
-		public float MaxFallSpeed = 900; // px/sec
 
+		public float GravityMultiplier = 1f;
 
+		/// <summary>
+		/// List of solid entities in the current step.
+		/// </summary>
+		private List<Entity> _solidEntities;
+		
+		/// <summary>
+		/// Main physics code. Far from the best, but gets job done.
+		/// </summary>
 		public override void Update(List<Component> components)
 		{
 			_solidEntities = SceneMgr.CurrentScene.GetEntityListByComponent<SolidComponent>();
 
-			
-			
 			// Gravity.
 			foreach(PhysicsComponent cPhysics in components)
 			{
@@ -50,12 +49,12 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				if (cPhysics.InAir)
 				{
 					// In air.
-					if (cPhysics.Speed.Y < MaxFallSpeed)
+					if (cPhysics.Speed.Y < cPhysics.MaxFallSpeed)
 					{
-						cPhysics.Speed.Y += TimeKeeper.GlobalTime(Gravity);
-						if (cPhysics.Speed.Y > MaxFallSpeed)
+						cPhysics.Speed.Y += TimeKeeper.GlobalTime(cPhysics.Gravity * GravityMultiplier);
+						if (cPhysics.Speed.Y > cPhysics.MaxFallSpeed)
 						{
-							cPhysics.Speed.Y = MaxFallSpeed;
+							cPhysics.Speed.Y = cPhysics.MaxFallSpeed;
 						}
 					}
 					// In air.
@@ -72,7 +71,6 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			}
 			// Gravity.
 			
-			// Y must go first because we've modified y by gravity.
 			UpdatePhysicsXAxis(components);
 
 			UpdatePhysicsYAxis(components);
@@ -107,6 +105,9 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				if (solidEntity != null)
 				{
 					var solidEntityPosition = solidEntity.GetComponent<PositionComponent>();
+					
+					// Solid objects are assumed to be stationary, so we're just accomodating 
+					// for their speed in physics objects speed. 
 					var relativeSpeed = (cPosition.Position - cPosition.PreviousPosition) 
 					- (solidEntityPosition.Position - solidEntityPosition.PreviousPosition);
 
@@ -186,15 +187,8 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		}
 
 
-		public override void Draw(Component component)
-		{
-
-		}
-
-
 		Entity CheckCollision(Entity checker, ICollider collider)
 		{
-			
 			foreach(var solid in _solidEntities)
 			{
 				if (solid != checker)

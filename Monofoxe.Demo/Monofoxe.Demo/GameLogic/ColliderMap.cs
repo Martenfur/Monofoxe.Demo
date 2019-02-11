@@ -1,35 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Monofoxe.Engine.Drawing;
-using Monofoxe.Engine.ECS;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic.Entities;
+using Monofoxe.Demo.GameLogic.Tiles;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils.Tilemaps;
-using Monofoxe.Tiled.MapStructure;
 using Monofoxe.Tiled;
-using Monofoxe.Demo.GameLogic.Tiles;
-using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Tiled.MapStructure;
 using Monofoxe.Tiled.MapStructure.Objects;
-using Monofoxe.Demo.GameLogic.Entities;
 
 namespace Monofoxe.Demo.GameLogic
 {
+	/// <summary>
+	/// Custom map builder. Adds tilemap collision functionality to regular tilemap.
+	/// </summary>
 	public class ColliderMap : Map
 	{
+		private const string _typeProperty = "type";
+		private const string _rectangleName = "rectangle";
+		private const string _platformName = "platform";
+		
+
 		public ColliderMap(TiledMap tiledMap) : base(tiledMap) {}
 		
+
 		protected override List<Tileset> BuildTilesets(TiledMapTileset[] tilesets)
 		{
+			// Letting basic tileset builder do its stuff.
 			var convertedBasicTilesets = base.BuildTilesets(tilesets);
 
 			var convertedColliderTilesets = new List<Tileset>();
+
+			// Now we got tilesets with basic tiles, which we need to convert into collider tile.
 
 			for(var i = 0; i < convertedBasicTilesets.Count; i += 1)
 			{
 				var basicTileset = convertedBasicTilesets[i];
 				
+				// Essentially cloning a tileset with new set of converted tiles.
+				// Goal here is to make tilemap work with collision system. 
+				// All collider data is stored in tileset tiles, which are later assigned to tilemap tiles.
+				// To see collision data, we just need ti take tilemap tile and look at its assigned tileset tile. 
+
 				var colliderTileset = new Tileset(
-					ConvertTiles(tilesets[i], convertedBasicTilesets[i]), 
+					ConvertTiles(tilesets[i], convertedBasicTilesets[i]), // All the magic happens here.
 					basicTileset.Offset, 
 					basicTileset.StartingIndex
 				);
@@ -41,50 +56,16 @@ namespace Monofoxe.Demo.GameLogic
 
 
 		protected override List<Layer> BuildTileLayers(List<Tileset> tilesets)
-		{/*
-			foreach(var tileLayer in TiledMap.TileLayers)
-			{
-				var layer = MapScene.CreateLayer(tileLayer.Name);
-				layer.Priority = GetLayerPriority(tileLayer);
-				
-				var tilemap = new BasicTilemapComponent(tileLayer.Width, tileLayer.Height, tileLayer.TileWidth, tileLayer.TileHeight);
-				for(var y = 0; y < tilemap.Height; y += 1)	
-				{
-					for(var x = 0; x < tilemap.Width; x += 1)
-					{
-						var tileIndex = tileLayer.Tiles[x][y].GID;
-						
-						tilemap.SetTile(
-							x, y, 
-							new BasicTile(
-								tileIndex, 
-								GetTilesetFromTileIndex(tileIndex, tilesets),
-								tileLayer.Tiles[x][y].FlipHor,
-								tileLayer.Tiles[x][y].FlipVer
-							)
-						);
-					}
-				}
-				
-				var tilemapEntity = new Entity(layer, "ColliderTilemap");
-				tilemapEntity.AddComponent(tilemap);
-				var collider = new TilemapCollider();
-				collider.Tilemap = tilemap;
-				collider.Size = new Vector2(tilemap.Width * tilemap.TileWidth, tilemap.Height * tilemap.TileHeight);
-				var solid = new SolidComponent();
-				solid.Collider = collider;
-				tilemapEntity.AddComponent(solid);
-				tilemapEntity.AddComponent(new PositionComponent(Vector2.Zero));
-
-			}*/
-
+		{
+			// Letting basic layer builder do its stuff.
 			var layers = base.BuildTileLayers(tilesets);
 
+			// Now we need to add position and collider components to entity to make it count as a solid.
 			foreach(var layer in layers)
 			{
+				// Getting list of all tilemaps on this layer.
 				var tilemaps = layer.GetEntityListByComponent<BasicTilemapComponent>();
 				
-				Console.WriteLine(tilemaps.Count + " kok " + layer.CountEntities<Entity>());
 				foreach(var tilemap in tilemaps)
 				{
 					var tilemapComponent = tilemap.GetComponent<BasicTilemapComponent>();
@@ -101,7 +82,7 @@ namespace Monofoxe.Demo.GameLogic
 					// Making collider.
 
 					tilemap.AddComponent(solid);
-					tilemap.AddComponent(new PositionComponent(Vector2.Zero));
+					tilemap.AddComponent(new PositionComponent(tilemapComponent.Offset));
 				}
 			}
 
@@ -109,55 +90,74 @@ namespace Monofoxe.Demo.GameLogic
 		}
 
 
+
+		/// <summary>
+		/// Converts basic tilesets into collider tilesets using data from Tiled structures.
+		/// </summary>
 		ITilesetTile[] ConvertTiles(TiledMapTileset tiledTileset, Tileset tileset)
 		{
 			var tilesetTiles = new List<ITilesetTile>();
 
 			for(var i = 0; i < tileset.Tiles.Length; i += 1)
 			{
-				ICollider collider = null;
-
 				var tiledTile = tiledTileset.Tiles[i];
-				var colliderOffset = Vector2.Zero;
 				
-				if (tiledTile.Objects.Length > 0 && tiledTile.Objects[0] is TiledRectangleObject)
-				{
-					var rectangle = tiledTile.Objects[0];
-					
-					if (rectangle.Type == "rectangle")
-					{
-						collider = new RectangleCollider();
-						collider.Size = rectangle.Size;
-					}
-					if (rectangle.Type == "platform")
-					{
-						collider = new PlatformCollider();
-						collider.Size = rectangle.Size;
-					}
-					// Here we need to flip y in the offset, because tiles are draw with origin in bottom left corner, 
-					// but colliders take origin as top left corner. Why? Ask Tiled dev.
-					colliderOffset = rectangle.Position + tileset.Offset * new Vector2(1, -1) + rectangle.Size / 2;
-				}
-				
-				var type = TilesetTileCollisionType.None;
-				//TODO: Cleanup.
+				// Getting collision mode of a tile.
+				var mode = TilesetTileCollisionMode.None;
 				try
 				{
-					Console.WriteLine(tiledTile.Properties["type"]);
-					type = (TilesetTileCollisionType)Enum.Parse(typeof(TilesetTileCollisionType), tiledTile.Properties["type"]);
+					mode = (TilesetTileCollisionMode)Enum.Parse(typeof(TilesetTileCollisionMode), tiledTile.Properties[_typeProperty]);
 				}
 				catch(Exception e) {}
+				// Getting collision mode of a tile.
 
-				var tilesetTile = new ColliderTilesetTile(
-					tileset.Tiles[i].Frame,
-					collider,
-					type,
-					colliderOffset
-				);
+				ColliderTilesetTile tilesetTile;
+				
+				if (mode == TilesetTileCollisionMode.Custom)
+				{
+					// Getting custom collider.
+					var colliderOffset = Vector2.Zero;
+					var collider = GetCollider(tiledTile, tileset, ref colliderOffset);
+					// Getting custom collider.
+
+					tilesetTile = new ColliderTilesetTile(tileset.Tiles[i].Frame, mode, collider, colliderOffset);
+				}
+				else
+				{
+					// No need to bother with getting custom colliders here.
+					tilesetTile = new ColliderTilesetTile(tileset.Tiles[i].Frame, mode);
+				}
 				tilesetTiles.Add(tilesetTile);
 			}
 
 			return tilesetTiles.ToArray();
+		}
+
+		/// <summary>
+		/// Returns collider for a given tile and sets an offset.
+		/// </summary>
+		ICollider GetCollider(TiledMapTilesetTile tiledTile, Tileset tileset, ref Vector2 colliderOffset)
+		{
+			ICollider collider = null;
+			if (tiledTile.Objects.Length > 0 && tiledTile.Objects[0] is TiledRectangleObject)
+			{
+				var obj = tiledTile.Objects[0];
+					
+				if (obj.Type == _rectangleName)
+				{
+					collider = new RectangleCollider();
+					collider.Size = obj.Size;
+				}
+				if (obj.Type == _platformName)
+				{
+					collider = new PlatformCollider();
+					collider.Size = obj.Size;
+				}
+				// Here we need to flip y in the offset, because tiles are draw with origin in bottom left corner, 
+				// but colliders take origin as top left corner. Why? Ask Tiled dev.
+				colliderOffset = obj.Position + tileset.Offset * new Vector2(1, -1) + obj.Size / 2;
+			}
+			return collider;
 		}
 
 	}
