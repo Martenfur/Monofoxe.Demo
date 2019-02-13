@@ -2,7 +2,8 @@
 	"entityNamespaces": 
 	[
 		"Monofoxe.Demo.GameLogic.Entities.Core",
-		"Monofoxe.Demo.GameLogic.Entities"
+		"Monofoxe.Demo.GameLogic.Entities",
+		"Monofoxe.Demo.GameLogic.Entities.Gameplay"
 	],
 	"spriteNamespaces": 
 	[

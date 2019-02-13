@@ -14,9 +14,9 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 		public override object Clone()
 		{
-			var playerComponent = new PlayerComponent();
+			var c = new PlayerComponent();
 			
-			return playerComponent;
+			return c;
 		}
 	}
 }

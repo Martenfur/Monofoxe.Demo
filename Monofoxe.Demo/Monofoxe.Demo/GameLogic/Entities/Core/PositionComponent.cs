@@ -29,11 +29,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 
 		public override object Clone()
 		{
-			var positionComponent = new PositionComponent(Position);
-			positionComponent.Position = Position;
-			positionComponent.PreviousPosition = PreviousPosition;
+			var c = new PositionComponent(Position);
+			c.Position = Position;
+			c.PreviousPosition = PreviousPosition;
 
-			return positionComponent;
+			return c;
 		}
 	}
 }

@@ -8,6 +8,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
 	/// <summary>
 	/// Solid component which stops physics comopnents from passing through it.
+	/// 
+	/// Dependent on:
+	///		PositionComponent
 	/// </summary>
 	public class SolidComponent : Component
 	{
@@ -22,11 +25,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 
 		public override object Clone()
 		{
-			var component = new SolidComponent();
-			component.Collider = (ICollider)Collider.Clone();
-			component.Speed = Speed;
+			var c = new SolidComponent();
+			c.Collider = (ICollider)Collider.Clone();
+			c.Speed = Speed;
 
-			return component;
+			return c;
 		}
 	}
 }

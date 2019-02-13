@@ -56,13 +56,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 
 		public override object Clone()
 		{
-			var physicsComponent = new PhysicsComponent();
-			physicsComponent.Speed = Speed;
-			physicsComponent.Collider = (ICollider)Collider.Clone();
-			physicsComponent.Gravity = Gravity;
-			physicsComponent.MaxFallSpeed = MaxFallSpeed;
+			var c = new PhysicsComponent();
+			c.Speed = Speed;
+			c.Collider = (ICollider)Collider.Clone();
+			c.Gravity = Gravity;
+			c.MaxFallSpeed = MaxFallSpeed;
 
-			return physicsComponent;
+			return c;
 		}
 	}
 }
