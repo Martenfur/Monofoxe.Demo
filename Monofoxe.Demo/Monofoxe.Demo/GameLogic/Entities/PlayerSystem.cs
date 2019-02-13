@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Monofoxe.Engine.ECS;
-using Monofoxe.Engine;
-using Monofoxe.Engine.Utils.Cameras;
 using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Entities.Core;
+using Monofoxe.Engine;
+using Monofoxe.Engine.ECS;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -19,6 +19,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			foreach(PlayerComponent player in components)
 			{
 				var physics = player.Owner.GetComponent<PhysicsComponent>();
+				var position = player.Owner.GetComponent<PositionComponent>();
 			
 				if (Input.CheckButton(player.Left))
 				{

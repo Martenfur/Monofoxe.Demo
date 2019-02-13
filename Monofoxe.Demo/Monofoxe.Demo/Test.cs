@@ -5,7 +5,7 @@ using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils.Cameras;
 using Resources.Sprites;
 using Microsoft.Xna.Framework.Graphics;
-using Monofoxe.Demo.GameLogic.Entities;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 using System;
 using Monofoxe.Tiled;
 using Monofoxe.Demo.GameLogic.Collisions;

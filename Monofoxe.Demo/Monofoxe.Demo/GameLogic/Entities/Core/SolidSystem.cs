@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
-using Monofoxe.Demo.GameLogic.Collisions;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 
-namespace Monofoxe.Demo.GameLogic.Entities
+namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
 	public class SolidSystem : BaseSystem
 	{

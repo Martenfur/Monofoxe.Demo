@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
-using Microsoft.Xna.Framework;
-using Newtonsoft.Json;
-using Monofoxe.Engine.Converters;
-using Monofoxe.Engine;
-using Monofoxe.Demo.GameLogic.Collisions;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {

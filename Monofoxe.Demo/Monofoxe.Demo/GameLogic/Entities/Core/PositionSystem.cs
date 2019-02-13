@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Monofoxe.Engine.ECS;
 
-namespace Monofoxe.Demo.GameLogic.Entities
+namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
 	public class PositionSystem : BaseSystem
 	{

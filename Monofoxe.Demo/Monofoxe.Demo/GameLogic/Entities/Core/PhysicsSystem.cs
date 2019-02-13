@@ -6,7 +6,7 @@ using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
 
-namespace Monofoxe.Demo.GameLogic.Entities
+namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
 	public class PhysicsSystem : BaseSystem
 	{
