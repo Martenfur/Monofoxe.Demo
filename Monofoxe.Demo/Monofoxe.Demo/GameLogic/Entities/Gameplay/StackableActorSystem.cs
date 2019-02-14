@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
+using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.ECS;
+
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -21,23 +23,65 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				var physics = actor.Owner.GetComponent<PhysicsComponent>();
 				var position = actor.Owner.GetComponent<PositionComponent>();
 			
+				float accelerationTime, decelerationTime;
+
+				if (physics.InAir)
+				{
+					accelerationTime = actor.AirAccelTime;
+					decelerationTime = actor.AirDecelTime;
+				}
+				else
+				{
+					accelerationTime = actor.GroundAccelTime;
+					decelerationTime = actor.GroundDecelTime;
+				}
+
+				int horMovement = 0;
 				if (actor.LeftAction)
 				{
-					physics.Speed.X = -actor.WalkSpeed;
+					horMovement += -1;
 				}
 				if (actor.RightAction)
 				{
-					physics.Speed.X = actor.WalkSpeed;
+					horMovement += 1;
 				}
 
-				if (!actor.LeftAction && !actor.RightAction)
+				if (horMovement != 0)
 				{
-					physics.Speed.X = 0;
+					if (Math.Abs(physics.Speed.X) < actor.WalkSpeed || Math.Sign(physics.Speed.X) != Math.Sign(horMovement))
+					{
+						physics.Speed.X += TimeKeeper.GlobalTime(horMovement * actor.WalkSpeed / accelerationTime);
+						if (Math.Abs(physics.Speed.X) > actor.WalkSpeed)
+						{
+							physics.Speed.X = horMovement * actor.WalkSpeed;
+						}
+					}
+				}
+				else
+				{
+					if (physics.Speed.X != 0)
+					{
+						var spdSign = Math.Sign(physics.Speed.X);
+						physics.Speed.X -= TimeKeeper.GlobalTime(spdSign * actor.WalkSpeed / decelerationTime);
+						if (Math.Sign(physics.Speed.X) != Math.Sign(spdSign))
+						{
+							physics.Speed.X = 0;
+						}
+					}
 				}
 
-				if (actor.JumpAction)
+				if (actor.JumpAction && !physics.InAir)
 				{
 					physics.Speed.Y = -actor.JumpSpeed;
+				}
+
+				if (actor.JumpAction && physics.Speed.Y < 0)
+				{
+					physics.Gravity = actor.JumpGravity;
+				}
+				else
+				{
+					physics.Gravity = actor.FallGravity;
 				}
 
 			}

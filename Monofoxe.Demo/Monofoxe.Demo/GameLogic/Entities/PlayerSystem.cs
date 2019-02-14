@@ -27,7 +27,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				
 				actor.LeftAction = Input.CheckButton(player.Left);
 				actor.RightAction = Input.CheckButton(player.Right);
-				actor.JumpAction = Input.CheckButtonPress(player.Jump);
+				actor.JumpAction = Input.CheckButton(player.Jump);
 
 				Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.ToPoint().ToVector2() 
 				- Test.Camera.Size / 2;

@@ -9,9 +9,6 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		public Buttons Right = Buttons.D;
 		public Buttons Jump = Buttons.W;
 
-		public float WalkSpeed = 500;
-		public float JumpSpeed = 800;
-
 		public override object Clone()
 		{
 			var c = new PlayerComponent();

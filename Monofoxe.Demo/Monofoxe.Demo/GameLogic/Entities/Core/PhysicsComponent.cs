@@ -51,7 +51,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// If vertical speed is lerger than this value, gravity won't accelerate entity anymore.
 		/// Measured in px/sec.
 		/// </summary>
-		public float MaxFallSpeed = 1800;
+		public float MaxFallSpeed = 1000;
 
 
 		public override object Clone()
