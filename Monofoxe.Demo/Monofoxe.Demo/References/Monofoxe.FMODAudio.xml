@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Monofoxe.FMODAudio</name>
+    </assembly>
+    <members>
+        <member name="T:Monofoxe.FMODAudio.AudioMgr">
+            <summary>
+            Audio manager. Controls main audiosystem parameters.
+            
+            NOTE: Right now FMOD only works with Windows. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.AudioMgr.LoadSound(System.String,FMOD.MODE)">
+            <summary>
+            Loads sound from file.
+            Use this function to load short sound effects.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.AudioMgr.LoadStreamedSound(System.String,FMOD.MODE)">
+            <summary>
+            Loads sound stream from file.
+            Use this function to load music and lond ambience tracks.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.AudioMgr.PlaySound(Monofoxe.FMODAudio.Sound,FMOD.ChannelGroup,System.Boolean)">
+            <summary>
+            Plays given sound and returns separate instance of it.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.AudioMgr.PlaySoundAt(Monofoxe.FMODAudio.Sound,FMOD.ChannelGroup,System.Boolean,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Plays given sound and returns separate instance of it.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.FMODAudio.Sound">
+            <summary>
+            FMOD sound wrapper. Takes horrible FMOD wrapper and makes it look pretty.
+            Basically, a sound instance.
+            
+            NOTE: You can set sound parameters only AFTER you've started playing sound.
+            Otherwise they will have no effect!
+            
+            NOTE: My wrappers don't provide full FMOD functionality. For example,
+            DSPs and advanced 3D stuff are largely left untouched. I may extend my audio
+            classes to add new features. For now, you have to use FMOD classes directly.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.FMODSound">
+            <summary>
+            FMOD sound object.
+            
+            NOTE: It is not recommended to use it directly. 
+            If you'll really need some of its features, 
+            just implement them in this class.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.Channel">
+            <summary>
+            FMOD channel object.
+            
+            NOTE: It is not recommended to use it directly. 
+            If you'll really need some of its features, 
+            just implement them in this class.
+            
+            NOTE: ALWAYS check for null!!!
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.Loops">
+            <summary>
+            Amount of loops. 
+            > 0 - Specific count.
+            0 - No loops.
+            -1 - Infinite loops.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.Pitch">
+            <summary>
+            Sound pitch. Affects speed too.
+            1 - Normal pitch.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.LowPass">
+            <summary>
+            Low pass filter. Makes sound muffled.
+            1 - No filtering.
+            0 - Full filtering.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.IsPlaying">
+            <summary>
+            Tells if sound is playing.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.FMODAudio.Sound.Mode">
+            <summary>
+            Sound mode. Mainly used for 3D sound.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.Sound.Play(FMOD.ChannelGroup,System.Boolean)">
+            <summary>
+            Plays sound. 
+            
+            NOTE: if you want to create new sound instance, use AudioMgr.PlaySound.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.Sound.PlayAt(FMOD.ChannelGroup,System.Boolean,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Sets sound mode to 3D and plays it at the given position.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.Sound.Set3DAttributes(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Sets 3D attributes.
+            </summary>
+            <param name="pos">Sound position.</param>
+            <param name="velocity">Sound velocity.</param>
+            <param name="altPanPos">Panning position.</param>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.Sound.Unload">
+            <summary>
+            Unloads sound from the game.
+            Recommended to use only at the end of the game.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.FMODAudio.Sound.SetLastResult(System.Nullable{FMOD.RESULT})">
+            <summary>
+            Sets last result to the Audio Manager.
+            NOTE: There is very high probability that this code will change, so 
+            making it separate function will make life a bit easier.
+            </summary>
+        </member>
+    </members>
+</doc>

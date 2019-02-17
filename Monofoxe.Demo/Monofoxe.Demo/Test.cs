@@ -10,6 +10,7 @@ using System;
 using Monofoxe.Tiled;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo
 {
@@ -21,8 +22,8 @@ namespace Monofoxe.Demo
 
 		public Test() : base(SceneMgr.GetScene("default")["default"])
 		{
-			GameMgr.MaxGameSpeed = 60;
 			
+
 			Camera.BackgroundColor = new Color(64, 32, 32);
 
 			GameMgr.WindowManager.CanvasSize = new Vector2(800, 600);
@@ -48,6 +49,29 @@ namespace Monofoxe.Demo
 		
 		public override void Update()
 		{
+			if (Input.CheckButtonPress(Buttons.L))
+			{
+				if (GameMgr.MaxGameSpeed == 20)
+				{
+					GameMgr.MaxGameSpeed = 60;
+				}
+				else
+				{
+					GameMgr.MinGameSpeed = 20;
+					GameMgr.MaxGameSpeed = 20;
+				}
+			}
+			if (Input.CheckButtonPress(Buttons.K))
+			{
+				if (TimeKeeper.GlobalTimeMultiplier != 1)
+				{
+					TimeKeeper.GlobalTimeMultiplier = 1;
+				}
+				else
+				{
+					TimeKeeper.GlobalTimeMultiplier = 0.5;
+				}
+			}
 
 		}
 

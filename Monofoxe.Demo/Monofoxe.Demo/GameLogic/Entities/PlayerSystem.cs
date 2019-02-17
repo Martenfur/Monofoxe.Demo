@@ -11,6 +11,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 {
 	public class PlayerSystem : BaseSystem
 	{
+
 		public override Type ComponentType => typeof(PlayerComponent);
 
 		public override int Priority => 1;
@@ -24,10 +25,10 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				var position = player.Owner.GetComponent<PositionComponent>();
 				var actor = player.Owner.GetComponent<StackableActorComponent>();
 
-				
 				actor.LeftAction = Input.CheckButton(player.Left);
 				actor.RightAction = Input.CheckButton(player.Right);
 				actor.JumpAction = Input.CheckButton(player.Jump);
+				actor.CrouchAction = Input.CheckButton(player.Crouch);
 
 				Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.ToPoint().ToVector2() 
 				- Test.Camera.Size / 2;

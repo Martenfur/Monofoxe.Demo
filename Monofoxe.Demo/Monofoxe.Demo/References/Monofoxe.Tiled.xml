@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Monofoxe.Tiled</name>
+    </assembly>
+    <members>
+        <member name="T:Monofoxe.Tiled.ContentReaders.TiledMapReader">
+            <summary>
+            Reads sprite group file.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.ITiledEntityFactory">
+            <summary>
+            Factory interface for entities. 
+            Use it to convert Tiled object structs to actual entities.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Tiled.ITiledEntityFactory.Tag">
+            <summary>
+            Identifying tag.
+            
+            NOTE: All factory tags should be unique!
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.ITiledEntityFactory.Make(Monofoxe.Tiled.MapStructure.Objects.TiledObject,Monofoxe.Engine.SceneSystem.Layer)">
+            <summary>
+            Creates entity from Tiled Object on a given layer.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.Map">
+            <summary>
+            Basic map class. Creates a map from Tiled data structures.
+            Can be extended.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.Map.Load">
+            <summary>
+            Loads map scene.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.Map.Unload">
+            <summary>
+            Unloads map scene.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.Map.BuildTilesets(Monofoxe.Tiled.MapStructure.TiledMapTileset[])">
+            <summary>
+            Builds Tiled tilesets to actual tilesets.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.Map.GetLayerPriority(Monofoxe.Tiled.MapStructure.TiledMapLayer)">
+            <summary>
+            Returns Tiled layer priority, which is stored in its properties.
+            If no such property was found, returns 0.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.MapMgr">
+            <summary>
+            Manages Tiled maps.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Tiled.MapMgr._factoryPool">
+            <summary>
+            Pool of all factories in all assemblies. Sorted by their tags.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapMgr.Init">
+            <summary>
+            Initializes Tiled map loading stuff.
+            HAS to be called in the beginning of the game, if you want to load Tiled maps.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapMgr.MakeEntity(Monofoxe.Tiled.MapStructure.Objects.TiledObject,Monofoxe.Engine.SceneSystem.Layer)">
+            <summary>
+            Makes entity from Tiled temmplate using factory pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapMgr.InitFactoryPool">
+            <summary>
+            Creates pool of all factories.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.MapStructure.FlipFlags">
+            <summary>
+            Tile flip flags are stored in the tile value itself as 3 highest bits.
+            100 - Horizontal flip.
+            010 - Vertical flip.
+            001 - Diagonal flip.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.MapStructure.Objects.TiledObject">
+            <summary>
+            Base tiled object.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.MapStructure.Objects.TiledObjectType">
+            <summary>
+            Used internally by Reader and Writer. 
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.MapStructure.Orientation">
+            <summary>
+            TIled map tiles orientaion.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Tiled.MapStructure.TiledMap">
+            <summary>
+            Data structure for Tiled map.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Tiled.MapStructure.TiledMapImageLayer.TransparentColor">
+            <summary>
+            Tiled will treat this color as transparent.
+            Ah, blast right from 1998.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Tiled.MapStructure.TiledMapTile.FlipDiag">
+            <summary>
+            Diagonal flip is weird diagonal axis filp, which enables rotation.
+            
+            Graphical:
+            0 0 ' 0 0     0 0 ' 0 0
+            0 ' ' 0 0 ==> 0 ' 0 0 '
+            ' 0 ' 0 0 ==> ' ' ' ' '
+            0 0 ' 0 0 ==> 0 0 0 0 '
+            0 ' ' ' 0     0 0 0 0 0
+            
+            Vertices:
+            0 1 => 0 2
+            2 3 => 1 3
+            
+            (90 deg rotation) + (-1 xscale)
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Tiled.MapStructure.TiledMapTileset.Spacing">
+            <summary>
+            Spacing between tiles in tileset.
+            Doesn't work with image collection tilesets.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Tiled.MapStructure.TiledMapTileset.Margin">
+            <summary>
+            Padding of the first tile row\column.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Tiled.MapStructure.TiledMapTileset.Columns">
+            <summary>
+            Amount of columns in tileset.
+            Will be 0 in image collection tileset.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Utils.Tilemaps.ImageLayerComponent">
+            <summary>
+            Component for Tiled image layers.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Utils.Tilemaps.ImageLayerSystem">
+            <summary>
+            System for Tiled image layers. Just draws all images from components.
+            </summary>
+        </member>
+    </members>
+</doc>

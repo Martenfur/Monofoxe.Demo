@@ -52,6 +52,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					if (cPhysics.Speed.Y < cPhysics.MaxFallSpeed)
 					{
 						cPhysics.Speed.Y += TimeKeeper.GlobalTime(cPhysics.Gravity * GravityMultiplier);
+
 						if (cPhysics.Speed.Y > cPhysics.MaxFallSpeed)
 						{
 							cPhysics.Speed.Y = cPhysics.MaxFallSpeed;
@@ -143,7 +144,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			{
 				var position = solidEntity.GetComponent<PositionComponent>();
 				var solid = solidEntity.GetComponent<SolidComponent>();
-				position.Position.Y += solid.Speed.Y * (float)TimeKeeper.GlobalTime();
+				position.Position.Y += TimeKeeper.GlobalTime(solid.Speed.Y);
 			}
 
 			foreach(PhysicsComponent cPhysics in components)
@@ -151,8 +152,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 				var entity = cPhysics.Owner;
 				var cPosition = entity.GetComponent<PositionComponent>();
 				var collider = cPhysics.Collider;
-				
-				cPosition.Position.Y += TimeKeeper.GlobalTime(cPhysics.Speed.Y) + cPhysics.PosAdd.Y;
+
+				if (cPhysics.InAir)
+				{
+					cPosition.Position.Y += TimeKeeper.GlobalTime(cPhysics.Speed.Y, cPhysics.Gravity) + cPhysics.PosAdd.Y;
+				}
+				else
+				{
+					cPosition.Position.Y += TimeKeeper.GlobalTime(cPhysics.Speed.Y) + cPhysics.PosAdd.Y;
+				}
 
 				collider.Position = cPosition.Position;
 				collider.PreviousPosition = cPosition.PreviousPosition;		

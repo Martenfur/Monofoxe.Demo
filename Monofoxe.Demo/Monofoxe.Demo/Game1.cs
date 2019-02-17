@@ -15,6 +15,7 @@ namespace Monofoxe.Demo
 		{
 			Content.RootDirectory = AssetMgr.ContentDir;
 			GameMgr.Init(this);
+			IsFixedTimeStep = true;
 		}
 
 		/// <summary>

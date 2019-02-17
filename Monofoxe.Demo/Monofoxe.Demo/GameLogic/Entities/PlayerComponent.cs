@@ -8,6 +8,8 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		public Buttons Left = Buttons.A;
 		public Buttons Right = Buttons.D;
 		public Buttons Jump = Buttons.W;
+		public Buttons Crouch = Buttons.S;
+
 
 		public override object Clone()
 		{
