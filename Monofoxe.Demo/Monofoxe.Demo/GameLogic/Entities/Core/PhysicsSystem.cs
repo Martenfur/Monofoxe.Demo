@@ -5,6 +5,7 @@ using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Engine;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
@@ -20,7 +21,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// <summary>
 		/// List of solid entities in the current step.
 		/// </summary>
-		private List<Entity> _solidEntities;
+		private static List<Entity> _solidEntities;
 		
 		/// <summary>
 		/// Main physics code. Far from the best, but gets job done.
@@ -33,6 +34,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			foreach(PhysicsComponent cPhysics in components)
 			{
 				cPhysics.PosAdd = Vector2.Zero;
+				cPhysics.CollisionH = 0;
+				cPhysics.CollisionV = 0;
+				cPhysics.CollidedSolidH = null;
+				cPhysics.CollidedSolidV = null;
+				cPhysics.Squashed = false;
 
 				var cPosition = cPhysics.Owner.GetComponent<PositionComponent>();
 				
@@ -43,8 +49,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 				// Setting up the collider.
 
 				// Checking space under the entity.
-				var solidBelow = CheckCollision(cPhysics.Owner, collider); 
-				cPhysics.InAir = (solidBelow == null);
+				cPhysics.StandingOn = CheckCollision(cPhysics.Owner, collider); 
+				cPhysics.InAir = (cPhysics.StandingOn == null);
 
 				if (cPhysics.InAir)
 				{
@@ -65,7 +71,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					// On the ground.
 
 					// Moving entity along with solid object.
-					cPhysics.PosAdd = solidBelow.GetComponent<SolidComponent>().Speed * (float)TimeKeeper.GlobalTime();
+					cPhysics.PosAdd = cPhysics.StandingOn.GetComponent<SolidComponent>().Speed * (float)TimeKeeper.GlobalTime();
 					
 					// On the ground.
 				}
@@ -102,10 +108,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 				collider.PreviousPosition = cPosition.PreviousPosition;
 				// Setting up the collider.
 
-				var solidEntity = CheckCollision(cPhysics.Owner, collider);
-				if (solidEntity != null)
+				cPhysics.CollidedSolidH = CheckCollision(cPhysics.Owner, collider);
+				if (cPhysics.CollidedSolidH != null)
 				{
-					var solidEntityPosition = solidEntity.GetComponent<PositionComponent>();
+					var solidEntityPosition = cPhysics.CollidedSolidH.GetComponent<PositionComponent>();
 					
 					// Solid objects are assumed to be stationary, so we're just accomodating 
 					// for their speed in physics objects speed. 
@@ -118,17 +124,26 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 						sign = -1;
 					}
 
-					var colliderPos = solidEntity.GetComponent<PositionComponent>();
-					var colliderSolid = solidEntity.GetComponent<SolidComponent>();
+					var colliderPos = cPhysics.CollidedSolidH.GetComponent<PositionComponent>();
+					var colliderSolid = cPhysics.CollidedSolidH.GetComponent<SolidComponent>();
 					
+					cPhysics.Squashed = true;
 					for(var x = 0; x <= Math.Abs(relativeSpeed.X) + 1; x += 1)
 					{
 						collider.Position -= Vector2.UnitX * sign;
-						if (CheckCollision(cPhysics.Owner, collider) == null)
+						
+						var solidEntity = CheckCollision(cPhysics.Owner, collider);
+						if (solidEntity == null)
 						{
 							cPhysics.Speed.X = 0;
 							cPosition.Position = collider.Position;
+							cPhysics.CollisionH = sign;
+							cPhysics.Squashed = false;
 							break;
+						}
+						else
+						{
+							cPhysics.CollidedSolidH = solidEntity;
 						}
 					}
 					
@@ -149,26 +164,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 
 			foreach(PhysicsComponent cPhysics in components)
 			{
-				var entity = cPhysics.Owner;
-				var cPosition = entity.GetComponent<PositionComponent>();
+				var cPosition = cPhysics.Owner.GetComponent<PositionComponent>();
 				var collider = cPhysics.Collider;
-
-				if (cPhysics.InAir)
-				{
-					cPosition.Position.Y += TimeKeeper.GlobalTime(cPhysics.Speed.Y, cPhysics.Gravity) + cPhysics.PosAdd.Y;
-				}
-				else
-				{
-					cPosition.Position.Y += TimeKeeper.GlobalTime(cPhysics.Speed.Y) + cPhysics.PosAdd.Y;
-				}
+	
+				cPosition.Position.Y += TimeKeeper.GlobalTime(cPhysics.Speed.Y) + cPhysics.PosAdd.Y;				
 
 				collider.Position = cPosition.Position;
 				collider.PreviousPosition = cPosition.PreviousPosition;		
 				
-				var solidEntity = CheckCollision(entity, collider);
-				if (solidEntity != null)
+				cPhysics.CollidedSolidV = CheckCollision(cPhysics.Owner, collider);
+				if (cPhysics.CollidedSolidV != null)
 				{
-					var solidEntityPosition = solidEntity.GetComponent<PositionComponent>();
+					var solidEntityPosition = cPhysics.CollidedSolidV.GetComponent<PositionComponent>();
 					var relativeSpeed = (cPosition.Position - cPosition.PreviousPosition) 
 					- (solidEntityPosition.Position - solidEntityPosition.PreviousPosition);
 
@@ -177,33 +184,48 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					{
 						sign = -1;
 					}
-
+					
+					cPhysics.Squashed = true;
 					for(var y = 0; y <= Math.Abs(relativeSpeed.Y) + 1; y += 1)
 					{
 						collider.Position -= Vector2.UnitY * sign;
 						
-						if (CheckCollision(entity, collider) == null)
+						var solidEntity = CheckCollision(cPhysics.Owner, collider);
+						if (solidEntity == null)
 						{
 							cPhysics.Speed.Y = 0;
 							cPosition.Position = collider.Position;
+							cPhysics.CollisionV = sign;	
+							cPhysics.Squashed = false;
 							break;
 						}
+						else
+						{
+							cPhysics.CollidedSolidV = solidEntity;
+						}
 					}
+					
 				}
 
 			}
 		}
 
-
-		Entity CheckCollision(Entity checker, ICollider collider)
+		
+		/// <summary>
+		/// Checks collision of a given collider with solid objects.
+		/// </summary>
+		public static Entity CheckCollision(Entity checker, ICollider collider)
 		{
+			// Note that this won't work well, if a lot of solid objects will be constantly created\deleted.
+			// In case of problems, make an overload searching for a new solid list every call.
 			foreach(var solid in _solidEntities)
 			{
 				if (solid != checker)
 				{
 					var otherCollider = solid.GetComponent<SolidComponent>().Collider;
-					otherCollider.Position = solid.GetComponent<PositionComponent>().Position;
-					otherCollider.PreviousPosition = solid.GetComponent<PositionComponent>().PreviousPosition;
+					var position = solid.GetComponent<PositionComponent>();
+					otherCollider.Position = position.Position;
+					otherCollider.PreviousPosition = position.PreviousPosition;
 
 					if (CollisionDetector.CheckCollision(collider, otherCollider))
 					{

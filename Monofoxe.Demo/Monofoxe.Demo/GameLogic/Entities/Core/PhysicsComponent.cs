@@ -54,6 +54,43 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		public float MaxFallSpeed = 1000;
 
 
+		/// <summary>
+		/// Tells, if a horizontal collision has occured.
+		/// 0 - no collision
+		/// -1 - right collision
+		/// 1 - left collision
+		/// </summary>
+		public int CollisionH;
+
+		/// <summary>
+		/// Tells, if a vertical collision has occured.
+		/// 0 - no collision
+		/// -1 - top collision
+		/// 1 - bottom collision
+		/// </summary>
+		public int CollisionV;
+
+		/// <summary>
+		/// Tells if entity was squashed and couldn't resolve the collision.
+		/// </summary>
+		public bool Squashed;
+
+		/// <summary>
+		/// Entity that physics object has collided with.
+		/// </summary>
+		public Entity CollidedSolidH;
+
+		/// <summary>
+		/// Entity that physics object has collided with.
+		/// </summary>
+		public Entity CollidedSolidV;
+
+		/// <summary>
+		/// Entity that physics object has collided with.
+		/// </summary>
+		public Entity StandingOn;
+
+
 		public override object Clone()
 		{
 			var c = new PhysicsComponent();

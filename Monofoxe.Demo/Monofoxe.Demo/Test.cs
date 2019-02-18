@@ -23,8 +23,10 @@ namespace Monofoxe.Demo
 		public Test() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
+			GameMgr.MaxGameSpeed = 60;
+			GameMgr.MinGameSpeed = 60;
 
-			Camera.BackgroundColor = new Color(64, 32, 32);
+			Camera.BackgroundColor = Color.Azure;
 
 			GameMgr.WindowManager.CanvasSize = new Vector2(800, 600);
 			GameMgr.WindowManager.Window.AllowUserResizing = false;
@@ -45,40 +47,19 @@ namespace Monofoxe.Demo
 
 			
 			CollisionDetector.Init();
+			Scene.Priority = -10000;
 		}
 		
 		public override void Update()
 		{
-			if (Input.CheckButtonPress(Buttons.L))
-			{
-				if (GameMgr.MaxGameSpeed == 20)
-				{
-					GameMgr.MaxGameSpeed = 60;
-				}
-				else
-				{
-					GameMgr.MinGameSpeed = 20;
-					GameMgr.MaxGameSpeed = 20;
-				}
-			}
-			if (Input.CheckButtonPress(Buttons.K))
-			{
-				if (TimeKeeper.GlobalTimeMultiplier != 1)
-				{
-					TimeKeeper.GlobalTimeMultiplier = 1;
-				}
-				else
-				{
-					TimeKeeper.GlobalTimeMultiplier = 0.5;
-				}
-			}
 
 		}
 
 		
 		public override void Draw()
 		{	
-			DrawMgr.DrawSprite(SpritesDefault.Monofoxe, 400, 300);
+			DrawMgr.CurrentFont = Resources.Fonts.Arial;
+			DrawMgr.DrawText("FPS:" + GameMgr.Fps, DrawMgr.CurrentCamera.Position + Vector2.One * 32);
 		}
 
 	}

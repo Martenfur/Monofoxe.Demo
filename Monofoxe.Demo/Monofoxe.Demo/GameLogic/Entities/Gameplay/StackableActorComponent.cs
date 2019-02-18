@@ -36,8 +36,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// In air.
 
-		public float AirAcceleration = 4000;
-		public float AirDeceleration = 4000;
+		public float AirAcceleration = 3000;
+		public float AirDeceleration = 5000;
 		
 		public float FallGravity = 3500;
 		

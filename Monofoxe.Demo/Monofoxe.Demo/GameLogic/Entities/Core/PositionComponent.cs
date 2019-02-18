@@ -10,6 +10,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 	/// </summary>
 	public class PositionComponent : Component
 	{
+		
 		/// <summary>
 		/// Entity position on the scene.
 		/// </summary>
@@ -21,9 +22,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// </summary>
 		public Vector2 PreviousPosition;
 		
+		/// <summary>
+		/// Starting entity position on the scene.
+		/// </summary>
+		[JsonConverter(typeof(Vector2Converter))]
+		public Vector2 StartingPosition;
+
+
 		public PositionComponent(Vector2 position)
 		{
 			Position = position;
+			StartingPosition = position;
 			PreviousPosition = position;
 		}
 
@@ -32,6 +41,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			var c = new PositionComponent(Position);
 			c.Position = Position;
 			c.PreviousPosition = PreviousPosition;
+			c.StartingPosition = StartingPosition;
+
 
 			return c;
 		}

@@ -58,7 +58,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		void OnGroundEnter(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			actor.CanJump = true;
+			actor.CanJump = false;
 		}
 		
 
@@ -70,20 +70,30 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position= owner.GetComponent<PositionComponent>();
 
 			
-			if (actor.JumpAction && !physics.InAir)
+			if (!actor.JumpAction)
+			{
+				actor.CanJump = true;
+			}
+
+			// Jumping.
+			if (actor.CanJump && actor.JumpAction && !physics.InAir)
 			{
 				physics.Speed.Y = -actor.JumpSpeed;
 				actor.CanJump = false; 
 				stateMachine.ChangeState(ActorStates.InAir);
 				return;
 			}
+			// Jumping.
 
+			// Falling off.
 			if (physics.InAir)
 			{
 				actor.JumpBufferAlarm.Set(actor.JumpBufferTime);
 				stateMachine.ChangeState(ActorStates.InAir);
 				return;
 			}
+			// Falling off.
+
 
 
 			// Add ceiling check here.
@@ -221,12 +231,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = component.Owner.GetComponent<PositionComponent>();
 			var actor = component.Owner.GetComponent<StackableActorComponent>();
 
-
-			if (physics.InAir)
-				DrawMgr.CurrentColor = Color.Azure;
-			else
-				DrawMgr.CurrentColor = Color.Black;
-			
 			
 			DrawMgr.DrawRectangle(
 				position.Position.ToPoint().ToVector2() - physics.Collider.Size / 2,
@@ -240,7 +244,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			else
 			{
-				DrawMgr.CurrentColor = Color.White;
+				DrawMgr.CurrentColor = Color.Black;
 			}
 			
 
@@ -254,8 +258,23 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				position.Position.ToPoint().ToVector2() - Vector2.UnitY * 32
 			);
 
+			if (physics.Squashed)
+			{
+				DrawMgr.DrawRectangle(
+					position.Position.ToPoint().ToVector2() - physics.Collider.Size / 4,
+					position.Position.ToPoint().ToVector2() + physics.Collider.Size / 4,
+					true
+				);
+			}
+			DrawMgr.DrawLine(
+				position.Position.ToPoint().ToVector2(), 
+				position.Position.ToPoint().ToVector2() + new Vector2(physics.CollisionH, physics.CollisionV) * 32
+			);
+			
+
 			DrawMgr.DrawLine(0, actor.MinY, 1000, actor.MinY);
 			
+
 		}
 
 
