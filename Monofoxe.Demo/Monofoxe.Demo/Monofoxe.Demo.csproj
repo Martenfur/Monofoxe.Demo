@@ -43,7 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Content\Entities\Player.json" />
-    <None Include="Content\Entities\PhysicsBoi.json" />
+    <None Include="Content\Entities\Dummy.json" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameLogic\ColliderMap.cs" />
     <Compile Include="GameLogic\Collisions\ColliderType.cs" />

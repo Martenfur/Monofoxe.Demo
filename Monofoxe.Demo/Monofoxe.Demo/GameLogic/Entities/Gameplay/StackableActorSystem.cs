@@ -6,6 +6,8 @@ using Monofoxe.Engine;
 using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Engine.SceneSystem;
+
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -32,7 +34,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.StateMachine = new StateMachine<ActorStates>(ActorStates.OnGround, actor.Owner);
 			actor.StateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter);
 			actor.StateMachine.AddState(ActorStates.InAir, InAir, InAirEnter);
-			actor.StateMachine.AddState(ActorStates.Stacked, Stacked);
+			actor.StateMachine.AddState(ActorStates.Stacked, Stacked, StackedEnter, StackedExit);
 
 			actor.JumpBufferAlarm = new Alarm();
 			actor.LandingBufferAlarm = new Alarm();
@@ -117,6 +119,26 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				if (PhysicsSystem.CheckCollision(actor.Owner, collider) == null)
 				{
 					Uncrouch(position, physics, actor);
+					var stackables = SceneMgr.CurrentScene.GetEntityListByComponent<StackableActorComponent>();
+					foreach(var stackable in stackables)
+					{
+						if (stackable != owner)
+						{
+							var stackablePosition = stackable.GetComponent<PositionComponent>();
+							var stackableActor = stackable.GetComponent<StackableActorComponent>();
+
+							if (
+								GameMath.Distance(stackablePosition.Position, position.Position) < 100
+								&& stackableActor.StateMachine.CurrentState != ActorStates.Stacked
+							)
+							{
+								
+								StackEntity(actor, stackableActor);
+
+								break;
+							}
+						}
+					}
 				}
 			}
 			
@@ -201,10 +223,61 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			UpdateSpeed(actor, physics);
 		}
 
+		
+		void StackedEnter(StateMachine<ActorStates> stateMachine, Entity owner)
+		{
+			owner.DisableComponent<PhysicsComponent>();
+		}
+		void StackedExit(StateMachine<ActorStates> stateMachine, Entity owner)
+		{
+			owner.EnableComponent<PhysicsComponent>();
+		}
+
 
 		void Stacked(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
-		
+			var actor = owner.GetComponent<StackableActorComponent>();
+			var position = owner.GetComponent<PositionComponent>();
+			var physics = owner.GetComponent<PhysicsComponent>();
+
+			if (actor.StackedPrevious == null || actor.StackedPrevious.Destroyed)
+			{
+				stateMachine.ChangeState(ActorStates.InAir);
+			}
+			else
+			{
+				var masterPosition = actor.StackedPrevious.GetComponent<PositionComponent>();
+				var masterPhysics = actor.StackedPrevious.GetComponent<PhysicsComponent>();
+				var masterActor = actor.StackedPrevious.GetComponent<StackableActorComponent>();
+
+
+				position.Position = masterPosition.PreviousPosition - Vector2.UnitY * masterPhysics.Collider.Size.Y / 2;
+
+				if (masterActor.Crouching && !actor.Crouching)
+				{
+					Crouch(position, physics, actor);
+				}
+				
+				if (!masterActor.Crouching && actor.Crouching)
+				{
+					Uncrouch(position, physics, actor);
+				}
+
+			}
+		}
+
+		void StackEntity(StackableActorComponent master, StackableActorComponent slave)
+		{
+			if (master.StackedNext != null)
+			{
+				StackEntity(master.StackedNext.GetComponent<StackableActorComponent>(), slave);
+			}
+			else
+			{
+				slave.StateMachine.ChangeState(ActorStates.Stacked);
+				slave.StackedPrevious = master.Owner;
+				master.StackedNext = slave.Owner;
+			}
 		}
 
 
@@ -311,28 +384,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			DrawMgr.CurrentFont = Resources.Fonts.Arial;
 			DrawMgr.HorAlign = Engine.Drawing.TextAlign.Center;
-			DrawMgr.DrawText(
-				actor.StateMachine.CurrentState.ToString() 
-				+ " " + actor.JumpBufferAlarm.Counter 
-				+ " " + (position.Position.X - position.PreviousPosition.X),
-				position.Position.ToPoint().ToVector2() - Vector2.UnitY * 32
-			);
-
-			if (physics.Squashed)
-			{
-				DrawMgr.DrawRectangle(
-					position.Position.ToPoint().ToVector2() - physics.Collider.Size / 4,
-					position.Position.ToPoint().ToVector2() + physics.Collider.Size / 4,
-					true
-				);
+			if (actor.StateMachine != null)
+			{/*
+				DrawMgr.DrawText(
+					actor.StateMachine.CurrentState.ToString() 
+					+ " " + actor.JumpBufferAlarm.Counter 
+					+ " " + (position.Position.X - position.PreviousPosition.X),
+					position.Position.ToPoint().ToVector2() - Vector2.UnitY * 32
+				);*/
 			}
-			DrawMgr.DrawLine(
-				position.Position.ToPoint().ToVector2(), 
-				position.Position.ToPoint().ToVector2() + new Vector2(physics.CollisionH, physics.CollisionV) * 32
-			);
-			
-
-			DrawMgr.DrawLine(0, actor.MinY, 1000, actor.MinY);
 			
 
 		}

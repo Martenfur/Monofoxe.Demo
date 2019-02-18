@@ -28,10 +28,10 @@
 #begin Entities/_config.json
 /copy:Entities/_config.json
 
-#begin Entities/PhysicsBoi.json
+#begin Entities/Dummy.json
 /importer:EntityTemplateImporter
 /processor:EntityTemplateProcessor
-/build:Entities/PhysicsBoi.json
+/build:Entities/Dummy.json
 
 #begin Entities/Platform.json
 /importer:EntityTemplateImporter

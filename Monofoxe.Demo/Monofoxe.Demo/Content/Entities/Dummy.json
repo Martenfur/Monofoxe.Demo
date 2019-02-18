@@ -1,0 +1,14 @@
+﻿{
+	"tag": "Dummy",
+	"components": 
+	{
+		"PhysicsComponent":
+		{
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
+		},
+		"PositionComponent": {},
+		"StackableActorComponent": {}
+	}
+}
+
+

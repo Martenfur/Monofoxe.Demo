@@ -5,6 +5,7 @@ using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
+using Monofoxe.Engine.SceneSystem;
 
 
 namespace Monofoxe.Demo.GameLogic.Entities
@@ -34,7 +35,14 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				- Test.Camera.Size / 2;
 			
 			}
-			
+
+			if (Input.CheckButtonPress(Buttons.MouseLeft))
+			{
+				Console.WriteLine(SceneMgr.CurrentLayer.Name);
+				var dummy = EntityMgr.CreateEntityFromTemplate(SceneMgr.CurrentLayer, "Dummy");
+				var position = dummy.GetComponent<PositionComponent>();
+				position.Position = Test.Camera.GetRelativeMousePosition();
+			}
 		}
 		
 	}
