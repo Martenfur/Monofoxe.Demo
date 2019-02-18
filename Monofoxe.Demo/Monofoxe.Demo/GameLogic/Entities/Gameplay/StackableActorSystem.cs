@@ -5,7 +5,7 @@ using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.ECS;
-
+using Monofoxe.Demo.GameLogic.Collisions;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -31,11 +31,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var actor = (StackableActorComponent)component;
 			actor.StateMachine = new StateMachine<ActorStates>(ActorStates.OnGround, actor.Owner);
 			actor.StateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter);
-			actor.StateMachine.AddState(ActorStates.InAir, InAir);
+			actor.StateMachine.AddState(ActorStates.InAir, InAir, InAirEnter);
 			actor.StateMachine.AddState(ActorStates.Stacked, Stacked);
 
 			actor.JumpBufferAlarm = new Alarm();
-			
+			actor.LandingBufferAlarm = new Alarm();
+
 		}
 
 		public override void Update(List<Component> components)
@@ -44,42 +45,38 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				actor.StateMachine.Update();
 				
-				if (actor.MinY > actor.Owner.GetComponent<PositionComponent>().Position.Y)
-				{
-					actor.MinY = actor.Owner.GetComponent<PositionComponent>().Position.Y;
-				}
-				if (Input.CheckButton(Buttons.R))
-				{
-					actor.MinY = 10000;
-				}
+				// Maybe all this could be packed into class.
+				actor.JumpActionPress = (actor.JumpAction && !actor.JumpActionPrevious);
+				actor.JumpActionPrevious = actor.JumpAction; 
+				
 			}
 		}
+
 
 		void OnGroundEnter(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			actor.CanJump = false;
+			actor.CanJump = true;
+
+			if (actor.LandingBufferAlarm.Running)
+			{
+				Jump(owner.GetComponent<PhysicsComponent>(), actor);
+				stateMachine.ChangeState(ActorStates.InAir);
+			}
 		}
 		
-
+		
 		void OnGround(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
-
 			var actor = owner.GetComponent<StackableActorComponent>();
 			var physics = owner.GetComponent<PhysicsComponent>();
-			var position= owner.GetComponent<PositionComponent>();
+			var position = owner.GetComponent<PositionComponent>();
 
 			
-			if (!actor.JumpAction)
-			{
-				actor.CanJump = true;
-			}
-
 			// Jumping.
-			if (actor.CanJump && actor.JumpAction && !physics.InAir)
+			if (actor.CanJump && actor.JumpActionPress && !actor.Crouching && !physics.InAir)
 			{
-				physics.Speed.Y = -actor.JumpSpeed;
-				actor.CanJump = false; 
+				Jump(physics, actor);
 				stateMachine.ChangeState(ActorStates.InAir);
 				return;
 			}
@@ -90,34 +87,40 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				actor.JumpBufferAlarm.Set(actor.JumpBufferTime);
 				stateMachine.ChangeState(ActorStates.InAir);
+				
+				if (actor.Crouching)
+				{
+					// NOTE: This may pose problems if there is not enough room to uncrouch.
+					Uncrouch(position, physics, actor);
+				}
+
 				return;
 			}
 			// Falling off.
 
 
 
-			// Add ceiling check here.
-
-			if ((!actor.Crouching && actor.CrouchAction) || (actor.Crouching && !actor.CrouchAction))
+			if (!actor.Crouching && actor.CrouchAction)
 			{
-				var colliderSize = physics.Collider.Size;
-				var oldH = colliderSize.Y;
-				if (!actor.Crouching)
-				{
-					colliderSize.Y = actor.CrouchingHeight;
-				}
-				else
-				{
-					colliderSize.Y = actor.Height;
-				}
+				Crouch(position, physics, actor);
+			} 
+			if (actor.Crouching && !actor.CrouchAction)
+			{
+				// Setting up new collider.
+				var collider = (ICollider)physics.Collider.Clone();
+				collider.Position = position.Position - Vector2.UnitY * (actor.Height - collider.Size.Y) / 2;
+				collider.PreviousPosition = collider.Position;
+				collider.Size = new Vector2(collider.Size.X, actor.Height);
+				// Setting up new collider.
 
-				physics.Collider.Size = colliderSize;
-				
-				position.Position.Y -= (colliderSize.Y - oldH) / 2;
+				// If a solid is above actor - keep crouching.
+				if (PhysicsSystem.CheckCollision(actor.Owner, collider) == null)
+				{
+					Uncrouch(position, physics, actor);
+				}
 			}
-
-
-			actor.Crouching = actor.CrouchAction;
+			
+			
 			if (actor.Crouching)
 			{
 				actor.MaxMovementSpeed = actor.CrouchMovementSpeed;
@@ -137,46 +140,67 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		}
 		
+
+		void InAirEnter(StateMachine<ActorStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			actor.LandingBufferAlarm.Reset();
+		}
 		
 		void InAir(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
 			var physics = owner.GetComponent<PhysicsComponent>();
-			var position = owner.GetComponent<PositionComponent>();
+			//var position = owner.GetComponent<PositionComponent>();
 
-
+			// Landing.
 			if (!physics.InAir)
 			{
 				stateMachine.ChangeState(ActorStates.OnGround);
 				return;
 			}
-			
-			
-			if (actor.JumpBufferAlarm.Update())
+			// Landing.
+
+
+			// Jump buffering.
+			actor.LandingBufferAlarm.Update();
+			if (actor.JumpBufferAlarm.Update() || !actor.JumpBufferAlarm.Running)
 			{
 				actor.CanJump = false;
 			}
-			if (actor.CanJump && actor.JumpAction)
+			
+			if (actor.JumpActionPress)
 			{
-				physics.Speed.Y = -actor.JumpSpeed;
-				actor.JumpBufferAlarm.Reset();
-				actor.CanJump = false; 
+				if (actor.CanJump)
+				{
+					Jump(physics, actor);
+					actor.JumpBufferAlarm.Reset();
+				}
+				else
+				{
+					actor.LandingBufferAlarm.Set(actor.LandingBufferTime);	
+				}
 			}
+			// Jump buffering.
 
-			// REPLACE!
-			if (actor.JumpAction && physics.Speed.Y < 0)
+
+			// Variable jump.
+			if (actor.Jumping && actor.JumpAction && physics.Speed.Y < 0)
 			{
 				physics.Gravity = actor.JumpGravity;
 			}
 			else
 			{
 				physics.Gravity = actor.FallGravity;
+				actor.Jumping = false; // When jump action is not applied anymore, actor is locked at fall gravity. 
 			}
+			// Variable jump.
 
 			actor.Acceleration = actor.AirAcceleration;
 			actor.Deceleration = actor.AirDeceleration;
 			UpdateSpeed(actor, physics);
 		}
+
 
 		void Stacked(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
@@ -199,6 +223,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 			if (horMovement == 0 || Math.Abs(physics.Speed.X) > actor.MaxMovementSpeed)
 			{
+				// Slowing down.
 				if (physics.Speed.X != 0)
 				{
 					var spdSign = Math.Sign(physics.Speed.X);
@@ -208,9 +233,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 						physics.Speed.X = 0;
 					}
 				}
+				// Slowing down.
 			}
 			else
 			{
+				// Speeding up.
 				if (Math.Abs(physics.Speed.X) < actor.MaxMovementSpeed || Math.Sign(physics.Speed.X) != Math.Sign(horMovement))
 				{
 					physics.Speed.X += TimeKeeper.GlobalTime(horMovement * actor.Acceleration);
@@ -220,10 +247,43 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 						physics.Speed.X = horMovement * actor.MaxMovementSpeed;
 					}
 				}
+				// Speeding up.
 			}
 		}
 
 
+		void Jump(PhysicsComponent physics, StackableActorComponent actor)
+		{	
+			physics.Speed.Y = -actor.JumpSpeed;
+			actor.CanJump = false; 
+			actor.Jumping = true;
+		}
+
+		void Crouch(PositionComponent position, PhysicsComponent physics, StackableActorComponent actor)
+		{
+			var colliderSize = physics.Collider.Size;
+			var oldH = colliderSize.Y;
+			colliderSize.Y = actor.CrouchingHeight;
+			
+			physics.Collider.Size = colliderSize;
+				
+			position.Position.Y -= (colliderSize.Y - oldH) / 2;
+
+			actor.Crouching = true;
+		}
+
+		void Uncrouch(PositionComponent position, PhysicsComponent physics, StackableActorComponent actor)
+		{
+			var colliderSize = physics.Collider.Size;
+			var oldH = colliderSize.Y;
+			colliderSize.Y = actor.Height;
+			
+			physics.Collider.Size = colliderSize;
+				
+			position.Position.Y -= (colliderSize.Y - oldH) / 2;
+
+			actor.Crouching = false;
+		}
 
 		public override void Draw(Component component)
 		{

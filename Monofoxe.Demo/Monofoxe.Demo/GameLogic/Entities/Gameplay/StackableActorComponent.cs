@@ -13,6 +13,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public bool JumpAction;
 		public bool CrouchAction;
 
+		public bool JumpActionPress;
+		public bool JumpActionPrevious;
+		
 		// Actions.
 
 		public int Height = 32;
@@ -41,11 +44,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		public float FallGravity = 3500;
 		
+		public double LandingBufferTime = 0.1;
+		public Alarm LandingBufferAlarm;
+
 		// In air.
 
 		
 		// Jumping.
-		
+
+		public bool Jumping = true;
 		public bool CanJump = true;
 		
 		public float JumpSpeed = 700;
@@ -70,10 +77,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// Crouching.
 		
-		
 
-		// TODO: Remove!
-		public float MinY = 0;
+		public Entity StackedNext;
+		public Entity StackedPrevious;
 
 
 
