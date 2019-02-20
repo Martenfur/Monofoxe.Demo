@@ -77,10 +77,27 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// Crouching.
 		
+		// Stacking.
 
 		public Entity StackedNext;
 		public Entity StackedPrevious;
+		public float StackDirectionOffset;
+		public float StackDirectionOffsetTarget;
+		public float StackDirectionMaxOffset = 3;
+		
 
+		public float PendulumMomentum;
+		public float PendulumMomentumMax = 15;
+		public float PendulumRigidity = 60.08f;
+
+		public float PendulumEnergyLossRate = 16f;
+		public float PendulumForceMultiplier = 160f;
+		
+		public float StackYOffsetDivider = 40f;
+		public float StackYOffsetMin = -1f;
+		public float StackYOffsetMax = 1f;
+		public float StackBaseYOffset = 10;
+		// Stacking.
 
 
 		public override object Clone()

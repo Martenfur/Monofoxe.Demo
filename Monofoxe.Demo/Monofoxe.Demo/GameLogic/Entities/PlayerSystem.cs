@@ -33,7 +33,6 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 				Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.ToPoint().ToVector2() 
 				- Test.Camera.Size / 2;
-			
 			}
 
 			if (Input.CheckButtonPress(Buttons.MouseLeft))

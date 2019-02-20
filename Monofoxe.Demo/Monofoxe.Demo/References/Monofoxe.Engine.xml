@@ -1371,9 +1371,19 @@
             NOTE: Component should ALWAYS have an owner. 
             </summary>
         </member>
+        <member name="F:Monofoxe.Engine.ECS.Component.Initialized">
+            <summary>
+            Tells if this component was initialized.
+            </summary>
+        </member>
         <member name="P:Monofoxe.Engine.ECS.Component.Enabled">
             <summary>
-            If component is enabled, it will be processed by systems.
+            If component is enabled, it will be processed by Create and Update methods.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.Component.Visible">
+            <summary>
+            If component is visible, it will be processed by Draw method.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.Component.Clone">
@@ -1396,6 +1406,8 @@
             so components stay uninitialized for a bit right after creation.
             In most cases it's fine, but you may need to init your component
             right here and right now.
+            
+            NOTE: If component's Initialized property is true, this method will do nothing!
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.ComponentMgr.GetComponentList``1(System.Collections.Generic.List{Monofoxe.Engine.ECS.Component})">
@@ -1480,7 +1492,17 @@
             Returns component of given class.
             </summary>
         </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.GetComponent(System.Type)">
+            <summary>
+            Returns component of given class.
+            </summary>
+        </member>
         <member name="M:Monofoxe.Engine.ECS.Entity.TryGetComponent``1(Monofoxe.Engine.ECS.Component@)">
+            <summary>
+            Retrieves component of given class, if it exists, and returns true. If it doesn't, returns false.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.TryGetComponent(Monofoxe.Engine.ECS.Component@,System.Type)">
             <summary>
             Retrieves component of given class, if it exists, and returns true. If it doesn't, returns false.
             </summary>
@@ -1495,20 +1517,19 @@
             Checks if an entity has the component of given type.
             </summary>
         </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.HasComponent(System.Type)">
+            <summary>
+            Checks if an entity has the component of given type.
+            </summary>
+        </member>
         <member name="M:Monofoxe.Engine.ECS.Entity.RemoveComponent``1">
             <summary>
             Removes component from an entity and returns it.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.EnableComponent``1">
+        <member name="M:Monofoxe.Engine.ECS.Entity.RemoveComponent(System.Type)">
             <summary>
-            Enables the component, if it exists.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.DisableComponent``1">
-            <summary>
-            Disables the component, if it exists.
-            Disabled components aren't processed by systems.
+            Removes component from an entity and returns it.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.Entity.RemoveAllComponents">

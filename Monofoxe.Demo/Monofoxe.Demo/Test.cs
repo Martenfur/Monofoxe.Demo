@@ -19,7 +19,6 @@ namespace Monofoxe.Demo
 		public static Camera Camera = new Camera(800, 600);
 
 		Map _test;
-
 		public Test() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
@@ -28,6 +27,8 @@ namespace Monofoxe.Demo
 
 			Camera.BackgroundColor = Color.Azure;
 
+			DrawMgr.CurrentFont = Resources.Fonts.Arial;
+
 			GameMgr.WindowManager.CanvasSize = new Vector2(800, 600);
 			GameMgr.WindowManager.Window.AllowUserResizing = false;
 			GameMgr.WindowManager.ApplyChanges();
@@ -35,16 +36,9 @@ namespace Monofoxe.Demo
 			GameMgr.WindowManager.CanvasMode = CanvasMode.Fill;
 			
 			DrawMgr.Sampler = SamplerState.PointClamp;
-			/*
-			var entity = new Entity(Layer, "physicsBoi");
-			entity.AddComponent(new PositionComponent(Vector2.Zero));
-			var phy = new PhysicsObjectComponent();
-			phy.Size = Vector2.One * 32;
-			entity.AddComponent(phy);
-			*/
+			
 			_test = new ColliderMap(Resources.Maps.Test);
 			_test.Load();
-
 			
 			CollisionDetector.Init();
 			Scene.Priority = -10000;

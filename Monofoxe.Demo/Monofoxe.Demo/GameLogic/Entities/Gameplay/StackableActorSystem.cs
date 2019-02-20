@@ -21,11 +21,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 	public class StackableActorSystem : BaseSystem
 	{
-		
+	
 
 		public override Type ComponentType => typeof(StackableActorComponent);
 
-		public override int Priority => 1;
+		//public override int Priority => 1;
 
 
 		public override void Create(Component component)
@@ -47,6 +47,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				actor.StateMachine.Update();
 				
+				if (actor.StackedPrevious == null && actor.StackedNext != null)
+				{
+					StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), 90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 0);
+				}
+
 				// Maybe all this could be packed into class.
 				actor.JumpActionPress = (actor.JumpAction && !actor.JumpActionPrevious);
 				actor.JumpActionPrevious = actor.JumpAction; 
@@ -79,7 +84,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			if (actor.CanJump && actor.JumpActionPress && !actor.Crouching && !physics.InAir)
 			{
 				Jump(physics, actor);
-				stateMachine.ChangeState(ActorStates.InAir);
 				return;
 			}
 			// Jumping.
@@ -87,15 +91,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			// Falling off.
 			if (physics.InAir)
 			{
-				actor.JumpBufferAlarm.Set(actor.JumpBufferTime);
-				stateMachine.ChangeState(ActorStates.InAir);
-				
-				if (actor.Crouching)
+				if (!actor.Jumping)
 				{
-					// NOTE: This may pose problems if there is not enough room to uncrouch.
-					Uncrouch(position, physics, actor);
+					actor.JumpBufferAlarm.Set(actor.JumpBufferTime);
+					if (actor.Crouching)
+					{
+						// NOTE: This may pose problems if there is not enough room to uncrouch.
+						Uncrouch(position, physics, actor);
+					}
 				}
 
+				stateMachine.ChangeState(ActorStates.InAir);
 				return;
 			}
 			// Falling off.
@@ -120,22 +126,26 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				{
 					Uncrouch(position, physics, actor);
 					var stackables = SceneMgr.CurrentScene.GetEntityListByComponent<StackableActorComponent>();
-					foreach(var stackable in stackables)
+					physics.Collider.Position = position.Position;
+					physics.Collider.PreviousPosition = position.PreviousPosition;
+					
+					foreach(var other in stackables)
 					{
-						if (stackable != owner)
+						if (other != owner)
 						{
-							var stackablePosition = stackable.GetComponent<PositionComponent>();
-							var stackableActor = stackable.GetComponent<StackableActorComponent>();
+							var otherPosition = other.GetComponent<PositionComponent>();
+							var otherPhysics = other.GetComponent<PhysicsComponent>();
+							var otherActor = other.GetComponent<StackableActorComponent>();
+
+							otherPhysics.Collider.Position = otherPosition.Position;
+							otherPhysics.Collider.PreviousPosition = otherPosition.PreviousPosition;
 
 							if (
-								GameMath.Distance(stackablePosition.Position, position.Position) < 100
-								&& stackableActor.StateMachine.CurrentState != ActorStates.Stacked
+								CollisionDetector.CheckCollision(physics.Collider, otherPhysics.Collider)
+								&& otherActor.StateMachine.CurrentState != ActorStates.Stacked
 							)
 							{
-								
-								StackEntity(actor, stackableActor);
-
-								break;
+								StackEntity(actor, otherActor);
 							}
 						}
 					}
@@ -163,9 +173,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		}
 		
 
+
 		void InAirEnter(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
+			var physics = owner.GetComponent<PhysicsComponent>();
+			
 			actor.LandingBufferAlarm.Reset();
 		}
 		
@@ -173,8 +186,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
 			var physics = owner.GetComponent<PhysicsComponent>();
-			//var position = owner.GetComponent<PositionComponent>();
-
+			
 			// Landing.
 			if (!physics.InAir)
 			{
@@ -226,11 +238,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		void StackedEnter(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
-			owner.DisableComponent<PhysicsComponent>();
+			owner.GetComponent<PhysicsComponent>().Enabled = false;
+			owner.GetComponent<StackableActorComponent>().Visible = false;
 		}
 		void StackedExit(StateMachine<ActorStates> stateMachine, Entity owner)
 		{
-			owner.EnableComponent<PhysicsComponent>();
+			owner.GetComponent<PhysicsComponent>().Enabled = true;
+			owner.GetComponent<StackableActorComponent>().Visible = true;
 		}
 
 
@@ -244,26 +258,80 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				stateMachine.ChangeState(ActorStates.InAir);
 			}
-			else
+		}
+
+		void StackedUpdate(StackableActorComponent actor, float baseDirection)
+		{
+			var position = actor.Owner.GetComponent<PositionComponent>();
+			var physics = actor.Owner.GetComponent<PhysicsComponent>();
+
+			var masterPosition = actor.StackedPrevious.GetComponent<PositionComponent>();
+			var masterPhysics = actor.StackedPrevious.GetComponent<PhysicsComponent>();
+			var masterActor = actor.StackedPrevious.GetComponent<StackableActorComponent>();
+
+
+			// Pendulum.
+
+			// We are applying force to the pendulum, and it tries to push back.
+			// Jiggly stacking stuff happens here. 
+
+			var pendulumForce = (masterPosition.Position.X - masterPosition.PreviousPosition.X) * actor.PendulumForceMultiplier;
+			var pendulumSpringForce = (float)Math.Pow(actor.StackDirectionOffset, 3) * actor.PendulumRigidity;
+
+			actor.PendulumMomentum += TimeKeeper.GlobalTime(pendulumForce - pendulumSpringForce);
+			actor.PendulumMomentum -= Math.Sign(actor.PendulumMomentum) * TimeKeeper.GlobalTime(actor.PendulumEnergyLossRate);
+
+			if (Math.Abs(actor.PendulumMomentum) > actor.PendulumMomentumMax)
 			{
-				var masterPosition = actor.StackedPrevious.GetComponent<PositionComponent>();
-				var masterPhysics = actor.StackedPrevious.GetComponent<PhysicsComponent>();
-				var masterActor = actor.StackedPrevious.GetComponent<StackableActorComponent>();
-
-
-				position.Position = masterPosition.PreviousPosition - Vector2.UnitY * masterPhysics.Collider.Size.Y / 2;
-
-				if (masterActor.Crouching && !actor.Crouching)
-				{
-					Crouch(position, physics, actor);
-				}
-				
-				if (!masterActor.Crouching && actor.Crouching)
-				{
-					Uncrouch(position, physics, actor);
-				}
-
+				actor.PendulumMomentum = actor.PendulumMomentumMax * Math.Sign(actor.PendulumMomentum);
 			}
+			actor.StackDirectionOffset += TimeKeeper.GlobalTime(actor.PendulumMomentum);
+			
+			if (Math.Abs(actor.StackDirectionOffset) > actor.StackDirectionMaxOffset)
+			{
+				actor.StackDirectionOffset = actor.StackDirectionMaxOffset * Math.Sign(actor.StackDirectionOffset);
+			}
+			
+			var dir = MathHelper.ToRadians(baseDirection + actor.StackDirectionOffset);
+			// Pendulum.
+
+
+			// Crouch transfer.
+			if (masterActor.Crouching && !actor.Crouching)
+			{
+				Crouch(position, physics, actor);
+			}	
+			if (!masterActor.Crouching && actor.Crouching)
+			{
+				Uncrouch(position, physics, actor);
+			}
+			// Crouch transfer.
+
+
+			// Nice y delaying.
+			var yOffset = (masterPosition.Position.Y - masterPosition.PreviousPosition.Y) / actor.StackYOffsetDivider;
+			if (yOffset < actor.StackYOffsetMin)
+			{
+				yOffset = actor.StackYOffsetMin;
+			}
+			if (yOffset > actor.StackYOffsetMax)
+			{
+				yOffset = actor.StackYOffsetMax;
+			}
+			// Nice y delaying.
+
+			position.Position = masterPosition.Position 
+			+ new Vector2(
+				(float)Math.Cos(dir), 
+				(float)-Math.Sin(dir)
+			) * (masterPhysics.Collider.Size.Y * 0.5f + actor.StackBaseYOffset * yOffset);
+			
+			
+			if (actor.StackedNext != null)
+			{
+				StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), baseDirection + actor.StackDirectionOffset);
+			}
+
 		}
 
 		void StackEntity(StackableActorComponent master, StackableActorComponent slave)
@@ -364,25 +432,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = component.Owner.GetComponent<PositionComponent>();
 			var actor = component.Owner.GetComponent<StackableActorComponent>();
 
+			if (actor.StackedNext != null)
+			{
+				Draw(actor.StackedNext.GetComponent<StackableActorComponent>());
+			}
 			
 			DrawMgr.DrawRectangle(
 				position.Position.ToPoint().ToVector2() - physics.Collider.Size / 2,
 				position.Position.ToPoint().ToVector2() + physics.Collider.Size / 2,
-				true
+				false
 			);
-
-			if (actor.CanJump)
-			{
-				DrawMgr.CurrentColor = Color.Red;
-			}
-			else
-			{
-				DrawMgr.CurrentColor = Color.Black;
-			}
 			
 
-
-			DrawMgr.CurrentFont = Resources.Fonts.Arial;
 			DrawMgr.HorAlign = Engine.Drawing.TextAlign.Center;
 			if (actor.StateMachine != null)
 			{/*
@@ -394,7 +455,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				);*/
 			}
 			
-
 		}
 
 
