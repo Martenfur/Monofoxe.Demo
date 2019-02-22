@@ -41,6 +41,8 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				var dummy = EntityMgr.CreateEntityFromTemplate(SceneMgr.CurrentLayer, "Dummy");
 				var position = dummy.GetComponent<PositionComponent>();
 				position.Position = Test.Camera.GetRelativeMousePosition();
+				var actor = dummy.GetComponent<StackableActorComponent>();
+				ComponentMgr.InitComponent(actor);
 			}
 		}
 		

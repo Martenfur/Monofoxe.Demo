@@ -1,5 +1,7 @@
 ﻿using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Engine.Drawing;
+using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -97,7 +99,32 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public float StackYOffsetMin = -1f;
 		public float StackYOffsetMax = 1f;
 		public float StackBaseYOffset = 10;
+
 		// Stacking.
+
+		#region Aminations.
+
+		public StateMachine<ActorAnimationStates> AnimationStateMachine;
+		
+		public Sprite Main = Resources.Sprites.Default.PlayerMain;
+		public Sprite CurrentSprite;
+		public double SpriteAnimation = 0;
+		public Vector2 SpriteScale = Vector2.One;
+
+		public int Orientation = 1;
+
+		public double Animation = 0;
+		public double AnimationSpeed = 0;
+
+
+		public double WalkAnimationSpeed = 4f;
+		public double CrouchAnimationSpeed = 1;
+
+		public Vector2 WalkMaxScale = new Vector2(0, -0.1f);
+
+		
+
+		#endregion Animations.
 
 
 		public override object Clone()

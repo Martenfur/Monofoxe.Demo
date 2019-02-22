@@ -15,6 +15,7 @@ namespace Resources.Sprites
 	{
 		#region Sprites.
 		public static Sprite Monofoxe;
+		public static Sprite PlayerMain;
 		#endregion Sprites.
 		
 		private static string _groupName = "Default";
@@ -31,6 +32,7 @@ namespace Resources.Sprites
 			#region Sprite constructors.
 			
 			Monofoxe = sprites["monofoxe"];
+			PlayerMain = sprites["Characters/player_main"];
 			
 			#endregion Sprite constructors.
 		}

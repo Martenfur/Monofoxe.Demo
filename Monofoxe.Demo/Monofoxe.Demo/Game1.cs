@@ -44,7 +44,7 @@ namespace Monofoxe.Demo
 			EntityMgr.LoadEntityTemplates();
 			//189
 			//114
-			Resources.Sprites.SpritesDefault.Load();	
+			Resources.Sprites.Default.Load();	
 			Resources.Fonts.Load();
 			Resources.Effects.Load();
 			Resources.Maps.Load();
