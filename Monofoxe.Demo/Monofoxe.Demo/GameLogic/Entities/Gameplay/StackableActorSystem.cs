@@ -23,10 +23,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 	{
 		Idle,
 		Walking,
-		Jumping,
 		Falling,
+		CrouchTransition,
 		Crouching,
-		CrouchWalking,
+		Crawling,
+		Stacked,
 	}
 
 
@@ -50,8 +51,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.AnimationStateMachine = new StateMachine<ActorAnimationStates>(ActorAnimationStates.Idle, actor.Owner);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Idle, IdleAnimation, IdleAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Falling, FallAnimation, FallAnimationEnter);
-			actor.AnimationStateMachine.AddState(ActorAnimationStates.Crouching, CrouchAnimation, CrouchAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Walking, WalkAnimation, WalkAnimationEnter);
+			actor.AnimationStateMachine.AddState(ActorAnimationStates.Crawling, CrawlAnimation, CrawlAnimationEnter);
+			actor.AnimationStateMachine.AddState(ActorAnimationStates.Crouching, CrouchAnimation, CrouchAnimationEnter);
+			actor.AnimationStateMachine.AddState(ActorAnimationStates.CrouchTransition, CrouchTransitionAnimation, CrouchTransitionAnimationEnter);
+			actor.AnimationStateMachine.AddState(ActorAnimationStates.Stacked, StackedAnimation, StackedAnimationEnter);
 
 			
 
@@ -71,7 +75,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 				if (actor.StackedPrevious == null && actor.StackedNext != null)
 				{
-					StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), 90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 0);
+					StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), 90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 3);
 				}
 
 				// Maybe all this could be packed into class.
@@ -468,7 +472,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			actor.Animation += TimeKeeper.GlobalTime(actor.AnimationSpeed);
 
-			if (actor.Animation >= 1)
+			if (actor.Animation >= 1 || actor.Animation < 0)
 			{
 				actor.Animation -= 1;
 
@@ -479,6 +483,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				}
 			}
 			return false;
+		}
+
+		void ResetAnimation(StackableActorComponent actor)
+		{
+			actor.CurrentSprite = actor.Main;
+			actor.Animation = 0;
+			actor.SpriteAnimation = 0;
+			actor.AnimationSpeed = actor.WalkAnimationSpeed;
+			actor.SpriteScale = Vector2.One;
+			actor.SpriteOffset = Vector2.Zero;
 		}
 
 		void UpdateOrientation(StackableActorComponent actor)
@@ -493,24 +507,26 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 		}
 
+
 		void IdleAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			actor.CurrentSprite = actor.Main;
-			actor.Animation = 0;
-			actor.SpriteAnimation = 0;
-			actor.SpriteScale = Vector2.One;
+			ResetAnimation(actor);
 		}
 
 		void IdleAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
 			
+			// Jumping and falling.
 			if (actor.StateMachine.CurrentState == ActorStates.InAir)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Falling);
 				return;
 			}
+			// Jumping and falling.
+			
+			// Walking.
 			if (
 				actor.StateMachine.CurrentState == ActorStates.OnGround 
 				&& (actor.LeftAction || actor.RightAction)
@@ -519,25 +535,24 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				stateMachine.ChangeState(ActorAnimationStates.Walking);
 				return;
 			}
+			// Walking.
 
+			// Crouch.
 			if (actor.StateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
 			{
-				stateMachine.ChangeState(ActorAnimationStates.Crouching);
+				stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
 				return;
 			}
+			// Crouch.
 
 		}
 		
 
 
-
-
 		void WalkAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			actor.CurrentSprite = actor.Main;
-			actor.Animation = 0;
-			actor.SpriteAnimation = 0;
+			ResetAnimation(actor);
 			actor.AnimationSpeed = actor.WalkAnimationSpeed;
 		}
 
@@ -545,14 +560,180 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
 
-			var newState = ActorAnimationStates.Walking;
+			var newState = stateMachine.CurrentState;
 
+			// Idle.
 			if (
 				actor.StateMachine.CurrentState == ActorStates.OnGround 
 				&& (!actor.LeftAction && !actor.RightAction)
 			)
 			{
 				newState = ActorAnimationStates.Idle;
+			}
+			// Idle.
+
+			// Jumping and falling.
+			if (actor.StateMachine.CurrentState == ActorStates.InAir)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.Falling);
+				return;
+			}
+			// Jumping and falling.
+
+			// Crouching.
+			if (actor.StateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
+				return;
+			}
+			// Crouching.
+			
+
+			// Animation.
+			if (UpdateAnimation(stateMachine, actor, newState))
+			{
+				return;
+			}
+
+			var sin = (float)Math.Sin(actor.Animation * Math.PI);
+			actor.SpriteScale = Vector2.One + actor.WalkMaxScale * new Vector2(Math.Abs(sin), Math.Abs(sin));
+			actor.SpriteOffset = actor.WalkMaxOffset * sin * (Vector2.UnitX * -actor.Orientation);
+			// Animation.
+
+			UpdateOrientation(actor);
+		}
+
+
+		
+		void CrouchAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			ResetAnimation(actor);
+			
+			actor.SpriteAnimation = 0.99f;
+		}
+
+		void CrouchAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			
+			if (!actor.Crouching)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
+				return;
+			}
+
+			if (
+				actor.StateMachine.CurrentState == ActorStates.OnGround 
+				&& (actor.LeftAction || actor.RightAction) 
+			)
+			{
+				var physics = owner.GetComponent<PhysicsComponent>();
+				if (Math.Abs(physics.Speed.X) <= actor.MaxMovementSpeed)
+				{
+					if (actor.Crouching)
+					{
+						stateMachine.ChangeState(ActorAnimationStates.Crawling);
+					}
+					else
+					{
+						stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
+					}
+				}
+			}
+
+		}
+
+
+
+		void CrouchTransitionAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			ResetAnimation(actor);
+			
+			actor.AnimationSpeed = actor.CrouchAnimationSpeed;
+			if (
+				stateMachine.PreviousState == ActorAnimationStates.Crouching
+				|| stateMachine.PreviousState == ActorAnimationStates.Crawling
+			)
+			{
+				actor.Animation = 0.99f;
+				actor.SpriteAnimation = 0.99f;
+				actor.AnimationSpeed = -actor.CrouchAnimationSpeed;
+			}
+			
+		}
+
+		void CrouchTransitionAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			var newState = ActorAnimationStates.Crouching;
+
+			if (actor.Crouching)
+			{
+				actor.AnimationSpeed = actor.CrouchAnimationSpeed;
+			}
+			else
+			{
+				actor.AnimationSpeed = -actor.CrouchAnimationSpeed;
+			}
+
+
+			if (actor.StateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
+			{
+				newState = ActorAnimationStates.Idle;
+			}
+
+			if (actor.StateMachine.CurrentState == ActorStates.InAir)
+			{
+				newState = ActorAnimationStates.Falling;
+			}
+			
+
+			actor.SpriteAnimation = actor.Animation;
+
+			if (actor.Animation > 0.5f)
+			{
+				actor.SpriteScale = Vector2.One;
+			}
+			else
+			{
+				actor.SpriteScale = new Vector2(1, 1 - (float)(actor.Animation * actor.Animation));
+			}
+
+			UpdateAnimation(stateMachine, actor, newState);
+
+			UpdateOrientation(actor);
+		}
+
+
+		void CrawlAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			ResetAnimation(actor);
+			actor.SpriteAnimation = 0.99f;
+			actor.AnimationSpeed = actor.CrawlAnimationSpeed;
+		}
+
+		void CrawlAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+
+			var newState = stateMachine.CurrentState;
+
+			if (
+				actor.StateMachine.CurrentState == ActorStates.OnGround 
+				&& (!actor.LeftAction && !actor.RightAction)
+			)
+			{
+				if (actor.Crouching)
+				{
+					newState = ActorAnimationStates.Crouching;
+				}
+				else
+				{
+					newState = ActorAnimationStates.CrouchTransition;
+				}
 			}
 
 			if (actor.StateMachine.CurrentState == ActorStates.InAir)
@@ -561,10 +742,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				return;
 			}
 
-			if (actor.StateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
-			{
-				stateMachine.ChangeState(ActorAnimationStates.Crouching);
-				return;
+			if (actor.StateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
+			{	
+				newState = ActorAnimationStates.CrouchTransition;
 			}
 
 			
@@ -574,66 +754,60 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				return;
 			}
 
-			var sin = (float)Math.Sin(actor.Animation / 2f * Math.PI * 2);
-			actor.SpriteScale = Vector2.One + actor.WalkMaxScale * new Vector2(1, Math.Abs(sin));
-			
-			UpdateOrientation(actor);
-		}
-
-		
-
-		void CrouchAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
-		{
-			var actor = owner.GetComponent<StackableActorComponent>();
-			actor.CurrentSprite = actor.Main;
-			actor.SpriteAnimation = 0.99f;
-			actor.Animation = 0f;
-			actor.AnimationSpeed = actor.CrouchAnimationSpeed;
-		}
-
-		void CrouchAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
-		{
-			var actor = owner.GetComponent<StackableActorComponent>();
-			
-			if (actor.StateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
-			{
-				stateMachine.ChangeState(ActorAnimationStates.Idle);
-				return;
-			}
-
-			if (actor.StateMachine.CurrentState == ActorStates.InAir)
-			{
-				stateMachine.ChangeState(ActorAnimationStates.Falling);
-				return;
-			}
+			var sin = (float)Math.Sin(actor.Animation * Math.PI);
+			actor.SpriteScale = Vector2.One + actor.CrawlMaxScale * new Vector2(1, Math.Abs(sin));
+			actor.SpriteOffset = actor.CrawlMaxOffset * sin;
 
 			UpdateOrientation(actor);
 		}
+
 
 
 		void FallAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			actor.CurrentSprite = actor.Main;
-			actor.SpriteAnimation = 0f;
-			actor.Animation = 0f;
+			ResetAnimation(actor);
 			actor.AnimationSpeed = actor.CrouchAnimationSpeed;
 		}
 
 		void FallAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
+			var physics = owner.GetComponent<PhysicsComponent>();
 			
+
 			if (actor.StateMachine.CurrentState != ActorStates.InAir)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Idle);
 				return;
 			}
+
+			actor.Animation = -physics.Speed.Y / actor.FallBaseScale;
+			if (actor.Animation < 0)
+			{
+				actor.Animation = 0;
+			}
+
+
+			actor.SpriteScale = Vector2.One + actor.FallMaxScale * (float)actor.Animation;
 			
+
 			UpdateOrientation(actor);
 		}
 
-		
+		void StackedAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			ResetAnimation(actor);
+		}
+
+		void StackedAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			var master = actor.StackedPrevious.GetComponent<StackableActorComponent>();
+
+			//actor.Orientation.
+		}
 
 		#endregion Animations.
 
@@ -655,12 +829,24 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			if (actor.StackedPrevious != null)
 			{
 				ang = 90 - GameMath.Direction(actor.StackedPrevious.GetComponent<PositionComponent>().Position, position.Position);
+				var master = actor.StackedPrevious.GetComponent<StackableActorComponent>();
+
+				actor.Orientation = master.Orientation;
+				if (master.Crouching)
+				{
+					actor.SpriteAnimation = 0.99f;
+				}
+				else
+				{
+					actor.SpriteAnimation = 0f;
+				}
+
 			}
 		
 			DrawMgr.DrawSprite(
 				actor.CurrentSprite, 
 				actor.SpriteAnimation,
-				position.Position.ToPoint().ToVector2() + physics.Collider.Size * Vector2.UnitY / 2, 
+				position.Position.ToPoint().ToVector2() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset, 
 				actor.SpriteScale * new Vector2(actor.Orientation, 1f), 
 				(float)ang, 
 				Color.White
@@ -670,11 +856,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			DrawMgr.HorAlign = Engine.Drawing.TextAlign.Center;
 			
 			if (actor.AnimationStateMachine != null)
-			{
+			{/*
 				DrawMgr.DrawText(
 					actor.AnimationStateMachine.CurrentState.ToString() + " " + actor.Jumping,
 					position.Position.ToPoint().ToVector2() - Vector2.UnitY * 64
-				);
+				);*/
 			}
 			
 		}

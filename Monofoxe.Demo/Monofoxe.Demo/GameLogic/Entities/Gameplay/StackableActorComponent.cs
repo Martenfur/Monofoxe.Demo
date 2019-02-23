@@ -110,6 +110,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public Sprite CurrentSprite;
 		public double SpriteAnimation = 0;
 		public Vector2 SpriteScale = Vector2.One;
+		public Vector2 SpriteOffset = Vector2.Zero;
 
 		public int Orientation = 1;
 
@@ -118,10 +119,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 
 		public double WalkAnimationSpeed = 4f;
-		public double CrouchAnimationSpeed = 1;
+		public double CrouchAnimationSpeed = 10f;
+		public double CrawlAnimationSpeed = 4;
 
-		public Vector2 WalkMaxScale = new Vector2(0, -0.1f);
 
+		public Vector2 WalkMaxScale = new Vector2(0.05f, -0.1f);
+		public Vector2 WalkMaxOffset = new Vector2(-5, 0);
+		
+		public Vector2 CrawlMaxScale = new Vector2(0.1f, -0.1f);
+		public Vector2 CrawlMaxOffset = new Vector2(-5, 0);
+		
+		public Vector2 FallMaxScale = new Vector2(0f, 0.4f);
+		public float FallBaseScale = 1000f;
 		
 
 		#endregion Animations.

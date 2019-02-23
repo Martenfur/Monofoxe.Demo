@@ -24,7 +24,6 @@ namespace Monofoxe.Demo
 			
 			GameMgr.MaxGameSpeed = 60;
 			GameMgr.MinGameSpeed = 60;
-
 			Camera.BackgroundColor = Color.Azure;
 
 			DrawMgr.CurrentFont = Resources.Fonts.Arial;

@@ -659,6 +659,16 @@
             Stack of active states.
             </summary>
         </member>
+        <member name="P:Monofoxe.Engine.Utils.StateMachine`1.CurrentState">
+            <summary>
+            Current state machine state.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Utils.StateMachine`1.PreviousState">
+            <summary>
+            Previous state machine state.
+            </summary>
+        </member>
         <member name="F:Monofoxe.Engine.Utils.StateMachine`1.Owner">
             <summary>
             State machine owner.
