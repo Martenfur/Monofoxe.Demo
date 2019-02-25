@@ -45,6 +45,7 @@
     <None Include="Content\Entities\Player.json" />
     <None Include="Content\Entities\Dummy.json" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameLogic\Background.cs" />
     <Compile Include="GameLogic\ColliderMap.cs" />
     <Compile Include="GameLogic\Collisions\ColliderType.cs" />
     <Compile Include="GameLogic\Collisions\CollisionDetector.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="GameLogic\Collisions\TilemapCollider.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorSystem.cs" />
     <Compile Include="GameLogic\Entities\PlayerComponent.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="GameLogic\Entities\Core\PositionSystem.cs" />
     <Compile Include="GameLogic\Entities\Core\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\SolidSystem.cs" />
+    <Compile Include="GameLogic\GameCamera.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />

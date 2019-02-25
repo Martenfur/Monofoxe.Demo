@@ -14,8 +14,13 @@ namespace Resources.Sprites
 	public static class Default
 	{
 		#region Sprites.
+		public static Sprite Mountains;
 		public static Sprite Monofoxe;
+		public static Sprite Forest1;
+		public static Sprite Forest2;
+		public static Sprite Sun;
 		public static Sprite PlayerMain;
+		public static Sprite Platform;
 		#endregion Sprites.
 		
 		private static string _groupName = "Default";
@@ -31,8 +36,13 @@ namespace Resources.Sprites
 			
 			#region Sprite constructors.
 			
+			Mountains = sprites["Background/mountains"];
 			Monofoxe = sprites["monofoxe"];
+			Forest1 = sprites["Background/forest1"];
+			Forest2 = sprites["Background/forest2"];
+			Sun = sprites["Background/sun"];
 			PlayerMain = sprites["Characters/player_main"];
+			Platform = sprites["Platform"];
 			
 			#endregion Sprite constructors.
 		}

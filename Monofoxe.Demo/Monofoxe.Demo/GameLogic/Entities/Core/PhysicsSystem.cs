@@ -29,7 +29,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		public override void Update(List<Component> components)
 		{
 			_solidEntities = SceneMgr.CurrentScene.GetEntityListByComponent<SolidComponent>();
-
+			
 			// Gravity.
 			foreach(PhysicsComponent cPhysics in components)
 			{

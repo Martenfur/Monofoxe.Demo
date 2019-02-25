@@ -6,7 +6,7 @@ using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -17,7 +17,14 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 		public override int Priority => 1;
 
-		
+		public override void Create(Component component)
+		{
+			var player = (PlayerComponent)component;
+
+			var cam = new GameCamera(player.Owner.Layer, Test.Camera);
+			cam.Target = player.Owner.GetComponent<PositionComponent>();
+		}
+
 		public override void Update(List<Component> components)
 		{
 			foreach(PlayerComponent player in components)
@@ -31,8 +38,8 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				actor.JumpAction = Input.CheckButton(player.Jump);
 				actor.CrouchAction = Input.CheckButton(player.Crouch);
 
-				Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.ToPoint().ToVector2() 
-				- Test.Camera.Size / 2;
+				//Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.Round()
+				
 			}
 
 			if (Input.CheckButtonPress(Buttons.MouseLeft))

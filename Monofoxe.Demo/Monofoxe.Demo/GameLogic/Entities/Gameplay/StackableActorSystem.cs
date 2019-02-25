@@ -497,13 +497,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		void UpdateOrientation(StackableActorComponent actor)
 		{
-			if (actor.LeftAction)
+			if (actor.LeftAction != actor.RightAction)
 			{
-				actor.Orientation = -1;
-			}
-			if (actor.RightAction)
-			{
-				actor.Orientation = 1;
+				if (actor.LeftAction)
+				{
+					actor.Orientation = -1;
+				}
+				if (actor.RightAction)
+				{
+					actor.Orientation = 1;
+				}
 			}
 		}
 
@@ -529,7 +532,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			// Walking.
 			if (
 				actor.StateMachine.CurrentState == ActorStates.OnGround 
-				&& (actor.LeftAction || actor.RightAction)
+				&& (actor.LeftAction != actor.RightAction)
 			)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Walking);
@@ -565,7 +568,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			// Idle.
 			if (
 				actor.StateMachine.CurrentState == ActorStates.OnGround 
-				&& (!actor.LeftAction && !actor.RightAction)
+				&& (actor.LeftAction == actor.RightAction)
 			)
 			{
 				newState = ActorAnimationStates.Idle;
@@ -625,7 +628,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			if (
 				actor.StateMachine.CurrentState == ActorStates.OnGround 
-				&& (actor.LeftAction || actor.RightAction) 
+				&& (actor.LeftAction != actor.RightAction) 
 			)
 			{
 				var physics = owner.GetComponent<PhysicsComponent>();
@@ -723,7 +726,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			if (
 				actor.StateMachine.CurrentState == ActorStates.OnGround 
-				&& (!actor.LeftAction && !actor.RightAction)
+				&& (actor.LeftAction == actor.RightAction)
 			)
 			{
 				if (actor.Crouching)
@@ -846,7 +849,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			DrawMgr.DrawSprite(
 				actor.CurrentSprite, 
 				actor.SpriteAnimation,
-				position.Position.ToPoint().ToVector2() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset, 
+				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset, 
 				actor.SpriteScale * new Vector2(actor.Orientation, 1f), 
 				(float)ang, 
 				Color.White

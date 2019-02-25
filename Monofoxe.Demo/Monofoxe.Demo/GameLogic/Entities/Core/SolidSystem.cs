@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
@@ -48,8 +49,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 				DrawMgr.CurrentColor = Color.Black;
 
 			DrawMgr.DrawRectangle(
-				position.Position - solid.Collider.Size / 2,
-				position.Position + solid.Collider.Size / 2,
+				position.Position.Round() - solid.Collider.Size / 2,
+				position.Position.Round() + solid.Collider.Size / 2,
 				false
 			);
 			
