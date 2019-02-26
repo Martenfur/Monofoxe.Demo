@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
+using Monofoxe.Engine.Utils;
 using Microsoft.Xna.Framework;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Demo.GameLogic.Entities;
@@ -35,8 +36,27 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			collider.Size = new Vector2(width * BaseSize, BaseSize);
 			cSolid.Collider = collider;
 
+			var cPath = new PathComponent();
+
+			cPath.Position = cPosition.Position;
+
 			AddComponent(cPosition);
 			AddComponent(cSolid);
+			AddComponent(cPath);
+		}
+
+		public override void Update()
+		{
+			var position = GetComponent<PositionComponent>();
+			var path = GetComponent<PathComponent>();
+			var solid = GetComponent<SolidComponent>();
+			
+			var pathPosition = PathSystem.GetCurrentPosition(path);
+			//position.Position = pathPosition;
+			if (TimeKeeper.GlobalTime() != 0)
+				solid.Speed = (pathPosition - position.Position) / (float)TimeKeeper.GlobalTime();
+
+			Console.WriteLine(position.Position);
 		}
 
 		public override void Draw()

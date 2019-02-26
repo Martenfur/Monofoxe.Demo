@@ -11,7 +11,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 	{
 		public string Tag => "player";
 
-		public Entity Make(TiledObject obj, Layer layer)
+		public Entity Make(TiledObject obj, Layer layer, Map map)
 		{
 			var point = (TiledPointObject)obj;
 

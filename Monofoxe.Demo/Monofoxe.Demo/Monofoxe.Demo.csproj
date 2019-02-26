@@ -56,6 +56,8 @@
     <Compile Include="GameLogic\Entities\Core\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\PathComponent.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\PathSystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorSystem.cs" />
     <Compile Include="GameLogic\Entities\PlayerComponent.cs" />
