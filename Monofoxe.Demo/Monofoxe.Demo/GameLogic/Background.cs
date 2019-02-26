@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
-using Microsoft.Xna.Framework;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Demo.GameLogic.Entities;
-using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
+	/// <summary>
+	/// Draws nice parallax background.
+	/// </summary>
 	public class Background : Entity
 	{
 		public new string Tag => "background";
@@ -31,8 +27,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		Sprite _forest1 = Resources.Sprites.Default.Forest1;
 		Sprite _forest2 = Resources.Sprites.Default.Forest2;
 		
-		float _forest1Parallax = 0.01f * 30;
-		float _forest2Parallax = 0.02f * 30;
+		float _forest1Parallax = 0.01f;
+		float _forest2Parallax = 0.02f;
+
+		float _minYParallax = -1000;
 
 
 		public Background(Layer layer) : base(layer)
@@ -52,15 +50,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				_mountains, 
 				_mountainsBasePosition + DrawMgr.CurrentCamera.Size * Vector2.UnitY
 			);
-
 			
 
 			DrawParallaxForest(_forest1, _forest1Parallax);
 			DrawParallaxForest(_forest2, _forest2Parallax);
 
-
 			DrawMgr.ResetTransformMatrix();
-
 		}
 
 		private void DrawParallaxForest(Sprite sprite, float parallax)
@@ -69,23 +64,50 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 			for(var i = -1; i < loops; i += 1)
 			{
+				var pos = _forestBasePosition 
+					+ DrawMgr.CurrentCamera.Size * Vector2.UnitY 
+					+ GetParallax(sprite, parallax)
+					+ Vector2.UnitX * i * sprite.Width;
+				
 				DrawMgr.DrawSprite(
 					sprite, 
-					_forestBasePosition 
-						+ DrawMgr.CurrentCamera.Size * Vector2.UnitY 
-						+ GetParallax(sprite, parallax)
-						+ Vector2.UnitX * i * sprite.Width
+					pos
 				);
-			}
+
+				// Drawing a bottom line of pixels as a filler from the bottom of background sprite to the end of the screen.
+				DrawMgr.DrawSprite(
+					sprite, 
+					0, 
+					new Rectangle((int)pos.X, (int)pos.Y - 1, sprite.Width, (int)(Math.Abs(GetParallax(sprite, parallax).Y)) + 2), 
+					new Rectangle(0, sprite.Height - 1, sprite.Width, 1)
+				);
+			}			
 		}
 
+		/// <summary>
+		/// Calculates parallax from sprite, parallax value and current camera position.
+		/// NOTE: Can be used only in Draw.
+		/// </summary>
 		private Vector2 GetParallax(Sprite sprite, float parallaxValue)
 		{
-			var parallaxShift = DrawMgr.CurrentCamera.Position.X * parallaxValue;
-			var parallaxOverflow = (int)(parallaxShift / sprite.Width);
-			parallaxShift -= sprite.Width * parallaxOverflow; 
+			var parallaxShiftX = -DrawMgr.CurrentCamera.Position.X * parallaxValue;
+			var parallaxOverflow = (int)(parallaxShiftX / sprite.Width);
+			parallaxShiftX -= sprite.Width * parallaxOverflow; 
 
-			return Vector2.UnitX * parallaxShift;
+			var parallaxShiftY = -DrawMgr.CurrentCamera.Position.Y * parallaxValue;
+			
+			
+			if (parallaxShiftY < _minYParallax * parallaxValue)
+			{
+				parallaxShiftY = _minYParallax * parallaxValue;
+			}
+			if (parallaxShiftY > 0)
+			{
+				parallaxShiftY = 0;
+			}
+			
+
+			return new Vector2(parallaxShiftX, parallaxShiftY);
 		}
 
 	}

@@ -17,7 +17,7 @@ namespace Monofoxe.Demo
 {
 	public class Test : Entity
 	{
-		public static Camera Camera = new Camera(1440, 800);
+		public static Camera Camera = new Camera(1000, 800);
 
 		Map _test;
 		public Test() : base(SceneMgr.GetScene("default")["default"])
@@ -30,7 +30,7 @@ namespace Monofoxe.Demo
 
 			DrawMgr.CurrentFont = Resources.Fonts.Arial;
 
-			GameMgr.WindowManager.CanvasSize = new Vector2(1440, 800);
+			GameMgr.WindowManager.CanvasSize = new Vector2(1000, 800);
 			GameMgr.WindowManager.Window.AllowUserResizing = false;
 			GameMgr.WindowManager.ApplyChanges();
 			GameMgr.WindowManager.CenterWindow();
