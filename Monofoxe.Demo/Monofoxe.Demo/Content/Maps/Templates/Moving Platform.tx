@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Moving Platform" type="MovingPlatform">
+  <properties>
+   <property name="speed" type="float" value="60"/>
+   <property name="width" type="float" value="2"/>
+  </properties>
+  <polyline points="0,0 0,144"/>
+ </object>
+</template>

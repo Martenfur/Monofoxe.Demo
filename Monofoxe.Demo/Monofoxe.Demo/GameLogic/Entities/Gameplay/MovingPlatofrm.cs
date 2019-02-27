@@ -26,9 +26,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public readonly float Width;
 
-		public MovingPlatofrm(Layer layer, Vector2 position, float width) : base(layer)
+		public MovingPlatofrm(Layer layer, Vector2 position, float width, bool looped, float pathSpeed, List<Vector2> pathPoints) : base(layer)
 		{
 			Width = width;
+			
 			var cPosition = new PositionComponent(position);
 			var cSolid = new SolidComponent();
 			
@@ -39,6 +40,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var cPath = new PathComponent();
 
 			cPath.Position = cPosition.Position;
+			cPath.Points = pathPoints;
+			cPath.Speed = pathSpeed;
+			cPath.Looped = looped;
 
 			AddComponent(cPosition);
 			AddComponent(cSolid);
@@ -55,8 +59,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			//position.Position = pathPosition;
 			if (TimeKeeper.GlobalTime() != 0)
 				solid.Speed = (pathPosition - position.Position) / (float)TimeKeeper.GlobalTime();
-
-			Console.WriteLine(position.Position);
+			
 		}
 
 		public override void Draw()

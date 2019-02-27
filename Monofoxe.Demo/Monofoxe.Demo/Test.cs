@@ -41,7 +41,7 @@ namespace Monofoxe.Demo
 			_test = new ColliderMap(Resources.Maps.Test);
 			_test.Load();
 			
-			new MovingPlatofrm(_test.MapScene["objects"], new Vector2(1000, 100), 8);
+			//new MovingPlatofrm(_test.MapScene["objects"], new Vector2(1000, 100), 8);
 
 			var l = _test.MapScene.CreateLayer("background");
 			l.Priority = 10000;
