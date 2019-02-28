@@ -18,7 +18,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			
 			foreach(SolidComponent solid in components)
 			{
-				solid.Speed = Vector2.Zero;
+				/*solid.Speed = Vector2.Zero;
 
 				if (solid.Collider is TilemapCollider)
 					continue;
@@ -30,7 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 				if (Input.CheckButton(Buttons.Left))
 					solid.Speed.X = -100;
 				if (Input.CheckButton(Buttons.Right))
-					solid.Speed.X = 100;
+					solid.Speed.X = 100;*/
 			}
 
 		}
@@ -39,10 +39,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		{
 			var solid = (SolidComponent)component;
 			var position = solid.Owner.GetComponent<PositionComponent>();
-
-			if (solid.Collider is TilemapCollider)
-				return;			
-
+			
 			if (solid.Collider is PlatformCollider)
 				DrawMgr.CurrentColor = Color.Black * 0.5f;
 			else

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -22,6 +23,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			foreach(PathComponent path in components)
 			{
+				// Updating path.
 				path.PointProgress += TimeKeeper.GlobalTime(path.Speed);
 				
 				var l = BoneLength(path, path.PointID);
@@ -55,7 +57,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					}
 				}
 
-
 				if (path.PointProgress < 0)
 				{
 					path.PointID -= 1;
@@ -87,8 +88,19 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 						// Looped paths.
 					}
 				}
+				// Updating path.
 
 
+				// Updating owner entity position.
+				var position = path.Owner.GetComponent<PositionComponent>();
+				var solid = path.Owner.GetComponent<SolidComponent>();
+			
+				var pathPosition = GetCurrentPosition(path);
+				if (TimeKeeper.GlobalTime() != 0)
+				{
+					solid.Speed = (pathPosition - position.Position) / (float)TimeKeeper.GlobalTime();
+				}
+				// Updating owner entity position.
 			}
 		}
 

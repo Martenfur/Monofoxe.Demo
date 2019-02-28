@@ -18,6 +18,8 @@ namespace Monofoxe.Demo.MapEntityFactories
 			entity.GetComponent<PositionComponent>().Position = rectangle.Position + rectangle.Size / 2f;
 			entity.GetComponent<SolidComponent>().Collider.Size = rectangle.Size;
 
+			entity.GetComponent<SolidComponent>().Visible = true;
+
 			return entity;
 		}
 	}

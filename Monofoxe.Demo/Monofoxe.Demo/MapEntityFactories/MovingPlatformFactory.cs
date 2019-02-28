@@ -1,12 +1,11 @@
-﻿using Monofoxe.Demo.GameLogic.Entities.Core;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure.Objects;
-using Microsoft.Xna.Framework;
-using Monofoxe.Demo.GameLogic.Entities.Gameplay;
-using System.Globalization;
-using System.Collections.Generic;
 
 namespace Monofoxe.Demo.MapEntityFactories
 {

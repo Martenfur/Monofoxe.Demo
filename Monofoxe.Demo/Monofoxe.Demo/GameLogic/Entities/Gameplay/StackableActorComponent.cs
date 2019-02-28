@@ -27,7 +27,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// Walking.
 
-		public float WalkMovementSpeed = 600;
+		public float WalkMovementSpeed = 500;
 		public float MaxMovementSpeed;
 		
 		public float Acceleration; 
@@ -135,6 +135,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		#endregion Animations.
 
+		public StackableActorComponent()
+		{
+			Visible = true;
+		}
 
 		public override object Clone()
 		{

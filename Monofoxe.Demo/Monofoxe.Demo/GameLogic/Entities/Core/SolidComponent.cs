@@ -21,8 +21,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// Entity will move according to this vector. Measured in px/sec.
 		/// </summary>
 		public Vector2 Speed;
-
-
+		
+		
 		public override object Clone()
 		{
 			var c = new SolidComponent();

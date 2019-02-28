@@ -20,7 +20,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public bool Looped = false;
 
-
+		public PathComponent()
+		{
+			Visible = true; // TODO: remove
+		}
 
 		public override object Clone()
 		{

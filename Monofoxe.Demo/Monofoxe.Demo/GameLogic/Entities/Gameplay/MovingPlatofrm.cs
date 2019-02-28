@@ -51,14 +51,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public override void Update()
 		{
-			var position = GetComponent<PositionComponent>();
-			var path = GetComponent<PathComponent>();
-			var solid = GetComponent<SolidComponent>();
-			
-			var pathPosition = PathSystem.GetCurrentPosition(path);
-			//position.Position = pathPosition;
-			if (TimeKeeper.GlobalTime() != 0)
-				solid.Speed = (pathPosition - position.Position) / (float)TimeKeeper.GlobalTime();
 			
 		}
 

@@ -202,6 +202,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		void Jump(PhysicsComponent physics, StackableActorComponent actor)
 		{	
 			physics.Speed.Y = -actor.JumpSpeed;
+			physics.Speed += physics.StandingOn.GetComponent<SolidComponent>().Speed;
+			Console.WriteLine(physics.StandingOn.GetComponent<SolidComponent>().Speed + " SPEED");
 			actor.CanJump = false; 
 			actor.Jumping = true;
 		}
@@ -424,18 +426,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		void UpdateSpeed(StackableActorComponent actor, PhysicsComponent physics)
 		{
-			int horMovement = 0;
-			if (actor.LeftAction)
-			{
-				horMovement += -1;
-			}
-			if (actor.RightAction)
-			{
-				horMovement += 1;
-			}
+			var horMovement = actor.RightAction.ToInt() - actor.LeftAction.ToInt();
 
 			
-			if (horMovement == 0 || Math.Abs(physics.Speed.X) > actor.MaxMovementSpeed)
+			if (horMovement == 0 || (Math.Abs(physics.Speed.X) > actor.MaxMovementSpeed && !actor.RightAction && !actor.LeftAction))
 			{
 				// Slowing down.
 				if (physics.Speed.X != 0)
