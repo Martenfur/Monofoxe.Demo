@@ -10,43 +10,36 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		// Actions.
 
+		// This is component's interface.
+		// AI components should control actor
+		// only through it.
+
 		public bool LeftAction;
 		public bool RightAction;
 		public bool JumpAction;
 		public bool CrouchAction;
 
+		// Actions.
+
 		public bool JumpActionPress;
 		public bool JumpActionPrevious;
 		
-		// Actions.
 
-		public int Height = 32;
-
-		public StateMachine<ActorStates> StateMachine;
+		/// <summary>
+		/// Logic state machine. Controls actor's gameplay states.
+		/// </summary>
+		public StateMachine<ActorStates> LogicStateMachine;
 		
-
-		// Walking.
-
-		public float WalkMovementSpeed = 500;
+		
+		
 		public float MaxMovementSpeed;
-		
 		public float Acceleration; 
-		public float Deceleration; 
+		public float Deceleration; 		
 
-		public float GroundAcceleration = 4000;
-		public float GroundDeceleration = 8000;
-	
-		// Walking.
-		
+		public float Height;
 
 		// In air.
 
-		public float AirAcceleration = 3000;
-		public float AirDeceleration = 5000;
-		
-		public float FallGravity = 3500;
-		
-		public double LandingBufferTime = 0.1;
 		public Alarm LandingBufferAlarm;
 
 		// In air.
@@ -57,10 +50,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public bool Jumping = true;
 		public bool CanJump = true;
 		
-		public float JumpSpeed = 700;
-		public float JumpGravity = 1500;
-
-		public double JumpBufferTime = 0.1;
 		public Alarm JumpBufferAlarm;
 
 		// Jumping.
@@ -68,14 +57,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// Crouching.
 		
-		public int CrouchingHeight = 8;
-
 		public bool Crouching = false;
-
-		public float CrouchMovementSpeed = 60;
-
-		public float CrouchAcceleration = 4000;
-		public float CrouchDeceleration = 400;
 
 		// Crouching.
 		
@@ -102,8 +84,64 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// Stacking.
 
-		#region Aminations.
 
+		#region Customizable properties.
+
+		// Walking.
+
+		/// <summary>
+		/// Maximum walking speed.
+		/// </summary>
+		public float WalkMovementSpeed = 500;
+	
+		public float GroundAcceleration = 4000;
+		public float GroundDeceleration = 8000;
+	
+		// Walking.
+		
+
+		// In air.
+
+		public float AirAcceleration = 3000;
+		public float AirDeceleration = 5000;
+		
+		public float FallGravity = 3500;
+		
+		public double LandingBufferTime = 0.1;
+
+		// In air.
+
+		
+		// Jumping.
+
+		public float JumpSpeed = 700;
+		public float JumpGravity = 1500;
+
+		public double JumpBufferTime = 0.1;
+
+		// Jumping.
+
+
+		// Crouching.
+		
+		public int CrouchingHeight = 8;
+
+		public float CrouchMovementSpeed = 60;
+
+		public float CrouchAcceleration = 4000;
+		public float CrouchDeceleration = 400;
+
+		// Crouching.
+		
+
+		#endregion Customizable properties.
+
+
+		#region Animations.
+
+		/// <summary>
+		/// State machine which controls animations.
+		/// </summary>
 		public StateMachine<ActorAnimationStates> AnimationStateMachine;
 		
 		public Sprite Main = Resources.Sprites.Default.PlayerMain;
@@ -131,7 +169,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		public Vector2 FallMaxScale = new Vector2(0f, 0.4f);
 		public float FallBaseScale = 1000f;
-		
 
 		#endregion Animations.
 
@@ -143,7 +180,25 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override object Clone()
 		{
 			var c = new StackableActorComponent();
-			
+		
+			c.WalkMovementSpeed = WalkMovementSpeed;
+			c.GroundAcceleration = GroundAcceleration;
+			c.GroundDeceleration = GroundDeceleration;
+	
+			c.AirAcceleration = AirAcceleration;
+			c.AirDeceleration = AirDeceleration;
+			c.FallGravity = FallGravity;
+			c.LandingBufferTime = LandingBufferTime;
+
+			c.JumpSpeed = JumpSpeed;
+			c.JumpGravity = JumpGravity;
+			c.JumpBufferTime = JumpBufferTime;
+
+			c.CrouchingHeight = CrouchingHeight;
+			c.CrouchMovementSpeed = CrouchMovementSpeed;
+			c.CrouchAcceleration = CrouchAcceleration;
+			c.CrouchDeceleration = CrouchDeceleration;
+
 			return c;
 		}
 	}

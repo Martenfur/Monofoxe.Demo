@@ -65,3 +65,8 @@
 /processor:TiledMapProcessor
 /build:Maps/test.tmx
 
+#begin Entities/CatEnemy.json
+/importer:EntityTemplateImporter
+/processor:EntityTemplateProcessor
+/build:Entities/CatEnemy.json
+

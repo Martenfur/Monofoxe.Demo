@@ -43,10 +43,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Create(Component component)
 		{
 			var actor = (StackableActorComponent)component;
-			actor.StateMachine = new StateMachine<ActorStates>(ActorStates.OnGround, actor.Owner);
-			actor.StateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter);
-			actor.StateMachine.AddState(ActorStates.InAir, InAir, InAirEnter);
-			actor.StateMachine.AddState(ActorStates.Stacked, Stacked, StackedEnter, StackedExit);
+			actor.LogicStateMachine = new StateMachine<ActorStates>(ActorStates.OnGround, actor.Owner);
+			actor.LogicStateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter);
+			actor.LogicStateMachine.AddState(ActorStates.InAir, InAir, InAirEnter);
+			actor.LogicStateMachine.AddState(ActorStates.Stacked, Stacked, StackedEnter, StackedExit);
 			
 			actor.AnimationStateMachine = new StateMachine<ActorAnimationStates>(ActorAnimationStates.Idle, actor.Owner);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Idle, IdleAnimation, IdleAnimationEnter);
@@ -64,13 +64,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			actor.CurrentSprite = actor.Main;
 
+			actor.Height = actor.Owner.GetComponent<PhysicsComponent>().Collider.Size.Y;
+
 		}
 
 		public override void Update(List<Component> components)
 		{
 			foreach(StackableActorComponent actor in components)
 			{
-				actor.StateMachine.Update();
+				actor.LogicStateMachine.Update();
 				actor.AnimationStateMachine.Update();
 
 				if (actor.StackedPrevious == null && actor.StackedNext != null)
@@ -169,7 +171,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 							if (
 								CollisionDetector.CheckCollision(physics.Collider, otherPhysics.Collider)
-								&& otherActor.StateMachine.CurrentState != ActorStates.Stacked
+								&& otherActor.LogicStateMachine.CurrentState != ActorStates.Stacked
 							)
 							{
 								StackEntity(actor, otherActor);
@@ -202,8 +204,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		void Jump(PhysicsComponent physics, StackableActorComponent actor)
 		{	
 			physics.Speed.Y = -actor.JumpSpeed;
-			physics.Speed += physics.StandingOn.GetComponent<SolidComponent>().Speed;
-			Console.WriteLine(physics.StandingOn.GetComponent<SolidComponent>().Speed + " SPEED");
+			if (physics.StandingOn != null)
+			{
+				physics.Speed += physics.StandingOn.GetComponent<SolidComponent>().Speed;
+			}
 			actor.CanJump = false; 
 			actor.Jumping = true;
 		}
@@ -413,7 +417,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			else
 			{
-				slave.StateMachine.ChangeState(ActorStates.Stacked);
+				slave.LogicStateMachine.ChangeState(ActorStates.Stacked);
 				slave.StackedPrevious = master.Owner;
 				master.StackedNext = slave.Owner;
 			}
@@ -515,8 +519,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
 			
+			// Stacked.
+			if (actor.LogicStateMachine.CurrentState == ActorStates.Stacked)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.Stacked);
+				return;
+			}
+			// Stacked.
+
+
 			// Jumping and falling.
-			if (actor.StateMachine.CurrentState == ActorStates.InAir)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.InAir)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Falling);
 				return;
@@ -525,7 +538,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 			// Walking.
 			if (
-				actor.StateMachine.CurrentState == ActorStates.OnGround 
+				actor.LogicStateMachine.CurrentState == ActorStates.OnGround 
 				&& (actor.LeftAction != actor.RightAction)
 			)
 			{
@@ -535,7 +548,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			// Walking.
 
 			// Crouch.
-			if (actor.StateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
 				return;
@@ -561,7 +574,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			// Idle.
 			if (
-				actor.StateMachine.CurrentState == ActorStates.OnGround 
+				actor.LogicStateMachine.CurrentState == ActorStates.OnGround 
 				&& (actor.LeftAction == actor.RightAction)
 			)
 			{
@@ -569,8 +582,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			// Idle.
 
+			// Stacked.
+			if (actor.LogicStateMachine.CurrentState == ActorStates.Stacked)
+			{
+				newState = ActorAnimationStates.Stacked;
+			}
+			// Stacked.
+
 			// Jumping and falling.
-			if (actor.StateMachine.CurrentState == ActorStates.InAir)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.InAir)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Falling);
 				return;
@@ -578,7 +598,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			// Jumping and falling.
 
 			// Crouching.
-			if (actor.StateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.OnGround && actor.Crouching)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
 				return;
@@ -614,6 +634,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
 			
+			// Stacked.
+			if (actor.LogicStateMachine.CurrentState == ActorStates.Stacked)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.Stacked);
+				return;
+			}
+			// Stacked.
+
 			if (!actor.Crouching)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.CrouchTransition);
@@ -621,7 +649,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 
 			if (
-				actor.StateMachine.CurrentState == ActorStates.OnGround 
+				actor.LogicStateMachine.CurrentState == ActorStates.OnGround 
 				&& (actor.LeftAction != actor.RightAction) 
 			)
 			{
@@ -676,12 +704,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 
 
-			if (actor.StateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
 			{
 				newState = ActorAnimationStates.Idle;
 			}
 
-			if (actor.StateMachine.CurrentState == ActorStates.InAir)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.InAir)
 			{
 				newState = ActorAnimationStates.Falling;
 			}
@@ -719,7 +747,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var newState = stateMachine.CurrentState;
 
 			if (
-				actor.StateMachine.CurrentState == ActorStates.OnGround 
+				actor.LogicStateMachine.CurrentState == ActorStates.OnGround 
 				&& (actor.LeftAction == actor.RightAction)
 			)
 			{
@@ -733,18 +761,24 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				}
 			}
 
-			if (actor.StateMachine.CurrentState == ActorStates.InAir)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.InAir)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Falling);
 				return;
 			}
 
-			if (actor.StateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
+			if (actor.LogicStateMachine.CurrentState == ActorStates.OnGround && !actor.Crouching)
 			{	
 				newState = ActorAnimationStates.CrouchTransition;
 			}
 
-			
+			// Stacked.
+			if (actor.LogicStateMachine.CurrentState == ActorStates.Stacked)
+			{
+				newState = ActorAnimationStates.Stacked;
+			}
+			// Stacked.
+
 
 			if (UpdateAnimation(stateMachine, actor, newState))
 			{
@@ -773,7 +807,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var physics = owner.GetComponent<PhysicsComponent>();
 			
 
-			if (actor.StateMachine.CurrentState != ActorStates.InAir)
+			if (actor.LogicStateMachine.CurrentState != ActorStates.InAir)
 			{
 				stateMachine.ChangeState(ActorAnimationStates.Idle);
 				return;
@@ -837,7 +871,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				{
 					actor.SpriteAnimation = 0f;
 				}
-
 			}
 		
 			DrawMgr.DrawSprite(
@@ -848,17 +881,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				(float)ang, 
 				Color.White
 			);
-			
-			
-			DrawMgr.HorAlign = Engine.Drawing.TextAlign.Center;
-			
-			if (actor.AnimationStateMachine != null)
-			{/*
-				DrawMgr.DrawText(
-					actor.AnimationStateMachine.CurrentState.ToString() + " " + actor.Jumping,
-					position.Position.ToPoint().ToVector2() - Vector2.UnitY * 64
-				);*/
-			}
 			
 		}
 

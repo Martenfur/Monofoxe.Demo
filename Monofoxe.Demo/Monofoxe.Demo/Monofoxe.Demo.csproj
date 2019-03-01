@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="Content\Entities\CatEnemy.json" />
     <None Include="Content\Entities\Player.json" />
     <None Include="Content\Entities\Dummy.json" />
     <Compile Include="Game1.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="GameLogic\Collisions\TilemapCollider.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\CatEnemySystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\CatEnemyComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathSystem.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\MovingPlatformFactory.cs" />
+    <Compile Include="MapEntityFactories\CatEnemyFactory.cs" />
     <Compile Include="MapEntityFactories\PlayerFactory.cs" />
     <Compile Include="MapEntityFactories\PlatformFactory.cs" />
     <Compile Include="MapEntityFactories\SolidFactory.cs" />

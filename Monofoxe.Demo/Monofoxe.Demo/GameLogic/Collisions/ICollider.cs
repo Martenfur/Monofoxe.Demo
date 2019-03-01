@@ -25,5 +25,8 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 		/// AABB size.
 		/// </summary>
 		Vector2 Size {get; set;}
+
+
+		bool Enabled {get; set;}
 	}
 }

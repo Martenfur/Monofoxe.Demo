@@ -5,7 +5,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 	/// <summary>
 	/// Same as rectangle collider, but collides only if entered from top.
 	/// </summary>
-	public struct PlatformCollider : ICollider
+	public class PlatformCollider : ICollider
 	{
 		public ColliderType ColliderType => ColliderType.Platform;
 		public Vector2 Position {get; set;}
@@ -13,6 +13,17 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 
 		public Vector2 Size {get;set;}
 
-		public object Clone() => this;
+		public bool Enabled {get; set;} = true;
+		
+		public object Clone()
+		{
+			var o = new PlatformCollider();
+			o.Position = Position;
+			o.PreviousPosition = o.PreviousPosition;
+			o.Size = Size;
+			o.Enabled = Enabled;
+
+			return o;
+		}
 	}
 }

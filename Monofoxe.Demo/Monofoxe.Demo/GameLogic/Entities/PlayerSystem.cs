@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
-using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -37,19 +34,6 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				actor.RightAction = Input.CheckButton(player.Right);
 				actor.JumpAction = Input.CheckButton(player.Jump);
 				actor.CrouchAction = Input.CheckButton(player.Crouch);
-
-				//Test.Camera.Position = player.Owner.GetComponent<PositionComponent>().Position.Round()
-				
-			}
-
-			if (Input.CheckButtonPress(Buttons.MouseLeft))
-			{
-				Console.WriteLine(SceneMgr.CurrentLayer.Name);
-				var dummy = EntityMgr.CreateEntityFromTemplate(SceneMgr.CurrentLayer, "Dummy");
-				var position = dummy.GetComponent<PositionComponent>();
-				position.Position = Test.Camera.GetRelativeMousePosition();
-				var actor = dummy.GetComponent<StackableActorComponent>();
-				ComponentMgr.InitComponent(actor);
 			}
 		}
 		

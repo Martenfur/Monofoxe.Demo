@@ -54,6 +54,11 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 		/// </summary>
 		public static bool CheckCollision(ICollider collider1, ICollider collider2)
 		{
+			if (!collider1.Enabled || !collider2.Enabled)
+			{
+				return false;
+			}
+
 			/*
 			 * Each collider type has its own unique index.
 			 * We are taking them and retrieving appropriate

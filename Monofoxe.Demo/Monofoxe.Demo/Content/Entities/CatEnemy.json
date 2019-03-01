@@ -1,5 +1,5 @@
 ﻿{
-	"tag": "Player",
+	"tag": "CatEnemy",
 	"components": 
 	{
 		"PhysicsComponent":
@@ -7,10 +7,7 @@
 			"collider": {"type": "rectangle", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {},
-		"PlayerComponent": {},
-
-		"StackableActorComponent": {}
+		"StackableActorComponent": {"walkMovementSpeed":  100},
+		"CatEnemyComponent": {}
 	}
 }
-
-
