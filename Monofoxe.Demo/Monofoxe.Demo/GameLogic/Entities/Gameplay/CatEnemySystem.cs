@@ -29,14 +29,15 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			foreach(CatEnemyComponent gato in components)
 			{
 				var physics = gato.Owner.GetComponent<PhysicsComponent>();
-				var position = gato.Owner.GetComponent<PositionComponent>();
 				var actor = gato.Owner.GetComponent<StackableActorComponent>();
 
 				actor.LeftAction = (gato.Direction == -1);
 				actor.RightAction = (gato.Direction == 1); 
 				
-				if (!physics.InAir)
+				if (actor.LogicStateMachine.CurrentState == ActorStates.OnGround)
 				{
+					var position = gato.Owner.GetComponent<PositionComponent>();
+					
 					// Checking if there is a wall next to us.
 					physics.Collider.Position = position.Position 
 						+ Vector2.UnitX * gato.Direction * physics.Collider.Size.X / 2;

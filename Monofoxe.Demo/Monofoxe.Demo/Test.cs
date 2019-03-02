@@ -1,16 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Monofoxe.Demo.GameLogic;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils.Cameras;
-using Resources.Sprites;
-using Microsoft.Xna.Framework.Graphics;
-using Monofoxe.Demo.GameLogic.Entities.Core;
-using System;
 using Monofoxe.Tiled;
-using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Demo.GameLogic;
-using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo
@@ -18,6 +15,8 @@ namespace Monofoxe.Demo
 	public class Test : Entity
 	{
 		public static Camera Camera = new Camera(1000, 800);
+
+		public static RandomExt Random = new RandomExt();
 
 		Map _test;
 		public Test() : base(SceneMgr.GetScene("default")["default"])
@@ -30,7 +29,7 @@ namespace Monofoxe.Demo
 
 			DrawMgr.CurrentFont = Resources.Fonts.Arial;
 
-			GameMgr.WindowManager.CanvasSize = new Vector2(1000, 800);
+			GameMgr.WindowManager.CanvasSize = new Vector2(800, 600);
 			GameMgr.WindowManager.Window.AllowUserResizing = false;
 			GameMgr.WindowManager.ApplyChanges();
 			GameMgr.WindowManager.CenterWindow();
@@ -41,8 +40,6 @@ namespace Monofoxe.Demo
 			_test = new ColliderMap(Resources.Maps.Test);
 			_test.Load();
 			
-			//new MovingPlatofrm(_test.MapScene["objects"], new Vector2(1000, 100), 8);
-
 			var l = _test.MapScene.CreateLayer("background");
 			l.Priority = 10000;
 

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
-using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.ECS;
-using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Engine.SceneSystem;
+using Monofoxe.Engine.Utils;
 
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
@@ -14,9 +14,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 	public enum ActorStates
 	{
 		OnGround,
-		Running,
 		InAir,
 		Stacked,
+		Dead,
 	}
 
 	public enum ActorAnimationStates
@@ -28,6 +28,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		Crouching,
 		Crawling,
 		Stacked,
+		Dead,
 	}
 
 
@@ -37,9 +38,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public override Type ComponentType => typeof(StackableActorComponent);
 
-		//public override int Priority => 1;
-
-
+		
 		public override void Create(Component component)
 		{
 			var actor = (StackableActorComponent)component;
@@ -47,7 +46,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.LogicStateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter);
 			actor.LogicStateMachine.AddState(ActorStates.InAir, InAir, InAirEnter);
 			actor.LogicStateMachine.AddState(ActorStates.Stacked, Stacked, StackedEnter, StackedExit);
-			
+			actor.LogicStateMachine.AddState(ActorStates.Dead, Dead, DeadEnter);
+
 			actor.AnimationStateMachine = new StateMachine<ActorAnimationStates>(ActorAnimationStates.Idle, actor.Owner);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Idle, IdleAnimation, IdleAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Falling, FallAnimation, FallAnimationEnter);
@@ -171,7 +171,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 							if (
 								CollisionDetector.CheckCollision(physics.Collider, otherPhysics.Collider)
-								&& otherActor.LogicStateMachine.CurrentState != ActorStates.Stacked
+								&& otherActor.LogicStateMachine.CurrentState == ActorStates.OnGround
 							)
 							{
 								StackEntity(actor, otherActor);
@@ -329,10 +329,32 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = owner.GetComponent<PositionComponent>();
 			var physics = owner.GetComponent<PhysicsComponent>();
 
-			if (actor.StackedPrevious == null || actor.StackedPrevious.Destroyed)
+			if (
+				actor.StackedPrevious == null 
+				|| actor.StackedPrevious.Destroyed 
+				|| actor.StackedPrevious.GetComponent<StackableActorComponent>().LogicStateMachine.CurrentState == ActorStates.Dead
+			)
 			{
-				stateMachine.ChangeState(ActorStates.InAir);
+				stateMachine.ChangeState(ActorStates.Dead);
+				return;
 			}
+
+
+			var collider = (ICollider)physics.Collider.Clone();
+			
+			collider.Position = position.Position;
+			collider.PreviousPosition = position.Position; 
+			// Making collider a bit smaller, so actor will not die to everything.
+			collider.Size /= 3f; 
+
+			var colliderEntity = PhysicsSystem.CheckCollision(physics.Owner, collider);
+
+			if (colliderEntity != null && !(colliderEntity.GetComponent<SolidComponent>().Collider is PlatformCollider))
+			{
+				stateMachine.ChangeState(ActorStates.Dead);
+				return;
+			}
+			
 		}
 		
 		void StackedUpdate(StackableActorComponent actor, float baseDirection)
@@ -423,9 +445,48 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 		}
 
-
 		#endregion Stacked.
 
+		#region Dead.
+
+		void DeadEnter(StateMachine<ActorStates> stateMachine, Entity owner)
+		{
+			var physics = owner.GetComponent<PhysicsComponent>();
+			var actor = owner.GetComponent<StackableActorComponent>();
+			
+			actor.StackedPrevious.GetComponent<StackableActorComponent>().StackedNext = null;
+			actor.StackedPrevious = null;	
+
+			physics.Collider.Enabled = false; // Disabling collisions.
+
+			// Applying some speed for cool flying off the screen.
+			physics.Speed = new Vector2(
+				(float)Test.Random.NextDouble(actor.DeadMinSpeed.X, actor.DeadMaxSpeed.X) * Test.Random.Choose(-1, 1), 
+				(float)Test.Random.NextDouble(actor.DeadMinSpeed.Y, actor.DeadMaxSpeed.Y)
+			);
+			
+			physics.Gravity = actor.DeadGravity;
+		}
+
+		
+		void Dead(StateMachine<ActorStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			var position = owner.GetComponent<PositionComponent>();
+			var physics = owner.GetComponent<PhysicsComponent>();
+			
+			position.Position.Y += 4;
+
+			var camera = SceneMgr.CurrentScene.GetEntityList<GameCamera>()[0];
+			
+			if (!GameMath.PointInRectangle(position.Position, camera.Camera.Position - camera.Camera.Size, camera.Camera.Position + camera.Camera.Size))
+			{
+				EntityMgr.DestroyEntity(actor.Owner);
+			}
+		}
+		
+		#endregion Dead.
+		
 
 
 		void UpdateSpeed(StackableActorComponent actor, PhysicsComponent physics)
@@ -835,9 +896,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		void StackedAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			var master = actor.StackedPrevious.GetComponent<StackableActorComponent>();
 
-			//actor.Orientation.
+			if (actor.StackedPrevious != null)
+			{
+				var master = actor.StackedPrevious.GetComponent<StackableActorComponent>();
+			}
+
 		}
 
 		#endregion Animations.
@@ -850,11 +914,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = component.Owner.GetComponent<PositionComponent>();
 			var actor = component.Owner.GetComponent<StackableActorComponent>();
 
+			// Drawing the stack.
 			if (actor.StackedNext != null)
 			{
+				// Stack needs to be drawn recursively.
 				Draw(actor.StackedNext.GetComponent<StackableActorComponent>());
 			}
-			
+			// Drawing the stack.
 
 			var ang = 0.0;
 			if (actor.StackedPrevious != null)
@@ -872,6 +938,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					actor.SpriteAnimation = 0f;
 				}
 			}
+			if (actor.LogicStateMachine.CurrentState == ActorStates.Dead)
+			{
+				ang = GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
+			}
+
 		
 			DrawMgr.DrawSprite(
 				actor.CurrentSprite, 
@@ -881,7 +952,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				(float)ang, 
 				Color.White
 			);
-			
 		}
 
 

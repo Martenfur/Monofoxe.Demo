@@ -4,6 +4,7 @@ using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
+using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -34,6 +35,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				actor.RightAction = Input.CheckButton(player.Right);
 				actor.JumpAction = Input.CheckButton(player.Jump);
 				actor.CrouchAction = Input.CheckButton(player.Crouch);
+				
 			}
 		}
 		
