@@ -492,9 +492,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		void UpdateSpeed(StackableActorComponent actor, PhysicsComponent physics)
 		{
 			var horMovement = actor.RightAction.ToInt() - actor.LeftAction.ToInt();
-
 			
-			if (horMovement == 0 || (Math.Abs(physics.Speed.X) > actor.MaxMovementSpeed && !actor.RightAction && !actor.LeftAction))
+			if (
+				horMovement == 0 
+				|| (
+					Math.Abs(physics.Speed.X) > actor.MaxMovementSpeed 
+					&& ((!actor.RightAction && !actor.LeftAction) || actor.Crouching)
+				)
+			)
 			{
 				// Slowing down.
 				if (physics.Speed.X != 0)
