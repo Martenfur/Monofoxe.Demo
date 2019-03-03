@@ -41,7 +41,6 @@ namespace Monofoxe.Demo
 		protected override void LoadContent()
 		{
 			DrawMgr.Init(GraphicsDevice);
-			EntityMgr.LoadEntityTemplates();
 			//189
 			//114
 			Resources.Sprites.Default.Load();	
@@ -49,6 +48,7 @@ namespace Monofoxe.Demo
 			Resources.Effects.Load();
 			Resources.Maps.Load();
 			
+			EntityMgr.LoadEntityTemplates();
 		}
 
 		/// <summary>

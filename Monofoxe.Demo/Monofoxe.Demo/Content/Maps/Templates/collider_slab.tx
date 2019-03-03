@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
- <object name="gato" type="catEnemy">
-  <point/>
- </object>
+ <object name="slab" type="rectangle" width="48" height="24"/>
 </template>

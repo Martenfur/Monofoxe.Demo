@@ -15,14 +15,14 @@ namespace Monofoxe.Demo.GameLogic
 	/// <summary>
 	/// Custom map builder. Adds tilemap collision functionality to regular tilemap.
 	/// </summary>
-	public class ColliderMap : Map
+	public class ColliderMapBuilder : MapBuilder
 	{
 		private const string _typeProperty = "type";
 		private const string _rectangleName = "rectangle";
 		private const string _platformName = "platform";
 		
 
-		public ColliderMap(TiledMap tiledMap) : base(tiledMap) {}
+		public ColliderMapBuilder(TiledMap tiledMap) : base(tiledMap) {}
 		
 
 		protected override List<Tileset> BuildTilesets(TiledMapTileset[] tilesets)
@@ -108,7 +108,7 @@ namespace Monofoxe.Demo.GameLogic
 				{
 					mode = (TilesetTileCollisionMode)Enum.Parse(typeof(TilesetTileCollisionMode), tiledTile.Properties[_typeProperty]);
 				}
-				catch(Exception e) {}
+				catch(Exception) {}
 				// Getting collision mode of a tile.
 
 				ColliderTilesetTile tilesetTile;

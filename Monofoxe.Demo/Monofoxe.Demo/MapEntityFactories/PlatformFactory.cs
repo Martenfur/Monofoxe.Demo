@@ -10,7 +10,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 	{
 		public string Tag => "platform";
 
-		public Entity Make(TiledObject obj, Layer layer, Map map)
+		public Entity Make(TiledObject obj, Layer layer, MapBuilder map)
 		{
 			var rectangle = (TiledRectangleObject)obj;
 

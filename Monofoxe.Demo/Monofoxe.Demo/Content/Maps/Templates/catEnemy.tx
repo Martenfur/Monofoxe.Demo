@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <tileset firstgid="1" source="Template Sprites/template_sprites.tsx"/>
- <object name="foxe" type="player" gid="2" width="60" height="55"/>
+ <object name="gato" type="catEnemy" gid="1" width="63" height="52"/>
 </template>

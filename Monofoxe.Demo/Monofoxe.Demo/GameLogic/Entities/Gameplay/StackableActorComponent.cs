@@ -2,6 +2,8 @@
 using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.Drawing;
 using Microsoft.Xna.Framework;
+using Monofoxe.Engine.Converters;
+using Newtonsoft.Json;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -151,7 +153,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		/// </summary>
 		public StateMachine<ActorAnimationStates> AnimationStateMachine;
 		
+		[JsonConverter(typeof(SpriteConverter))]
 		public Sprite Main = Resources.Sprites.Default.PlayerMain;
+
 		public Sprite CurrentSprite;
 		public double SpriteAnimation = 0;
 		public Vector2 SpriteScale = Vector2.One;
@@ -205,6 +209,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			c.CrouchMovementSpeed = CrouchMovementSpeed;
 			c.CrouchAcceleration = CrouchAcceleration;
 			c.CrouchDeceleration = CrouchDeceleration;
+
+			c.Main = Main;
 
 			return c;
 		}

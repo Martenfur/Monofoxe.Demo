@@ -11,9 +11,9 @@ namespace Monofoxe.Demo.MapEntityFactories
 	{
 		public string Tag => "player";
 
-		public Entity Make(TiledObject obj, Layer layer, Map map)
+		public Entity Make(TiledObject obj, Layer layer, MapBuilder map)
 		{
-			var point = (TiledPointObject)obj;
+			var point = (TiledTileObject)obj;
 
 			var entity = EntityMgr.CreateEntityFromTemplate(layer, "Player");
 			entity.GetComponent<PositionComponent>().Position = point.Position;

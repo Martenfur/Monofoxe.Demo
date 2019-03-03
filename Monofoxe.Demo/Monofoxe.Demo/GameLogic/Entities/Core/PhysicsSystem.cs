@@ -73,6 +73,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					// Moving entity along with solid object.
 					cPhysics.PosAdd = cPhysics.StandingOn.GetComponent<SolidComponent>().Speed * (float)TimeKeeper.GlobalTime();
 					
+					//var r = cPhysics.StandingOn.GetComponent<PositionComponent>().Position;
+
+					//cPosition.Position = new Vector2(FractionX(cPosition.Position, r), FractionY(cPosition.Position, r));
+
 					// On the ground.
 				}
 			}
@@ -128,6 +132,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					var colliderSolid = cPhysics.CollidedSolidH.GetComponent<SolidComponent>();
 					
 					cPhysics.Squashed = true;
+					
+					
 					for(var x = 0; x <= Math.Abs(relativeSpeed.X) + 1; x += 1)
 					{
 						collider.Position -= Vector2.UnitX * sign;
@@ -149,6 +155,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					
 				}
 			}
+		}
+
+		private float FractionX(Vector2 position, Vector2 reference)
+		{
+			var coordinateFraction = reference.X - (int)reference.X;
+			return (int)position.X + coordinateFraction;
+		}
+		private float FractionY(Vector2 position, Vector2 reference)
+		{
+			var coordinateFraction = reference.Y - (int)reference.Y;
+			return position.Floor().Y - coordinateFraction;
 		}
 
 
@@ -173,6 +190,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 				collider.PreviousPosition = cPosition.PreviousPosition;		
 				
 				cPhysics.CollidedSolidV = CheckCollision(cPhysics.Owner, collider);
+				
 				if (cPhysics.CollidedSolidV != null)
 				{
 					var solidEntityPosition = cPhysics.CollidedSolidV.GetComponent<PositionComponent>();
@@ -186,6 +204,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					}
 					
 					cPhysics.Squashed = true;
+
+					var colliderPos = cPhysics.CollidedSolidV.GetComponent<PositionComponent>();
+					var colliderSolid = cPhysics.CollidedSolidV.GetComponent<SolidComponent>();
+
+					cPosition.Position.Y = FractionY(cPosition.Position, cPhysics.CollidedSolidV.GetComponent<PositionComponent>().Position);
+					
 					for(var y = 0; y <= Math.Abs(relativeSpeed.Y) + 1; y += 1)
 					{
 						collider.Position -= Vector2.UnitY * sign;
@@ -195,7 +219,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 						{
 							cPhysics.Speed.Y = 0;
 							cPosition.Position = collider.Position;
+							cPosition.Position.Y = FractionY(cPosition.Position, cPhysics.CollidedSolidV.GetComponent<PositionComponent>().Position);
+							Console.WriteLine("MY POS: " + cPosition.Position.Y);
 							cPhysics.CollisionV = sign;	
+
 							cPhysics.Squashed = false;
 							break;
 						}

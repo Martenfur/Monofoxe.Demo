@@ -18,7 +18,7 @@ namespace Monofoxe.Demo
 
 		public static RandomExt Random = new RandomExt();
 
-		Map _test;
+		MapBuilder _test;
 		public Test() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
@@ -37,10 +37,10 @@ namespace Monofoxe.Demo
 			
 			DrawMgr.Sampler = SamplerState.PointClamp;
 			
-			_test = new ColliderMap(Resources.Maps.Test);
-			_test.Load();
+			_test = new ColliderMapBuilder(Resources.Maps.Test);
+			_test.Build();
 			
-			var l = _test.MapScene.CreateLayer("background");
+			var l = _test.MapScene.CreateLayer("background1");
 			l.Priority = 10000;
 
 			new Background(l);

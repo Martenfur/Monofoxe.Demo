@@ -47,7 +47,7 @@
     <None Include="Content\Entities\Dummy.json" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameLogic\Background.cs" />
-    <Compile Include="GameLogic\ColliderMap.cs" />
+    <Compile Include="GameLogic\ColliderMapBuilder.cs" />
     <Compile Include="GameLogic\Collisions\ColliderType.cs" />
     <Compile Include="GameLogic\Collisions\CollisionDetector.cs" />
     <Compile Include="GameLogic\Collisions\ICollider.cs" />

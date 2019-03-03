@@ -13,7 +13,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 	{
 		public string Tag => "MovingPlatform";
 
-		public Entity Make(TiledObject obj, Layer layer, Map map)
+		public Entity Make(TiledObject obj, Layer layer, MapBuilder map)
 		{
 			var poly = (TiledPolygonObject)obj;
 
