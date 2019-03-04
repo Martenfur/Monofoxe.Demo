@@ -21,12 +21,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		[JsonConverter(typeof(Vector2Converter))]
 		public Vector2 Speed;
 		
+		public Vector2 FractionAccumulator;
+
 		/// <summary>
 		/// Entity will move once per frame according to this vector. Measured in px.
 		/// NOTE: This is a variable exclusive for PhysicsSystem usage. 
 		/// Trying to set it yourself will give no result.
 		/// </summary>
-		public Vector2 PosAdd;
+		public Vector2 OneFrameMovement;
 		
 		/// <summary>
 		/// Collider, which collides with solids.

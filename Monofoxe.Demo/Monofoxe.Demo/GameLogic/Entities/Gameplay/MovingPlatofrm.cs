@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
-using Monofoxe.Engine.Utils;
-using Microsoft.Xna.Framework;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Demo.GameLogic.Entities;
-using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Demo.GameLogic.Entities.Core;
+using Monofoxe.Engine.Utils;
 
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
@@ -35,7 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var cPosition = new PositionComponent(position);
 			var cSolid = new SolidComponent();
 			
-			var collider = new PlatformCollider();
+			var collider = new RectangleCollider();
 			collider.Size = new Vector2(width * BaseSize, BaseSize / HeightDivider);
 			cSolid.Collider = collider;
 
@@ -43,6 +38,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			cPath.Position = cPosition.Position;
 			cPath.Points = pathPoints;
+			for(var i = 0; i < cPath.Points.Count; i += 1)
+			{
+				cPath.Points[i] = cPath.Points[i].Round();
+			}
 			cPath.Speed = pathSpeed;
 			cPath.Looped = looped;
 

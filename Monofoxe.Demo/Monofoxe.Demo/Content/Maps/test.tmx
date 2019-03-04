@@ -252,8 +252,5 @@
    <polygon points="0,0 0,144 111,181 212,138 265,7 174,-80 57,-109"/>
   </object>
   <object id="67" template="Templates/player.tx" x="201.333" y="922.667"/>
-  <object id="68" template="Templates/catEnemy.tx" x="490.333" y="877.333"/>
-  <object id="69" template="Templates/catEnemy.tx" x="668.5" y="829"/>
-  <object id="70" template="Templates/catEnemy.tx" x="918.5" y="824"/>
  </objectgroup>
 </map>

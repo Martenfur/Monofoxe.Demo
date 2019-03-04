@@ -98,10 +98,10 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 
 			if ( // If rectangle enters platform from above.
 				rectangle.PreviousPosition.Y + rectangle.Size.Y / 2f 
-				< platform.PreviousPosition.Y - platform.Size.Y / 2f
+				<= platform.PreviousPosition.Y - platform.Size.Y / 2f
 				&&
 				rectangle.Position.Y + rectangle.Size.Y / 2f
-				> platform.Position.Y - platform.Size.Y / 2f
+				>= platform.Position.Y - platform.Size.Y / 2f
 			)
 			{
 				return GameMath.RectangleInRectangleBySize(

@@ -31,7 +31,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		Dead,
 	}
 
-
 	public class StackableActorSystem : BaseSystem
 	{
 	
@@ -948,6 +947,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				ang = GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
 			}
 
+			var color = Color.White;
+
+			if (physics.Squashed)
+			{
+				color = Color.Red;
+			}
 		
 			DrawMgr.DrawSprite(
 				actor.CurrentSprite, 
@@ -955,7 +960,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset, 
 				actor.SpriteScale * new Vector2(actor.Orientation, 1f), 
 				(float)ang, 
-				Color.White
+				color
 			);
 		}
 
