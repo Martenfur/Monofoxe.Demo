@@ -38,10 +38,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			cPath.Position = cPosition.Position;
 			cPath.Points = pathPoints;
-			for(var i = 0; i < cPath.Points.Count; i += 1)
-			{
-				cPath.Points[i] = cPath.Points[i].Round();
-			}
 			cPath.Speed = pathSpeed;
 			cPath.Looped = looped;
 

@@ -71,6 +71,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public float StackDirectionOffsetTarget;
 		public float StackDirectionMaxOffset = 3;
 		
+		public int StackLimit = 8;
 
 		public float PendulumMomentum;
 		public float PendulumMomentumMax = 15;

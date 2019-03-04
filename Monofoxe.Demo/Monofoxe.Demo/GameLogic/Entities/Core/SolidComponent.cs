@@ -22,8 +22,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// </summary>
 		public Vector2 Speed;
 		
-		public Vector2 FractionAccumulator;
-		
 		
 		public override object Clone()
 		{

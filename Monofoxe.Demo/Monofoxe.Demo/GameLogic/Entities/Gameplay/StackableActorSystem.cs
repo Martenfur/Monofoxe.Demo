@@ -76,7 +76,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 				if (actor.StackedPrevious == null && actor.StackedNext != null)
 				{
-					StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), 90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 3);
+					StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), 90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 3, 1);
 				}
 
 				// Maybe all this could be packed into class.
@@ -356,7 +356,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 		}
 		
-		void StackedUpdate(StackableActorComponent actor, float baseDirection)
+		void StackedUpdate(StackableActorComponent actor, float baseDirection, int stackIndex)
 		{
 			var position = actor.Owner.GetComponent<PositionComponent>();
 			var physics = actor.Owner.GetComponent<PhysicsComponent>();
@@ -425,7 +425,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 			if (actor.StackedNext != null)
 			{
-				StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), baseDirection + actor.StackDirectionOffset);
+				StackedUpdate(
+					actor.StackedNext.GetComponent<StackableActorComponent>(), 
+					baseDirection + actor.StackDirectionOffset, 
+					stackIndex + 1
+				);
+			}
+
+			if (stackIndex > actor.StackLimit)
+			{
+				actor.LogicStateMachine.ChangeState(ActorStates.Dead);
 			}
 
 		}
@@ -445,6 +454,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		}
 
 		#endregion Stacked.
+
+
 
 		#region Dead.
 
