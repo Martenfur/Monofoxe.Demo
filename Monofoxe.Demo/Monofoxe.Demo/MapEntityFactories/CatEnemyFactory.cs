@@ -9,15 +9,13 @@ namespace Monofoxe.Demo.MapEntityFactories
 	public class CatEnemyFactory : ITiledEntityFactory
 	{
 		public string Tag => "catEnemy";
-		public static int counter = 0;
-
+		
 		public Entity Make(TiledObject obj, Layer layer, MapBuilder map)
 		{
-			var point = (TiledTileObject)obj;
+			var tile = (TiledTileObject)obj;
 			
 			var entity = EntityMgr.CreateEntityFromTemplate(layer, Tag);
-			entity.GetComponent<PositionComponent>().Position = point.Position;
-			counter += 1;
+			entity.GetComponent<PositionComponent>().Position = tile.Position;
 			
 			return entity;
 		}

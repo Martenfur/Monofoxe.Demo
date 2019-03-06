@@ -12,14 +12,14 @@ using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo
 {
-	public class Test : Entity
+	public class GameplayController : Entity
 	{
 		public static Camera Camera = new Camera(1000, 800);
 
 		public static RandomExt Random = new RandomExt();
 
 		MapBuilder _test;
-		public Test() : base(SceneMgr.GetScene("default")["default"])
+		public GameplayController() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
 			GameMgr.MaxGameSpeed = 60;

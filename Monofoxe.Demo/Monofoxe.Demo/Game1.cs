@@ -28,10 +28,10 @@ namespace Monofoxe.Demo
 		{
 			base.Initialize();
 			
-			AudioMgr.Init();
+			AudioMgr.Init(AssetMgr.ContentDir + '/' + AssetMgr.AudioDir + '/');
 			MapMgr.Init();
 
-			new Test();
+			new GameplayController();
 		}
 
 		/// <summary>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="83">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="88">
  <tileset firstgid="1" source="Tilesets/test.tsx"/>
  <tileset firstgid="73" source="Templates/Template Sprites/template_sprites.tsx"/>
  <layer id="3" name="Background" width="100" height="100">
@@ -252,17 +252,18 @@
    <polygon points="0,0 0,144 111,181 212,138 265,7 174,-80 57,-109"/>
   </object>
   <object id="67" template="Templates/player.tx" x="201.333" y="922.667"/>
-  <object id="71" template="Templates/catEnemy.tx" x="926" y="775"/>
-  <object id="72" template="Templates/catEnemy.tx" x="853" y="784"/>
-  <object id="73" template="Templates/catEnemy.tx" x="755" y="773"/>
-  <object id="74" template="Templates/catEnemy.tx" x="670" y="710"/>
-  <object id="75" template="Templates/catEnemy.tx" x="546" y="819"/>
-  <object id="76" template="Templates/catEnemy.tx" x="668" y="815"/>
   <object id="77" template="Templates/catEnemy.tx" x="1038" y="825"/>
-  <object id="78" template="Templates/catEnemy.tx" x="859" y="667"/>
-  <object id="79" template="Templates/catEnemy.tx" x="789" y="680"/>
   <object id="80" template="Templates/catEnemy.tx" x="381" y="750"/>
   <object id="81" template="Templates/catEnemy.tx" x="591" y="1176"/>
   <object id="82" template="Templates/catEnemy.tx" x="863" y="1171"/>
+  <object id="83" template="Templates/watermelon.tx" x="974.667" y="821"/>
+  <object id="84" template="Templates/watermelon.tx" x="887.5" y="817.667"/>
+  <object id="85" template="Templates/watermelon.tx" x="836.833" y="739"/>
+  <object id="86" template="Templates/watermelonSpawner.tx" x="528" y="912"/>
+  <object id="87" template="Templates/watermelonSpawner.tx" x="672" y="864">
+   <properties>
+    <property name="spawnMode" value="OnStacked"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

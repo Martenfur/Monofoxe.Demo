@@ -19,7 +19,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		{
 			var player = (PlayerComponent)component;
 
-			var cam = new GameCamera(player.Owner.Layer, Test.Camera);
+			var cam = new GameCamera(player.Owner.Layer, GameplayController.Camera);
 			cam.Target = player.Owner.GetComponent<PositionComponent>();
 		}
 

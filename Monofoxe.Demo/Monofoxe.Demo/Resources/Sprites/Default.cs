@@ -19,7 +19,9 @@ namespace Resources.Sprites
 		public static Sprite Forest1;
 		public static Sprite Forest2;
 		public static Sprite Sun;
+		public static Sprite WatermelonStem;
 		public static Sprite PlayerMain;
+		public static Sprite Watermelon;
 		public static Sprite Gato;
 		public static Sprite Platform;
 		#endregion Sprites.
@@ -42,7 +44,9 @@ namespace Resources.Sprites
 			Forest1 = sprites["Background/forest1"];
 			Forest2 = sprites["Background/forest2"];
 			Sun = sprites["Background/sun"];
+			WatermelonStem = sprites["watermelon_stem"];
 			PlayerMain = sprites["Characters/player_main"];
+			Watermelon = sprites["Characters/watermelon"];
 			Gato = sprites["Characters/gato"];
 			Platform = sprites["Platform"];
 			

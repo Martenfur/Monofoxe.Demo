@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="Content\Entities\Watermelon.json" />
     <None Include="Content\Entities\CatEnemy.json" />
     <None Include="Content\Entities\Player.json" />
     <None Include="Content\Entities\Dummy.json" />
@@ -72,7 +73,10 @@
     <Compile Include="GameLogic\GameCamera.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
+    <Compile Include="MapEntityFactories\WatermelonSpawnerFactory.cs" />
+    <Compile Include="MapEntityFactories\WatermelonFactory.cs" />
     <Compile Include="MapEntityFactories\MovingPlatformFactory.cs" />
     <Compile Include="MapEntityFactories\CatEnemyFactory.cs" />
     <Compile Include="MapEntityFactories\PlayerFactory.cs" />
@@ -85,7 +89,7 @@
     <Compile Include="Resources\Fonts.cs" />
     <Compile Include="Resources\Maps.cs" />
     <Compile Include="Resources\Sprites\Default.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="GameplayController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Effects\AlphaBlend.fx" />

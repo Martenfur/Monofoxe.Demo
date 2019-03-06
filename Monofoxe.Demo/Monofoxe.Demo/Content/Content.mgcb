@@ -70,3 +70,8 @@
 /processor:EntityTemplateProcessor
 /build:Entities/CatEnemy.json
 
+#begin Entities/Watermelon.json
+/importer:EntityTemplateImporter
+/processor:EntityTemplateProcessor
+/build:Entities/Watermelon.json
+

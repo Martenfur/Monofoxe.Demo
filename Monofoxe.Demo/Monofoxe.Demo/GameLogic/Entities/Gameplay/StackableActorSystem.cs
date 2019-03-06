@@ -471,8 +471,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			// Applying some speed for cool flying off the screen.
 			physics.Speed = new Vector2(
-				(float)Test.Random.NextDouble(actor.DeadMinSpeed.X, actor.DeadMaxSpeed.X) * Test.Random.Choose(-1, 1), 
-				(float)Test.Random.NextDouble(actor.DeadMinSpeed.Y, actor.DeadMaxSpeed.Y)
+				(float)GameplayController.Random.NextDouble(actor.DeadMinSpeed.X, actor.DeadMaxSpeed.X) * GameplayController.Random.Choose(-1, 1), 
+				(float)GameplayController.Random.NextDouble(actor.DeadMinSpeed.Y, actor.DeadMaxSpeed.Y)
 			);
 			
 			physics.Gravity = actor.DeadGravity;

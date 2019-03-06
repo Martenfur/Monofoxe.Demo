@@ -1,0 +1,12 @@
+﻿{
+	"tag": "Watermelon",
+	"components": 
+	{
+		"PhysicsComponent":
+		{
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
+		},
+		"PositionComponent": {},
+		"StackableActorComponent": {"walkMovementSpeed":  100, "main": "Default.Watermelon"}
+	}
+}
