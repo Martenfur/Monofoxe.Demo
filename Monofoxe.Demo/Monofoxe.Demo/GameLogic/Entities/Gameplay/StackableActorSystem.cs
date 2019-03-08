@@ -61,7 +61,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.JumpBufferAlarm = new Alarm();
 			actor.LandingBufferAlarm = new Alarm();
 
-			actor.CurrentSprite = actor.Main;
+			actor.CurrentSprite = actor.MainSprite;
 
 			actor.Height = actor.Owner.GetComponent<PhysicsComponent>().Collider.Size.Y;
 
@@ -561,7 +561,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		void ResetAnimation(StackableActorComponent actor)
 		{
-			actor.CurrentSprite = actor.Main;
+			actor.CurrentSprite = actor.MainSprite;
 			actor.Animation = 0;
 			actor.SpriteAnimation = 0;
 			actor.AnimationSpeed = actor.WalkAnimationSpeed;

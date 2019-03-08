@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <tileset firstgid="1" source="Template Sprites/template_sprites.tsx"/>
- <object name="watermelonSpawner" type="watermelonSpawner" gid="4" width="39" height="56">
+ <object name="WatermelonSpawner" type="WatermelonSpawner" gid="4" width="39" height="56">
   <properties>
+   <property name="spawnEntity" value="watermelon"/>
    <property name="spawnMode" value="OnDestroyed"/>
   </properties>
  </object>

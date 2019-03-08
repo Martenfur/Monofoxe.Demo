@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.2" name="template_sprites" tilewidth="63" tileheight="56" tilecount="4" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
+ <properties>
+  <property name="__ignoreTileset" value="false"/>
+  <property name="test" value="toast"/>
+ </properties>
  <tile id="0">
-  <properties>
-   <property name="__ignoreTilesetTexture" value="true"/>
-  </properties>
   <image width="63" height="52" source="gato.png"/>
  </tile>
  <tile id="1">

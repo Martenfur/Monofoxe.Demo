@@ -7,6 +7,6 @@
 			"collider": {"type": "rectangle", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {},
-		"StackableActorComponent": {"walkMovementSpeed":  100, "main": "Default.Watermelon"}
+		"StackableActorComponent": {"walkMovementSpeed":  100, "mainSprite": "Default.Watermelon"}
 	}
 }

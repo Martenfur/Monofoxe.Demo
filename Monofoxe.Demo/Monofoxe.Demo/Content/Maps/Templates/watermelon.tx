@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <tileset firstgid="1" source="Template Sprites/template_sprites.tsx"/>
- <object name="watermelon" type="watermelon" gid="3" width="49" height="54"/>
+ <object name="Watermelon" type="Watermelon" gid="3" width="49" height="54"/>
 </template>

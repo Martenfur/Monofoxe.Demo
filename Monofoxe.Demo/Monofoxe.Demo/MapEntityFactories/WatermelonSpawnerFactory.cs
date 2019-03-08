@@ -17,11 +17,13 @@ namespace Monofoxe.Demo.MapEntityFactories
 		{
 			var tile = (TiledTileObject)obj;
 			
+			Console.WriteLine("tileset: " + (tile.Tileset.Textures == null) + " " + tile.GID + " " + tile.Tileset.Name);
 
 			var entity = new WatermelonSpawner(
 				layer, 
 				tile.Position, 
-				(SpawnMode)Enum.Parse(typeof(SpawnMode), tile.Properties["spawnMode"])
+				(SpawnMode)Enum.Parse(typeof(SpawnMode), tile.Properties["spawnMode"]),
+				tile.Properties["spawnEntity"]
 			);
 			
 			entity.GetComponent<PositionComponent>().Position += new Vector2(entity.StemSprite.Width, 0);

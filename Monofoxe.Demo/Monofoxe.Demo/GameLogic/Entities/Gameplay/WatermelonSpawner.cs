@@ -32,33 +32,39 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		SpawnMode _spawnMode = SpawnMode.OnStacked;
 
 		public Sprite StemSprite = Resources.Sprites.Default.WatermelonStem;
-		public Sprite WatermelonSprite = Resources.Sprites.Default.Watermelon;
+		//public Sprite EntitySprite = Resources.Sprites.Default.Gato;
 
 
-		bool _spawningWatermelon = false;
-		float _watermelonSpawnAnimation = 0f;
+		bool _spawnAnimation = false;
+		float _spawnAnimationProgress = 0f;
 		
-		float _watermelonSpawnAnimationSpeed = 1f; // 1/seconds
+		float _spawnAnimationSpeed = 1f; // 1/second
 
 		/// <summary>
 		/// Offset for drawing a dummy sprite.
 		/// </summary>
-		Vector2 _watermelonSpawnStemOrigin = new Vector2(-42, -55);
+		Vector2 _spawnStemOrigin = new Vector2(-42, -55);
 
+		/// <summary>
+		/// Determines, what entity will be spawned.
+		/// </summary>
+		private string _spawnEntityTag;
 
-		public WatermelonSpawner(Layer layer, Vector2 position, SpawnMode spawnMode) : base(layer)
+		public WatermelonSpawner(Layer layer, Vector2 position, SpawnMode spawnMode, string spawnEntity) : base(layer)
 		{
 			AddComponent(new PositionComponent(position));
 
 			_spawnMode = spawnMode;
+			_spawnEntityTag = spawnEntity;
 		}
 		
+
 		public override void Update()
 		{
 			// Spawn, if watermelon been destroyed.
 			if (_spawnedEntity == null || _spawnedEntity.Destroyed)
 			{
-				StartSpawnAnimation();
+				SpawnEntity();
 			}
 			// Spawn, if watermelon been destroyed.
 
@@ -69,37 +75,42 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				&& _spawnedEntity.GetComponent<StackableActorComponent>().LogicStateMachine.CurrentState == ActorStates.Stacked
 			)
 			{
-				StartSpawnAnimation();
+				SpawnEntity();
 			}
 			// Spawn, if watermelon been stacked.
 
 			// Animation.
-			if (_spawningWatermelon)
+			if (_spawnAnimation)
 			{
-				_watermelonSpawnAnimation += TimeKeeper.GlobalTime(_watermelonSpawnAnimationSpeed);
-				if (_watermelonSpawnAnimation >= 1f)
+				_spawnAnimationProgress += TimeKeeper.GlobalTime(_spawnAnimationSpeed);
+				if (_spawnAnimationProgress >= 1f)
 				{
-					_spawningWatermelon = false;
-					SpawnWatermelon();
+					_spawnAnimation = false;
+					_spawnedEntity.Enabled = true;
+					_spawnedEntity.Visible = true;
+
 				}
 			}
 			// Animation.
 		}
 		
 
-		void SpawnWatermelon()
+		void SpawnEntity()
 		{
-			_spawnedEntity = EntityMgr.CreateEntityFromTemplate(Layer, "watermelon");
-			_spawnedEntity.GetComponent<PositionComponent>().Position = GetComponent<PositionComponent>().Position + _spawnPointOffset;
-			ComponentMgr.InitComponent(_spawnedEntity.GetComponent<StackableActorComponent>());
-		}
-
-		void StartSpawnAnimation()
-		{
-			if (!_spawningWatermelon)
+			if (!_spawnAnimation)
 			{
-				_watermelonSpawnAnimation = 0f;
-				_spawningWatermelon = true;
+				_spawnAnimationProgress = 0f;
+				_spawnAnimation = true;
+				
+				// Spawner can produce only templated entities.
+				_spawnedEntity = EntityMgr.CreateEntityFromTemplate(Layer, _spawnEntityTag);
+			
+				_spawnedEntity.GetComponent<PositionComponent>().Position = GetComponent<PositionComponent>().Position + _spawnPointOffset;
+				ComponentMgr.InitComponent(_spawnedEntity.GetComponent<StackableActorComponent>());
+
+				// Disabling spawned entity during the animation.
+				_spawnedEntity.Enabled = false;
+				_spawnedEntity.Visible = false;
 			}
 		}
 
@@ -109,15 +120,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = GetComponent<PositionComponent>();
 			DrawMgr.DrawSprite(StemSprite, position.Position);
 			
-			if (_spawningWatermelon)
+			if (_spawnAnimation)
 			{
-				var animation = (float)Math.Pow(Math.Pow(_watermelonSpawnAnimation, 3f), 0.5f);
+				var animation = (float)Math.Pow(Math.Pow(_spawnAnimationProgress, 3f), 0.5f);
+				
+				var sprite = _spawnedEntity.GetComponent<StackableActorComponent>().MainSprite;
 
 				DrawMgr.DrawSprite(
-					WatermelonSprite, 
+					sprite, 
 					0, 
-					position.Position + _watermelonSpawnStemOrigin, 
-					new Vector2(0, -WatermelonSprite.Height),
+					position.Position + _spawnStemOrigin, 
+					new Vector2(0, -sprite.Height),
 					animation * Vector2.One,
 					0, 
 					Color.White

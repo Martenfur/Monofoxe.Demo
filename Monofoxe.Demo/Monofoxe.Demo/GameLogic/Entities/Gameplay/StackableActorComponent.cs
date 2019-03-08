@@ -155,7 +155,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public StateMachine<ActorAnimationStates> AnimationStateMachine;
 		
 		[JsonConverter(typeof(SpriteConverter))]
-		public Sprite Main = Resources.Sprites.Default.PlayerMain;
+		public Sprite MainSprite = Resources.Sprites.Default.PlayerMain;
 
 		public Sprite CurrentSprite;
 		public double SpriteAnimation = 0;
@@ -211,7 +211,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			c.CrouchAcceleration = CrouchAcceleration;
 			c.CrouchDeceleration = CrouchDeceleration;
 
-			c.Main = Main;
+			c.MainSprite = MainSprite;
 
 			return c;
 		}

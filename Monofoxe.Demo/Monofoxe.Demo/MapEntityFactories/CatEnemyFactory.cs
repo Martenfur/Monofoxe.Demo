@@ -8,7 +8,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 {
 	public class CatEnemyFactory : ITiledEntityFactory
 	{
-		public string Tag => "catEnemy";
+		public string Tag => "CatEnemy";
 		
 		public Entity Make(TiledObject obj, Layer layer, MapBuilder map)
 		{

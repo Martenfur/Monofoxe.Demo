@@ -254,7 +254,7 @@
    <property name="type" value="Custom"/>
   </properties>
   <objectgroup draworder="index">
-   <object id="1" template="../Templates/collider_slab.tx" x="4" y="4"/>
+   <object id="1" template="../Templates/ColliderSlab.tx" x="4" y="4"/>
   </objectgroup>
  </tile>
  <tile id="49">
@@ -262,7 +262,7 @@
    <property name="type" value="Custom"/>
   </properties>
   <objectgroup draworder="index">
-   <object id="1" template="../Templates/collider_slab.tx" x="4" y="4"/>
+   <object id="1" template="../Templates/ColliderSlab.tx" x="4" y="4"/>
   </objectgroup>
  </tile>
  <tile id="50">
@@ -270,7 +270,7 @@
    <property name="type" value="Custom"/>
   </properties>
   <objectgroup draworder="index">
-   <object id="1" template="../Templates/collider_slab.tx" x="4" y="4"/>
+   <object id="1" template="../Templates/ColliderSlab.tx" x="4" y="4"/>
   </objectgroup>
  </tile>
  <tile id="51">
@@ -278,7 +278,7 @@
    <property name="type" value="Custom"/>
   </properties>
   <objectgroup draworder="index">
-   <object id="2" template="../Templates/collider_slab.tx" name="collider_slab" x="4" y="4"/>
+   <object id="2" template="../Templates/ColliderSlab.tx" x="4" y="4"/>
   </objectgroup>
  </tile>
  <tile id="52">

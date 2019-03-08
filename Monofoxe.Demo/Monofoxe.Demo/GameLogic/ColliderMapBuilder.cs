@@ -143,12 +143,12 @@ namespace Monofoxe.Demo.GameLogic
 			{
 				var obj = tiledTile.Objects[0];
 					
-				if (obj.Type == _rectangleName)
+				if (obj.Type.ToLower() == _rectangleName)
 				{
 					collider = new RectangleCollider();
 					collider.Size = obj.Size;
 				}
-				if (obj.Type == _platformName)
+				if (obj.Type.ToLower() == _platformName)
 				{
 					collider = new PlatformCollider();
 					collider.Size = obj.Size;
