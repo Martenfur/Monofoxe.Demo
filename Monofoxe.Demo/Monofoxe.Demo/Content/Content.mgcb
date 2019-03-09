@@ -28,20 +28,10 @@
 #begin Entities/_config.json
 /copy:Entities/_config.json
 
-#begin Entities/Dummy.json
-/importer:EntityTemplateImporter
-/processor:EntityTemplateProcessor
-/build:Entities/Dummy.json
-
 #begin Entities/Platform.json
 /importer:EntityTemplateImporter
 /processor:EntityTemplateProcessor
 /build:Entities/Platform.json
-
-#begin Entities/Player.json
-/importer:EntityTemplateImporter
-/processor:EntityTemplateProcessor
-/build:Entities/Player.json
 
 #begin Entities/SolidBoi.json
 /importer:EntityTemplateImporter
@@ -65,13 +55,8 @@
 /processor:TiledMapProcessor
 /build:Maps/test.tmx
 
-#begin Entities/CatEnemy.json
+#begin Entities/Actors.json
 /importer:EntityTemplateImporter
 /processor:EntityTemplateProcessor
-/build:Entities/CatEnemy.json
-
-#begin Entities/Watermelon.json
-/importer:EntityTemplateImporter
-/processor:EntityTemplateProcessor
-/build:Entities/Watermelon.json
+/build:Entities/Actors.json
 

@@ -1,0 +1,51 @@
+﻿{
+	"Player": 
+	{
+		"PhysicsComponent":
+		{
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
+		},
+		"PositionComponent": {},
+		"PlayerComponent": {},
+
+		"StackableActorComponent": {}
+	},
+
+
+	"CatEnemy": 
+	{
+		"PhysicsComponent":
+		{
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
+		},
+		"PositionComponent": {},
+		"StackableActorComponent": {"walkMovementSpeed":  100, "mainSprite": "Default.Gato"},
+		"CatEnemyComponent": {}
+	},
+
+
+	"FrogEnemy": 
+	{
+		"PhysicsComponent":
+		{
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
+		},
+		"PositionComponent": {},
+		"StackableActorComponent": {"walkMovementSpeed":  150, "mainSprite": "Default.Frog"},
+		"FrogEnemyComponent": {}
+	},
+
+
+	"Watermelon":
+	{
+		"PhysicsComponent":
+		{
+			"collider": {"type": "rectangle", "w" : 32, "h": 32}
+		},
+		"PositionComponent": {},
+		"StackableActorComponent": {"walkMovementSpeed":  100, "mainSprite": "Default.Watermelon"}
+	}
+
+}
+
+

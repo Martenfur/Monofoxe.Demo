@@ -179,7 +179,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public Vector2 CrawlMaxScale = new Vector2(0.1f, -0.1f);
 		public Vector2 CrawlMaxOffset = new Vector2(-5, 0);
 		
-		public Vector2 FallMaxScale = new Vector2(0f, 0.4f);
+		public Vector2 FallMaxScale = new Vector2(0f, 0.6f);
 		public float FallBaseScale = 1000f;
 
 		#endregion Animations.

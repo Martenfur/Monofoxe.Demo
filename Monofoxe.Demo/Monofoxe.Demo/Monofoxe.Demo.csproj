@@ -42,10 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Content\Entities\Watermelon.json" />
-    <None Include="Content\Entities\CatEnemy.json" />
-    <None Include="Content\Entities\Player.json" />
-    <None Include="Content\Entities\Dummy.json" />
+    <None Include="Content\Entities\Actors.json" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameLogic\Background.cs" />
     <Compile Include="GameLogic\ColliderMapBuilder.cs" />
@@ -57,6 +54,8 @@
     <Compile Include="GameLogic\Collisions\TilemapCollider.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\FrogEnemySystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\FrogEnemyComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemySystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemyComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
@@ -71,10 +70,12 @@
     <Compile Include="GameLogic\Entities\Core\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\SolidSystem.cs" />
     <Compile Include="GameLogic\GameCamera.cs" />
+    <Compile Include="GameLogic\ScreenController.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
+    <Compile Include="MapEntityFactories\FrogEnemyFactory.cs" />
     <Compile Include="MapEntityFactories\WatermelonSpawnerFactory.cs" />
     <Compile Include="MapEntityFactories\WatermelonFactory.cs" />
     <Compile Include="MapEntityFactories\MovingPlatformFactory.cs" />

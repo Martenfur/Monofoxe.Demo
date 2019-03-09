@@ -8,10 +8,10 @@ using Monofoxe.Tiled.MapStructure.Objects;
 
 namespace Monofoxe.Demo.MapEntityFactories
 {
-	public class WatermeonFactory : ITiledEntityFactory
+	public class FrogEnemyFactory : ITiledEntityFactory
 	{
-		public string Tag => "watermelon";
-	
+		public string Tag => "FrogEnemy";
+		
 		public Entity Make(TiledObject obj, Layer layer, MapBuilder map)
 		{
 			var tile = (TiledTileObject)obj;
@@ -23,6 +23,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 
 			position.Position = tile.Position 
 				+ new Vector2(actor.MainSprite.Width, -actor.MainSprite.Height) / 2;
+
 
 			return entity;
 		}

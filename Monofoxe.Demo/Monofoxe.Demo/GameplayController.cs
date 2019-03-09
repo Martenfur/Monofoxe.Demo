@@ -14,8 +14,7 @@ namespace Monofoxe.Demo
 {
 	public class GameplayController : Entity
 	{
-		public static Camera Camera = new Camera(1000, 800);
-
+		
 		public static RandomExt Random = new RandomExt();
 
 		MapBuilder _test;
@@ -24,18 +23,11 @@ namespace Monofoxe.Demo
 			
 			GameMgr.MaxGameSpeed = 60;
 			GameMgr.MinGameSpeed = 60;
-			Camera.BackgroundColor = new Color(117, 190, 255);
-			Camera.Offset = Camera.Size / 2;
-
+			
 			DrawMgr.CurrentFont = Resources.Fonts.Arial;
 
-			GameMgr.WindowManager.CanvasSize = new Vector2(800, 600);
-			GameMgr.WindowManager.Window.AllowUserResizing = false;
-			GameMgr.WindowManager.ApplyChanges();
-			GameMgr.WindowManager.CenterWindow();
-			GameMgr.WindowManager.CanvasMode = CanvasMode.Fill;
-			
-			DrawMgr.Sampler = SamplerState.PointClamp;
+			ScreenController.Init();
+
 			
 			_test = new ColliderMapBuilder(Resources.Maps.Test);
 			_test.Build();
@@ -51,7 +43,10 @@ namespace Monofoxe.Demo
 		
 		public override void Update()
 		{
-
+			if (Input.CheckButtonPress(Buttons.F))
+			{
+				ScreenController.SetFullscreen(!GameMgr.WindowManager.IsFullScreen);
+			}
 		}
 
 		

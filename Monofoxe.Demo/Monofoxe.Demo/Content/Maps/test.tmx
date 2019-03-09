@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="94">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="95">
  <tileset firstgid="1" source="Tilesets/test.tsx"/>
  <tileset firstgid="73" source="Templates/Template Sprites/template_sprites.tsx"/>
  <layer id="3" name="Background" width="100" height="100">
@@ -230,12 +230,12 @@
   <object id="41" template="Templates/Platform.tx" x="756" y="-352" width="112" height="16"/>
   <object id="43" template="Templates/Solid.tx" x="712" y="-290"/>
   <object id="44" template="Templates/Solid.tx" x="668.5" y="-403.5" width="90" height="18"/>
-  <object id="46" template="Templates/MovingPlatform.tx" x="290.67" y="470.333">
+  <object id="46" template="Templates/MovingPlatform.tx" x="253.337" y="206.333">
    <properties>
     <property name="speed" type="float" value="78"/>
     <property name="width" type="float" value="4"/>
    </properties>
-   <polyline points="0,0 0,418.667"/>
+   <polyline points="0,0 0,549.334"/>
   </object>
   <object id="48" template="Templates/MovingPlatform.tx" x="429.333" y="588">
    <properties>
@@ -251,21 +251,20 @@
    </properties>
    <polygon points="0,0 0,144 111,181 212,138 265,7 174,-80 57,-109"/>
   </object>
-  <object id="67" template="Templates/Player.tx" x="201.333" y="922.667"/>
+  <object id="67" template="Templates/Player.tx" x="704" y="802.667"/>
   <object id="77" template="Templates/CatEnemy.tx" x="1022" y="806.334"/>
-  <object id="80" template="Templates/CatEnemy.tx" x="420.333" y="762"/>
+  <object id="80" template="Templates/CatEnemy.tx" x="384" y="816"/>
   <object id="81" template="Templates/CatEnemy.tx" x="591" y="1176"/>
   <object id="82" template="Templates/CatEnemy.tx" x="863" y="1171"/>
   <object id="86" template="Templates/WatermelonSpawner.tx" x="528" y="912"/>
   <object id="87" template="Templates/WatermelonSpawner.tx" x="672" y="864">
    <properties>
-    <property name="spawnEntity" value="catEnemy"/>
+    <property name="spawnEntity" value="CatEnemy"/>
     <property name="spawnMode" value="OnStacked"/>
    </properties>
   </object>
-  <object id="90" gid="74" x="892" y="725" width="60" height="55"/>
-  <object id="91" template="Templates/Watermelon.tx" x="804" y="797.333"/>
-  <object id="92" template="Templates/Watermelon.tx" x="720.667" y="740"/>
+  <object id="91" template="Templates/Watermelon.tx" x="768" y="836"/>
   <object id="93" template="Templates/Watermelon.tx" x="945.334" y="828"/>
+  <object id="94" name="frog" type="FrogEnemy" gid="77" x="864" y="864" width="55" height="44"/>
  </objectgroup>
 </map>
