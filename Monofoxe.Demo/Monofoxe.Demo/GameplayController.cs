@@ -32,11 +32,7 @@ namespace Monofoxe.Demo
 			_test = new ColliderMapBuilder(Resources.Maps.Test);
 			_test.Build();
 			
-			var l = _test.MapScene.CreateLayer("background1");
-			l.Priority = 10000;
-
-			new Background(l);
-
+			
 			CollisionDetector.Init();
 			Scene.Priority = -10000;
 		}
@@ -46,6 +42,11 @@ namespace Monofoxe.Demo
 			if (Input.CheckButtonPress(Buttons.F))
 			{
 				ScreenController.SetFullscreen(!GameMgr.WindowManager.IsFullScreen);
+			}
+			if (Input.CheckButtonPress(Buttons.R))
+			{
+				_test.Destroy();
+				_test.Build();
 			}
 		}
 

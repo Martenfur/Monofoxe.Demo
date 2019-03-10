@@ -953,7 +953,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					actor.SpriteAnimation = 0f;
 				}
 			}
-			if (actor.LogicStateMachine.CurrentState == ActorStates.Dead)
+			if (actor.LogicStateMachine != null && actor.LogicStateMachine.CurrentState == ActorStates.Dead)
 			{
 				ang = GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
 			}

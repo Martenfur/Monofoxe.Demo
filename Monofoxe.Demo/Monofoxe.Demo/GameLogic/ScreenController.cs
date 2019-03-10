@@ -21,12 +21,14 @@ namespace Monofoxe.Demo.GameLogic
 			window.CanvasMode = CanvasMode.Fill;
 			DrawMgr.Sampler = SamplerState.PointClamp;
 
-
+			
+			window.CanvasSize = new Vector2(WindowWidth, WindowHeight);
+			window.CenterWindow();
+			window.ApplyChanges();
 			MainCamera = new Camera(window.CanvasWidth, window.CanvasHeight);
 			MainCamera.BackgroundColor = new Color(117, 190, 255);
+			MainCamera.Offset = MainCamera.Size / 2;
 			
-			SetFullscreen(true);
-
 		}
 		
 

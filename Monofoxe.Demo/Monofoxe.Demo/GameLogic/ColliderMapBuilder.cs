@@ -9,6 +9,7 @@ using Monofoxe.Engine.Utils.Tilemaps;
 using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure;
 using Monofoxe.Tiled.MapStructure.Objects;
+using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 
 namespace Monofoxe.Demo.GameLogic
 {
@@ -23,7 +24,18 @@ namespace Monofoxe.Demo.GameLogic
 		
 
 		public ColliderMapBuilder(TiledMap tiledMap) : base(tiledMap) {}
-		
+
+		public override void Build()
+		{
+			base.Build();
+
+			// Putting a background.
+			var l = MapScene.CreateLayer("backdrop");
+			l.Priority = 10000;
+
+			new Background(l);
+			// Putting a background.
+		}
 
 		protected override List<Tileset> BuildTilesets(TiledMapTileset[] tilesets)
 		{

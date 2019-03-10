@@ -75,6 +75,7 @@
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
+    <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
     <Compile Include="MapEntityFactories\FrogEnemyFactory.cs" />
     <Compile Include="MapEntityFactories\WatermelonSpawnerFactory.cs" />
     <Compile Include="MapEntityFactories\WatermelonFactory.cs" />
