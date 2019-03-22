@@ -1,0 +1,310 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/D/Study/WacbanPointAdventures/Task.txt",
+			"settings":
+			{
+				"buffer_size": 1587,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/D/_Projects/RubyTest/product_parser.rb",
+			"settings":
+			{
+				"buffer_size": 586,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/D/log.txt",
+			"settings":
+			{
+				"buffer_size": 1186,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 157.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": false,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/D/_Gaems/Monofoxe.Demo/Monofoxe.Demo/Monofoxe.Demo/Content/Maps/Templates/MovingPlatform.tx",
+		"/C/D/_Gaems/Monofoxe.Demo/Monofoxe.Demo/Monofoxe.Demo/Content/Maps/Templates/CatEnemy.tx",
+		"/C/D/_Gaems/Monofoxe.Demo/Monofoxe.Demo/Monofoxe.Demo/Content/Maps/Tilesets/test.tsx",
+		"/C/D/_Gaems/Monofoxe.Demo/Monofoxe.Demo/Monofoxe.Demo/Content/Maps/test.tmx",
+		"/C/Users/gn.fur/Downloads/prFpkYeB.cs",
+		"/C/D/log.txt",
+		"/C/D/Ruby/lib/ruby/gems/2.5.0/gems/curb-0.9.9/lib/curl/easy.rb",
+		"/C/D/Ruby/lib/ruby/gems/2.5.0/gems/curb-0.9.9/lib/curl/multi.rb",
+		"/C/D/Ruby/lib/ruby/gems/2.5.0/gems/curb-0.9.9/lib/curl.rb",
+		"/C/Users/gn.fur/Desktop/test.rb",
+		"/C/D/Study/WacbanPointAdventures/WASMCompiler/WASMCompiler/bin/Debug/out.txt",
+		"/C/D/_Projects/RubyTest/product_parser.rb",
+		"/C/D/_Gaems/Monofoxe.Demo/Monofoxe.Demo/Monofoxe.Demo/Content/Graphics/default.atlas",
+		"/C/D/_Gaems/Monofoxe.Demo/Monofoxe.Demo/Monofoxe.Demo/Content/Graphics/Default/Characters/wut.json",
+		"/C/D/Ruby/lib/ruby/gems/2.5.0/gems/curb-0.9.9/lib/curb.rb",
+		"/C/D/_Projects/RubyLibs/curl-7.64.0-win32-mingw/BUILD-README.txt",
+		"/C/D/_Projects/RubyLibs/curl-7.64.0-win32-mingw/README.txt",
+		"/C/Users/gn.fur/AppData/Local/Temp/Temp1_curl-7.64.0_2-win32-mingw.zip/curl-7.64.0-win32-mingw/README.txt",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe.FMODAudio/FMOD/fmod.cs",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe/Content/Graphics/special.atlas",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.css",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe/Content/Maps/test.tmx",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe/Content/Effects/AlphaBlend.fx",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe.Engine/CanvasMode.cs",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe/Content/Graphics/default.atlas",
+		"/C/D/_Gaems/Monofoxe/Monofoxe/Monofoxe/Content/Graphics/TestGraphics/barrel_parts.json",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.c",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.cpp",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.cs",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ.txt",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.java",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.xml",
+		"/C/Users/gn.fur/Desktop/Новый текстовый документ — копия.json"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"gay"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/D/Study/WacbanPointAdventures/Task.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1187,
+								1187
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 50.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/D/_Projects/RubyTest/product_parser.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 586,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								586,
+								586
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/D/log.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1186,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43,
+								43
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "test.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}

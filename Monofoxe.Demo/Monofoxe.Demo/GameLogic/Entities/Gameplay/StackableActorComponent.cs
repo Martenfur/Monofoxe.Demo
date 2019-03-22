@@ -80,10 +80,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public float PendulumEnergyLossRate = 16f;
 		public float PendulumForceMultiplier = 160f;
 		
-		public float StackYOffsetDivider = 40f;
-		public float StackYOffsetMin = -1f;
-		public float StackYOffsetMax = 1f;
-		public float StackBaseYOffset = 10;
+
+		public float StackPositionDelayDivider = 2 / 60f;
+
+		public Vector2 StackedTargetPosition;
 
 		// Stacking.
 

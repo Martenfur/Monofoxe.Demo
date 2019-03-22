@@ -48,6 +48,18 @@ namespace Monofoxe.Demo
 				_test.Destroy();
 				_test.Build();
 			}
+
+			if (Input.CheckButtonPress(Buttons.E))
+			{
+				if (TimeKeeper.GlobalTimeMultiplier == 1)
+				{
+					TimeKeeper.GlobalTimeMultiplier = 0.5f;
+				}
+				else
+				{
+					TimeKeeper.GlobalTimeMultiplier = 1;
+				}
+			}
 		}
 
 		

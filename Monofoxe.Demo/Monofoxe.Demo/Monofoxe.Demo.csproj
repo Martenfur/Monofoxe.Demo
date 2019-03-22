@@ -52,8 +52,10 @@
     <Compile Include="GameLogic\Collisions\PlatformCollider.cs" />
     <Compile Include="GameLogic\Collisions\RectangleCollider.cs" />
     <Compile Include="GameLogic\Collisions\TilemapCollider.cs" />
+    <Compile Include="GameLogic\Entities\CheckpointManager.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\Checkpoint.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\FrogEnemySystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\FrogEnemyComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemySystem.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
     <Compile Include="MapEntityFactories\FrogEnemyFactory.cs" />
+    <Compile Include="MapEntityFactories\CheckpointFactory.cs" />
     <Compile Include="MapEntityFactories\WatermelonSpawnerFactory.cs" />
     <Compile Include="MapEntityFactories\WatermelonFactory.cs" />
     <Compile Include="MapEntityFactories\MovingPlatformFactory.cs" />

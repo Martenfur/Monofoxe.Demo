@@ -17,8 +17,6 @@ namespace Monofoxe.Demo.MapEntityFactories
 		{
 			var tile = (TiledTileObject)obj;
 			
-			Console.WriteLine("tileset: " + (tile.Tileset.Textures == null) + " " + tile.GID + " " + tile.Tileset.Name);
-
 			var entity = new WatermelonSpawner(
 				layer, 
 				tile.Position, 

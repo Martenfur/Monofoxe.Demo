@@ -159,7 +159,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					
 					foreach(var other in stackables)
 					{
-						if (other != owner)
+						if (other != owner && other.Enabled)
 						{
 							var otherPosition = other.GetComponent<PositionComponent>();
 							var otherPhysics = other.GetComponent<PhysicsComponent>();
@@ -405,24 +405,21 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 
 			// Nice y delaying.
-			var yOffset = (masterPosition.Position.Y - masterPosition.PreviousPosition.Y) / actor.StackYOffsetDivider;
-			if (yOffset < actor.StackYOffsetMin)
-			{
-				yOffset = actor.StackYOffsetMin;
-			}
-			if (yOffset > actor.StackYOffsetMax)
-			{
-				yOffset = actor.StackYOffsetMax;
-			}
-			// Nice y delaying.
-
-			position.Position = masterPosition.Position 
+			actor.StackedTargetPosition = masterPosition.Position 
 			+ new Vector2(
 				(float)Math.Cos(dir), 
 				(float)-Math.Sin(dir)
-			) * (masterPhysics.Collider.Size.Y  + actor.StackBaseYOffset * yOffset);
+			) * (masterPhysics.Collider.Size.Y);
 			
 			
+			// TODO: Figure out exact formula.
+			position.Position.Y += TimeKeeper.GlobalTime((-position.Position.Y + actor.StackedTargetPosition.Y) / actor.StackPositionDelayDivider);
+			//position.Position.Y += (-position.Position.Y + actor.StackedTargetPosition.Y) / actor.StackPositionDelayDivider;
+			position.Position.X = actor.StackedTargetPosition.X;
+			// Nice y delaying.
+
+			
+
 			if (actor.StackedNext != null)
 			{
 				StackedUpdate(

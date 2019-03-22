@@ -30,7 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var cPosition = new PositionComponent(position);
 			var cSolid = new SolidComponent();
 			
-			var collider = new RectangleCollider();
+			var collider = new PlatformCollider();
 			collider.Size = new Vector2(width * BaseSize, BaseSize / HeightDivider);
 			cSolid.Collider = collider;
 

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic.Entities;
 using Monofoxe.Demo.GameLogic.Entities.Core;
+using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Demo.GameLogic.Tiles;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils.Tilemaps;
 using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure;
 using Monofoxe.Tiled.MapStructure.Objects;
-using Monofoxe.Demo.GameLogic.Entities.Gameplay;
+
 
 namespace Monofoxe.Demo.GameLogic
 {
@@ -27,6 +29,26 @@ namespace Monofoxe.Demo.GameLogic
 
 		public override void Build()
 		{
+			var defaultLayer = SceneMgr.GetScene("default")["default"];
+			
+			if (defaultLayer.CountEntities<CheckpointManager>() == 0)
+			{
+				// Checkpoint manager needs to be preserved, when map is deleted.
+				// This is why it's created on a default layer.
+				new CheckpointManager(defaultLayer); 
+			}
+			else
+			{
+				var checkpoint = defaultLayer.FindEntity<CheckpointManager>();
+
+				// If we are loading new map, reset checkpoint manager.
+				if (checkpoint.MapName != TiledMap.Name)
+				{
+					checkpoint.ResetForNewMap(TiledMap.Name);
+				}
+
+			}
+
 			base.Build();
 
 			// Putting a background.

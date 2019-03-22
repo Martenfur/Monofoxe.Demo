@@ -14,6 +14,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 		{
 			var tile = (TiledTileObject)obj;
 			
+			
 			var entity = EntityMgr.CreateEntityFromTemplate(layer, tag);
 			
 			var position = entity.GetComponent<PositionComponent>();
