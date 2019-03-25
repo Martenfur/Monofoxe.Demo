@@ -26,8 +26,11 @@ namespace Resources.Sprites
 		public static Sprite Watermelon;
 		public static Sprite Gato;
 		public static Sprite Frog;
+		public static Sprite CheckpointPedestal;
+		public static Sprite CheckpointDoggo;
 		public static Sprite Boulder;
 		public static Sprite Platform;
+		public static Sprite Rainbow;
 		#endregion Sprites.
 		
 		private static string _groupName = "Default";
@@ -47,16 +50,19 @@ namespace Resources.Sprites
 			Monofoxe = sprites["monofoxe"];
 			Forest1 = sprites["Background/forest1"];
 			Forest2 = sprites["Background/forest2"];
-			Tree = sprites["Decorations/Tree"];
+			Tree = sprites["Decorations/tree"];
 			Sun = sprites["Background/sun"];
-			Snowman = sprites["Decorations/Snowman"];
-			WatermelonStem = sprites["watermelon_stem"];
+			Snowman = sprites["Decorations/snowman"];
+			WatermelonStem = sprites["Objects/watermelon_stem"];
 			PlayerMain = sprites["Characters/player_main"];
 			Watermelon = sprites["Characters/watermelon"];
 			Gato = sprites["Characters/gato"];
 			Frog = sprites["Characters/frog"];
-			Boulder = sprites["Decorations/Boulder"];
-			Platform = sprites["Platform"];
+			CheckpointPedestal = sprites["Objects/checkpoint_pedestal"];
+			CheckpointDoggo = sprites["Objects/checkpoint_doggo"];
+			Boulder = sprites["Decorations/boulder"];
+			Platform = sprites["Objects/platform"];
+			Rainbow = sprites["Objects/rainbow"];
 			
 			#endregion Sprite constructors.
 		}

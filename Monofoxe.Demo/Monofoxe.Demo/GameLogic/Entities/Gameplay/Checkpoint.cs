@@ -12,18 +12,28 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
 	public class Checkpoint : Entity
 	{
-		public new string Tag => "watermelonSpawner";
+		public new string Tag => "checkpoint";
 		
-		// TODO: Replace with better range check.
-		private int _activationRadius = 100;
+		private Vector2 _activationRegion = new Vector2(64, 200);
+		private Vector2 _activationRegionOffset = new Vector2(0, -100);
 
 		private bool _active = false;
 
+		private Vector2 _doggoOffset = new Vector2(0, -39);
+
+		/// <summary>
+		/// Alarm, which determines if checkpoint activation effect should be created,
+		/// if checkpoint was activated. This is needed for cases when map reloads and 
+		/// player gets teleported to the checkpoint.
+		/// </summary>
+		private Alarm _noEffectAlarm = new Alarm();
+		private double _noEffectTime = 1;
 
 		public Checkpoint(Vector2 position, Layer layer) : base(layer)
 		{
 			AddComponent(new PositionComponent(position));
-			
+
+			_noEffectAlarm.Set(_noEffectTime);
 		}
 
 
@@ -33,11 +43,19 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			var position = GetComponent<PositionComponent>();
 
+			_noEffectAlarm.Update();
+
 			if (!_active)
 			{
 				foreach(var player in players)
 				{
-					if (GameMath.Distance(player.GetComponent<PositionComponent>().Position, position.Position) < _activationRadius)
+					if (
+						GameMath.PointInRectangle(
+							player.GetComponent<PositionComponent>().Position, 	
+							position.Position + _activationRegionOffset - _activationRegion / 2, 
+							position.Position + _activationRegionOffset + _activationRegion / 2
+						)
+					)
 					{
 						// Activating this checkpoint and deactivating all others.
 						foreach(var checkpoint in SceneMgr.CurrentScene.GetEntityList<Checkpoint>())
@@ -45,6 +63,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 							checkpoint._active = false;	
 						}
 						_active = true;
+
+						// Don't create any effects, if checkpoint was activated right after it was created.
+						if (!_noEffectAlarm.Running)
+						{
+							new CheckpointDoggo(position.Position + _doggoOffset, Layer);
+						}
 
 						var defaultLayer = SceneMgr.GetScene("default")["default"];
 						var checkpointMgr = defaultLayer.FindEntity<CheckpointManager>();
@@ -63,19 +87,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Draw()
 		{
 			var position = GetComponent<PositionComponent>();
-
-			if (_active)
-			{
-				DrawMgr.CurrentColor = Color.Pink * 0.5f;
-			}
-			else
-			{
-				DrawMgr.CurrentColor = Color.Gray * 0.5f;
-			}
-
-			DrawMgr.DrawCircle(position.Position, _activationRadius, false);
-	
+			
 			DrawMgr.CurrentColor = Color.White;
+			DrawMgr.DrawSprite(Resources.Sprites.Default.CheckpointPedestal, position.Position);
+
+			if (!_active)
+			{
+				DrawMgr.DrawSprite(Resources.Sprites.Default.CheckpointDoggo, position.Position + _doggoOffset);
+			}
+
 		}
 
 	}

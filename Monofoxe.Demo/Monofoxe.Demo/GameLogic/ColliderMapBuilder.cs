@@ -35,7 +35,8 @@ namespace Monofoxe.Demo.GameLogic
 			{
 				// Checkpoint manager needs to be preserved, when map is deleted.
 				// This is why it's created on a default layer.
-				new CheckpointManager(defaultLayer); 
+				var checkpoint = new CheckpointManager(defaultLayer); 
+				checkpoint.MapName = TiledMap.Name;
 			}
 			else
 			{

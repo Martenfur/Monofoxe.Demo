@@ -4,7 +4,7 @@ using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure.Objects;
 using Monofoxe.Demo.GameLogic.Entities;
 using Monofoxe.Demo.GameLogic.Entities.Core;
-
+using Microsoft.Xna.Framework;
 
 namespace Monofoxe.Demo.MapEntityFactories
 {
@@ -18,12 +18,13 @@ namespace Monofoxe.Demo.MapEntityFactories
 
 			// Teleporting player to the checkpoint, if it's set.
 			var position = player.GetComponent<PositionComponent>();
+			var physics = player.GetComponent<PhysicsComponent>();
 			var defaultLayer = SceneMgr.GetScene("default")["default"];
 
 			var checkpointMgr = defaultLayer.FindEntity<CheckpointManager>();
 			if (checkpointMgr != null && !checkpointMgr.NoCheckpointSet)
 			{
-				position.Position = checkpointMgr.CheckpointPosition;
+				position.Position = checkpointMgr.CheckpointPosition - Vector2.UnitY * physics.Collider.Size.Y / 2;
 			}
 
 			return player;
