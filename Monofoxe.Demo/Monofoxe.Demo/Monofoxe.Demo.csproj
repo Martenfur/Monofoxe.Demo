@@ -61,6 +61,7 @@
     <Compile Include="GameLogic\Entities\Gameplay\FrogEnemyComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemySystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemyComponent.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\LevelRestartEffect.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathSystem.cs" />

@@ -34,7 +34,8 @@ namespace Monofoxe.Demo.GameLogic
 		/// </summary>
 		public float MaxDistance = 150;
 
-		
+		public double PullbackMultiplier = 1.0 / 200.0;
+
 		Vector2 _position;
 
 		public GameCamera(Layer layer, Camera camera) : base(layer)
@@ -60,7 +61,7 @@ namespace Monofoxe.Demo.GameLogic
 				{
 					var distanceToMax = targetDistance - PullbackDistance;
 
-					distanceToMax *= (float)Math.Pow(1.0/200.0, TimeKeeper.GlobalTime());
+					distanceToMax *= (float)Math.Pow(PullbackMultiplier, TimeKeeper.GlobalTime());
 					_position = Target.Position + targetVector * (distanceToMax + PullbackDistance);
 				}
 			}

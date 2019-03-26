@@ -44,10 +44,15 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					physics.Collider.Position = position.Position 
 						+ Vector2.UnitX * gato.Direction * physics.Collider.Size.X / 2;
 					
-					var player = SceneMgr.CurrentLayer.GetEntityList("player")[0];
-					var playerPosition = player.GetComponent<PositionComponent>();
+					var players = SceneMgr.CurrentLayer.GetEntityList("player");
 
-					gato.Direction = Math.Sign(playerPosition.Position.X - position.Position.X);
+					if (players.Count > 0)
+					{
+						var player = players[0];
+						var playerPosition = player.GetComponent<PositionComponent>();
+
+						gato.Direction = Math.Sign(playerPosition.Position.X - position.Position.X);
+					}
 
 				}
 			}

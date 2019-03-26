@@ -44,6 +44,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				Matrix.CreateTranslation((DrawMgr.CurrentCamera.Position - DrawMgr.CurrentCamera.Size / 2).ToVector3())
 			);
 
+			DrawMgr.CurrentColor = Color.White;
+
 			DrawMgr.DrawSprite(_sun, _sunBasePosition);
 
 			DrawMgr.DrawSprite(

@@ -17,7 +17,10 @@ namespace Monofoxe.Demo
 		
 		public static RandomExt Random = new RandomExt();
 
-		MapBuilder _test;
+		public static MapBuilder CurrentMap;
+
+		public static Layer GUILayer;
+
 		public GameplayController() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
@@ -29,12 +32,15 @@ namespace Monofoxe.Demo
 			ScreenController.Init();
 
 			
-			_test = new ColliderMapBuilder(Resources.Maps.Test);
-			_test.Build();
+			CurrentMap = new ColliderMapBuilder(Resources.Maps.Test);
+			CurrentMap.Build();
 			
 			
 			CollisionDetector.Init();
 			Scene.Priority = -10000;
+
+			GUILayer = Scene.CreateLayer("gui");
+			GUILayer.IsGUI = true;
 		}
 		
 		public override void Update()
@@ -45,8 +51,8 @@ namespace Monofoxe.Demo
 			}
 			if (Input.CheckButtonPress(Buttons.R))
 			{
-				_test.Destroy();
-				_test.Build();
+				CurrentMap.Destroy();
+				CurrentMap.Build();
 			}
 
 			if (Input.CheckButtonPress(Buttons.E))

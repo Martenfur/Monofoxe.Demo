@@ -36,7 +36,30 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				actor.JumpAction = Input.CheckButton(player.Jump);
 				actor.CrouchAction = Input.CheckButton(player.Crouch);
 				
+				if (Input.CheckButtonPress(Buttons.K))
+				{
+					Kill(player);
+				}
 			}
+		}
+
+		public static void Kill(PlayerComponent player)
+		{
+			var actor = player.Owner.GetComponent<StackableActorComponent>();
+			var position = player.Owner.GetComponent<PositionComponent>();
+			actor.LogicStateMachine.ChangeState(ActorStates.Dead);
+
+			foreach(var camera in player.Owner.Scene.GetEntityList<GameCamera>())
+			{
+				if (camera.Target == position) // If this camera follows player.
+				{
+					camera.Target = null;
+				}
+			}
+
+			new LevelRestartEffect(GameplayController.GUILayer);
+			
+
 		}
 		
 	}

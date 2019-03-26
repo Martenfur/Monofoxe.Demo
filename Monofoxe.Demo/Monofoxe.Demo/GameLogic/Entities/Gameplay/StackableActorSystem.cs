@@ -461,8 +461,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var physics = owner.GetComponent<PhysicsComponent>();
 			var actor = owner.GetComponent<StackableActorComponent>();
 			
-			actor.StackedPrevious.GetComponent<StackableActorComponent>().StackedNext = null;
-			actor.StackedPrevious = null;	
+			if (actor.StackedPrevious != null)
+			{
+				actor.StackedPrevious.GetComponent<StackableActorComponent>().StackedNext = null;
+				actor.StackedPrevious = null;	
+			}
 
 			physics.Collider.Enabled = false; // Disabling collisions.
 
