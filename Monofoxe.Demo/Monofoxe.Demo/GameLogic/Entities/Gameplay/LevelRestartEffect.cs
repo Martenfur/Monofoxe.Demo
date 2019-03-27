@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
-using Monofoxe.Engine.Utils;
-using Microsoft.Xna.Framework;
 using Monofoxe.Engine.SceneSystem;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {

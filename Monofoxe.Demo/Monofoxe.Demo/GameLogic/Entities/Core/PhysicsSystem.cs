@@ -139,12 +139,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 								cPhysics.Speed.X = 0;
 							}
 							
-							// Jitter fixing. Kinda works.
-							cPosition.Position.X = (int)collider.Position.X;
-							var p = cPhysics.CollidedSolidH.GetComponent<PositionComponent>().Position.X;
-							cPosition.Position.X += p - (int)p;
-							// Jitter fixing. Kinda works.
-
+							cPosition.Position.X = collider.Position.X;
+							
 							cPhysics.CollisionH = sign;
 							cPhysics.Squashed = false;
 							break;
@@ -207,12 +203,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 								cPhysics.Speed.Y = 0;
 							}
 							
-							// Jitter fixing. Kinda works.
-							cPosition.Position.Y = (int)collider.Position.Y;
-							var p = cPhysics.CollidedSolidV.GetComponent<PositionComponent>().Position.Y;
-							cPosition.Position.Y += p - (int)p;
-							// Jitter fixing. Kinda works.
-
+							cPosition.Position.Y = collider.Position.Y;
+							
 							cPhysics.CollisionV = sign;	
 
 							cPhysics.Squashed = false;

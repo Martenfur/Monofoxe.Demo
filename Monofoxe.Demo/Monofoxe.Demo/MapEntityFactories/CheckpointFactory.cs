@@ -1,9 +1,9 @@
-﻿using Monofoxe.Demo.GameLogic.Entities.Gameplay;
+﻿using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure.Objects;
-
 
 namespace Monofoxe.Demo.MapEntityFactories
 {
@@ -15,7 +15,10 @@ namespace Monofoxe.Demo.MapEntityFactories
 		{
 			var tile = (TiledTileObject)obj;
 			
-			return new Checkpoint(tile.Position, layer);
+			var position = tile.Position 
+				+ Vector2.UnitX * Resources.Sprites.Default.CheckpointPedestal.Width / 2;
+
+			return new Checkpoint(position, layer);
 		}
 	}
 }

@@ -12,6 +12,7 @@ using Monofoxe.Demo.GameLogic.Collisions;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
+	
 	public class CatEnemySystem : BaseSystem
 	{
 
@@ -73,21 +74,17 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					var players = SceneMgr.CurrentScene.GetEntityListByComponent<PlayerComponent>();
 					foreach(var playerEntity in players)
 					{
-						var playerActor = playerEntity.GetComponent<StackableActorComponent>();
-				
-						// If player is crouching or dead, don't touch him.
-						var playerState = playerActor.LogicStateMachine.CurrentState;
-						if (playerState == ActorStates.Dead || playerActor.Crouching)
+						var player = playerEntity.GetComponent<PlayerComponent>();
+					
+						if (player.Unkillable)
 						{
 							continue;
 						}
-						// If player is crouching or dead, don't touch him.
-
+						
 						var position = gato.Owner.GetComponent<PositionComponent>();
 						var playerPosition = playerEntity.GetComponent<PositionComponent>();
 						var playerPhysics = playerEntity.GetComponent<PhysicsComponent>();
 					
-						var player = playerEntity.GetComponent<PlayerComponent>();
 					
 						// Setting up colliders.
 						physics.Collider.Position = position.Position;

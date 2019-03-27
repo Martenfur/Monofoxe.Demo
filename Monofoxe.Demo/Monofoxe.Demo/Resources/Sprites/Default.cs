@@ -24,6 +24,7 @@ namespace Resources.Sprites
 		public static Sprite PlayerMain;
 		public static Sprite Watermelon;
 		public static Sprite Gato;
+		public static Sprite Spikes;
 		public static Sprite Frog;
 		public static Sprite CheckpointPedestal;
 		public static Sprite CheckpointDoggo;
@@ -55,6 +56,7 @@ namespace Resources.Sprites
 			PlayerMain = sprites["Characters/player_main"];
 			Watermelon = sprites["Characters/watermelon"];
 			Gato = sprites["Characters/gato"];
+			Spikes = sprites["Objects/spikes"];
 			Frog = sprites["Characters/frog"];
 			CheckpointPedestal = sprites["Objects/checkpoint_pedestal"];
 			CheckpointDoggo = sprites["Objects/checkpoint_doggo"];
