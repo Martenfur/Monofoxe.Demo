@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="117">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="124">
  <tileset firstgid="1" source="Tilesets/test.tsx"/>
  <tileset firstgid="73" source="Templates/Template Sprites/template_sprites.tsx"/>
  <layer id="3" name="Background" width="100" height="100">
@@ -276,5 +276,12 @@
   <object id="114" template="Templates/Spikes.tx" x="1536" y="624" rotation="-90"/>
   <object id="115" template="Templates/Spikes.tx" x="1680" y="576" rotation="-270"/>
   <object id="116" template="Templates/Spikes.tx" x="1632" y="672" rotation="-180"/>
+  <object id="117" template="Templates/Spikes.tx" x="2016" y="1248"/>
+  <object id="118" template="Templates/Spikes.tx" x="2064" y="1248"/>
+  <object id="119" template="Templates/Spikes.tx" x="2112" y="1248"/>
+  <object id="120" template="Templates/Spikes.tx" x="2160" y="1248"/>
+  <object id="121" template="Templates/Spikes.tx" x="2208" y="1248"/>
+  <object id="122" template="Templates/Spikes.tx" x="2256" y="1248"/>
+  <object id="123" template="Templates/Spikes.tx" x="2304" y="1248"/>
  </objectgroup>
 </map>

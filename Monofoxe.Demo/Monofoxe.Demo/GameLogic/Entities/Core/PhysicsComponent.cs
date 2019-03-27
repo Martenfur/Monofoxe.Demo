@@ -76,12 +76,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		public bool Squashed;
 
 		/// <summary>
-		/// Entity that physics object has collided with.
+		/// Entity that physics object has collided with horizontally.
 		/// </summary>
 		public Entity CollidedSolidH;
 
 		/// <summary>
-		/// Entity that physics object has collided with.
+		/// Entity that physics object has collided with vertically.
 		/// </summary>
 		public Entity CollidedSolidV;
 

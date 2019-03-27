@@ -30,6 +30,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		{
 			_solidEntities = SceneMgr.CurrentScene.GetEntityListByComponent<SolidComponent>();
 			
+			foreach(var solidEntity in _solidEntities)
+			{
+				var solid = solidEntity.GetComponent<SolidComponent>();
+				solid.CollisionH = 0;
+				solid.CollisionV = 0;
+				solid.CollidedObjectH = null;
+				solid.CollidedObjectV = null;
+			}
+
 			// Gravity.
 			foreach(PhysicsComponent cPhysics in components)
 			{
@@ -143,6 +152,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 							
 							cPhysics.CollisionH = sign;
 							cPhysics.Squashed = false;
+
+							var solid = cPhysics.CollidedSolidH.GetComponent<SolidComponent>();
+							solid.CollidedObjectH = cPhysics.Owner;
+							solid.CollisionH = -sign;
+
 							break;
 						}
 						else
@@ -206,6 +220,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 							cPosition.Position.Y = collider.Position.Y;
 							
 							cPhysics.CollisionV = sign;	
+
+							var solid = cPhysics.CollidedSolidV.GetComponent<SolidComponent>();
+							solid.CollidedObjectV = cPhysics.Owner;
+							solid.CollisionV = -sign;
 
 							cPhysics.Squashed = false;
 							break;

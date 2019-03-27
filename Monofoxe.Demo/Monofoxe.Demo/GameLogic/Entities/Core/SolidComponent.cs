@@ -22,7 +22,35 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// </summary>
 		public Vector2 Speed;
 		
+
+		/// <summary>
+		/// Tells, if a horizontal collision has occured.
+		/// 0 - no collision
+		/// -1 - right collision
+		/// 1 - left collision
+		/// </summary>
+		public int CollisionH;
+
+		/// <summary>
+		/// Tells, if a vertical collision has occured.
+		/// 0 - no collision
+		/// -1 - top collision
+		/// 1 - bottom collision
+		/// </summary>
+		public int CollisionV;
 		
+		/// <summary>
+		/// Entity that physics object has collided with horizontally.
+		/// </summary>
+		public Entity CollidedObjectH;
+
+		/// <summary>
+		/// Entity that physics object has collided with vertically.
+		/// </summary>
+		public Entity CollidedObjectV;
+		
+
+
 		public override object Clone()
 		{
 			var c = new SolidComponent();

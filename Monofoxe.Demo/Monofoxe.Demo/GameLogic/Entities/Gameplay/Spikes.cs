@@ -17,6 +17,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		private float _rotation;
 
+		private Vector2 _harmVector;
+
 		public Spikes(Vector2 position, float rotation, Layer layer) : base(layer)
 		{
 			AddComponent(new PositionComponent(position));
@@ -32,11 +34,46 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			AddComponent(solid);
 
 			_rotation = rotation;
+
+			var rotationRad = MathHelper.ToRadians(rotation - 90);
+			_harmVector = new Vector2(
+				Math.Sign((int)(Math.Cos(rotationRad) * 100)), // Double will be a tiny value instead of zero, so we need this.
+				Math.Sign((int)(Math.Sin(rotationRad) * 100))
+			);
 		}
 
 		public override void Update()
 		{
-		
+			// Spikes are harmful only from one side.
+			var solid = GetComponent<SolidComponent>();
+			if (solid.CollisionV == _harmVector.Y && solid.CollisionH == _harmVector.X)
+			{
+				Entity collidedObject;
+				if (_harmVector.X == 0)
+				{
+					collidedObject = solid.CollidedObjectV;
+				}
+				else
+				{
+					collidedObject = solid.CollidedObjectH;
+				}
+			
+
+				if (collidedObject.TryGetComponent(out StackableActorComponent actor))
+				{
+					if (collidedObject.TryGetComponent(out PlayerComponent player))
+					{
+						if (!player.Unkillable)
+						{
+							PlayerSystem.Kill(player);
+						}
+					}
+					else
+					{
+						actor.LogicStateMachine.ChangeState(ActorStates.Dead);
+					}
+				}
+			}
 		}
 
 		
@@ -45,17 +82,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = GetComponent<PositionComponent>();
 
 			DrawMgr.DrawSprite(Resources.Sprites.Default.Spikes, 0, position.Position, Vector2.One, _rotation, Color.White);
-			
-			DrawMgr.CurrentColor = Color.White;
-			DrawMgr.DrawLine(
-				position.Position, 
-				position.Position 
-				+ new Vector2(
-					(float)Math.Cos(MathHelper.ToRadians(_rotation)),
-					(float)Math.Sin(MathHelper.ToRadians(_rotation))
-				) * 24
-			);
-
 		}
 	}
 }
