@@ -45,11 +45,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Arial.spritefont
 
-#begin Graphics/default.atlas
-/importer:SpriteGroupImporter
-/processor:SpriteGroupProcessor
-/build:Graphics/default.atlas
-
 #begin Maps/test.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -59,4 +54,9 @@
 /importer:EntityTemplateImporter
 /processor:EntityTemplateProcessor
 /build:Entities/Actors.json
+
+#begin Graphics/default.spritegroup
+/importer:SpriteGroupImporter
+/processor:SpriteGroupProcessor
+/build:Graphics/default.spritegroup
 

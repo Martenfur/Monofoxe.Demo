@@ -203,6 +203,71 @@
             Removes old elements from the list and adds new ones.
             </summary>
         </member>
+        <member name="T:Monofoxe.Engine.Utils.NumberExtensions">
+            <summary>
+            Extends basic C# number types. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Byte)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.SByte)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Int16)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.UInt16)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Int32)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.UInt32)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Int64)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.UInt64)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Single)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Double)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Decimal)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToInt(System.Boolean)">
+            <summary>
+            If true, returns one, otherwise - zero.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.Utils.Tilemaps.BasicTilemapComponent">
             <summary>
             Basic tilemap class. Provides basic functionality,
@@ -227,6 +292,11 @@
             WARNING: This method will throw an exception, if coordinates are out of bounds.
             </summary>
         </member>
+        <member name="M:Monofoxe.Engine.Utils.Tilemaps.BasicTilemapComponent.InBounds(System.Int32,System.Int32)">
+            <summary>
+            Tells if given coordinates are in bounds.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.Utils.Tilemaps.BasicTilemapSystem">
             <summary>
             System for basic tilemap. Based on Monofoxe.ECS.
@@ -247,6 +317,37 @@
             <summary>
             Returns tileset tile according to tile index,
             or null, if index is out of tileset's bounds. 
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Utils.Vector2Extensions">
+            <summary>
+            Vector2 extensions.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Round(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rounds each vector's component.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Floor(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rounds each vector's component down.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Ceiling(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rounds each vector's component up.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.GetSafeNormalize(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Returns vector with the same direction and length of 1. 
+            If original vector is (0;0), returns zero vector.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.ToVector3(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Converts Vector2 to Vector3 with z axis of 0.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.Utils.Alarm">
@@ -1355,9 +1456,9 @@
             System priority. If priority is higher, system will be processed sooner.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.ECS.BaseSystem._usedLayersCount">
+        <member name="F:Monofoxe.Engine.ECS.BaseSystem._usedByLayers">
             <summary>
-            Tells, how many layers are using this system.
+            Tells, if any layer is currently using this system.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.BaseSystem.Create(Monofoxe.Engine.ECS.Component)">
@@ -1394,6 +1495,8 @@
         <member name="F:Monofoxe.Engine.ECS.Component.Visible">
             <summary>
             If component is visible, it will be processed by Draw method.
+            
+            NOTE: components are NOT visible by default!
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.Component.Clone">
@@ -1418,12 +1521,6 @@
             right here and right now.
             
             NOTE: If component's Initialized property is true, this method will do nothing!
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.ComponentMgr.GetComponentList``1(System.Collections.Generic.List{Monofoxe.Engine.ECS.Component})">
-            <summary>
-            Returns list of components of given type from entities owning provided components.
-            TODO: This is too messy description. Redo it, or remove method completely.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.ComponentMgr.FilterInactiveComponents(System.Collections.Generic.List{Monofoxe.Engine.ECS.Component})">
@@ -1542,9 +1639,9 @@
             Removes component from an entity and returns it.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.RemoveAllComponents">
+        <member name="M:Monofoxe.Engine.ECS.Entity.DestroyAllComponents">
             <summary>
-            Removes all components.
+            Removes all components from entity's layer.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.ECS.EntityTemplate">
@@ -1693,6 +1790,13 @@
         <member name="F:Monofoxe.Engine.ECS.EntityMgr._fixedUpdateTimer">
             <summary>
             Counts time until next fixed update.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.EntityMgr.LoadEntityTemplates">
+            <summary>
+            Loads entitiy templates from the content.
+            
+            Needs to be called once to use CreateEntityFromTemplate().
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.EntityMgr.ReadConfig">
@@ -2226,12 +2330,12 @@
             Merging of GraphicsDeviveManager and WindowManager.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.WindowMgr.ScreenW">
+        <member name="P:Monofoxe.Engine.WindowMgr.ScreenWidth">
             <summary>
             Width of the screen.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.WindowMgr.ScreenH">
+        <member name="P:Monofoxe.Engine.WindowMgr.ScreenHeight">
             <summary>
             Height of the screen.
             </summary>
@@ -2241,14 +2345,19 @@
             Size of the screen.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.WindowMgr.CanvasW">
+        <member name="P:Monofoxe.Engine.WindowMgr.CanvasWidth">
             <summary>
             Window width.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.WindowMgr.CanvasH">
+        <member name="P:Monofoxe.Engine.WindowMgr.CanvasHeight">
             <summary>
             Window height.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.WindowMgr.CanvasMode">
+            <summary>
+            Tells how canvas will be drawn on the backbuffer.
             </summary>
         </member>
         <member name="P:Monofoxe.Engine.WindowMgr.CanvasSize">
@@ -2256,7 +2365,7 @@
             Window size.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.WindowMgr.WindowPos">
+        <member name="P:Monofoxe.Engine.WindowMgr.WindowPosision">
             <summary>
             Window position.
             </summary>

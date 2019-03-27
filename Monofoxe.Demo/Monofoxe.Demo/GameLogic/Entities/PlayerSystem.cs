@@ -31,15 +31,16 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				var position = player.Owner.GetComponent<PositionComponent>();
 				var actor = player.Owner.GetComponent<StackableActorComponent>();
 
+				
+				// If player is crouching or dead, he can't be killed or damaged.
+				var playerState = actor.LogicStateMachine.CurrentState;
+				player.Unkillable = (playerState == ActorStates.Dead || actor.Crouching);
+
+
 				actor.LeftAction = Input.CheckButton(player.Left);
 				actor.RightAction = Input.CheckButton(player.Right);
 				actor.JumpAction = Input.CheckButton(player.Jump);
 				actor.CrouchAction = Input.CheckButton(player.Crouch);
-				
-				if (Input.CheckButtonPress(Buttons.K))
-				{
-					Kill(player);
-				}
 			}
 		}
 
@@ -59,7 +60,12 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 			new LevelRestartEffect(GameplayController.GUILayer);
 			
+		}
 
+		public static void Damage(PlayerComponent player)
+		{
+			// This later can be expanded to take away health.
+			Kill(player);
 		}
 		
 	}

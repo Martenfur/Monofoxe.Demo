@@ -11,6 +11,11 @@
             NOTE: Right now FMOD only works with Windows. 
             </summary>
         </member>
+        <member name="F:Monofoxe.FMODAudio.AudioMgr._rootDir">
+            <summary>
+            Root directory for sounds and music.
+            </summary>
+        </member>
         <member name="M:Monofoxe.FMODAudio.AudioMgr.LoadSound(System.String,FMOD.MODE)">
             <summary>
             Loads sound from file.

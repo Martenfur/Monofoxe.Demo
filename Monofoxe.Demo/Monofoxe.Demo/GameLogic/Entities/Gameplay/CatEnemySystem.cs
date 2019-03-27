@@ -62,6 +62,48 @@ namespace Monofoxe.Demo.GameLogic.Entities
 						// Checking if there is a pit below up.
 					}
 				}
+
+				
+				// Damaging the player.
+				if (
+					actor.LogicStateMachine.CurrentState != ActorStates.Stacked 
+					&& actor.LogicStateMachine.CurrentState != ActorStates.Dead
+				)
+				{
+					var players = SceneMgr.CurrentScene.GetEntityListByComponent<PlayerComponent>();
+					foreach(var playerEntity in players)
+					{
+						var playerActor = playerEntity.GetComponent<StackableActorComponent>();
+				
+						// If player is crouching or dead, don't touch him.
+						var playerState = playerActor.LogicStateMachine.CurrentState;
+						if (playerState == ActorStates.Dead || playerActor.Crouching)
+						{
+							continue;
+						}
+						// If player is crouching or dead, don't touch him.
+
+						var position = gato.Owner.GetComponent<PositionComponent>();
+						var playerPosition = playerEntity.GetComponent<PositionComponent>();
+						var playerPhysics = playerEntity.GetComponent<PhysicsComponent>();
+					
+						var player = playerEntity.GetComponent<PlayerComponent>();
+					
+						// Setting up colliders.
+						physics.Collider.Position = position.Position;
+						physics.Collider.PreviousPosition = position.PreviousPosition;
+						playerPhysics.Collider.Position = playerPosition.Position;
+						playerPhysics.Collider.PreviousPosition = playerPosition.PreviousPosition	;
+						// Seting up colliders.
+
+						if (CollisionDetector.CheckCollision(physics.Collider, playerPhysics.Collider))
+						{
+							PlayerSystem.Damage(player);
+						}
+					}
+				}
+				// Damaging the player.
+
 			}
 		}
 		

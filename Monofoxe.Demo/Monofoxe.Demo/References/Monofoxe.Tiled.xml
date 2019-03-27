@@ -22,33 +22,61 @@
             NOTE: All factory tags should be unique!
             </summary>
         </member>
-        <member name="M:Monofoxe.Tiled.ITiledEntityFactory.Make(Monofoxe.Tiled.MapStructure.Objects.TiledObject,Monofoxe.Engine.SceneSystem.Layer)">
+        <member name="M:Monofoxe.Tiled.ITiledEntityFactory.Make(Monofoxe.Tiled.MapStructure.Objects.TiledObject,Monofoxe.Engine.SceneSystem.Layer,Monofoxe.Tiled.MapBuilder)">
             <summary>
             Creates entity from Tiled Object on a given layer.
             </summary>
         </member>
-        <member name="T:Monofoxe.Tiled.Map">
+        <member name="T:Monofoxe.Tiled.MapBuilder">
             <summary>
-            Basic map class. Creates a map from Tiled data structures.
+            Basic map builder class. Creates a map from Tiled data structures.
             Can be extended.
             </summary>
         </member>
-        <member name="M:Monofoxe.Tiled.Map.Load">
+        <member name="M:Monofoxe.Tiled.MapBuilder.Build">
             <summary>
-            Loads map scene.
+            Builds map scene from TIled map template.
+            
+            Building goes in four stages:
+            - Building tilesets.
+            - Building tile layers.
+            - Building object layers.
+            - Builsing image layers.
+            
+            Each of those stages can be overriden.
+            Override this method if you want full control over the map loading.
             </summary>
         </member>
-        <member name="M:Monofoxe.Tiled.Map.Unload">
+        <member name="M:Monofoxe.Tiled.MapBuilder.Destroy">
             <summary>
             Unloads map scene.
             </summary>
         </member>
-        <member name="M:Monofoxe.Tiled.Map.BuildTilesets(Monofoxe.Tiled.MapStructure.TiledMapTileset[])">
+        <member name="M:Monofoxe.Tiled.MapBuilder.BuildTilesets(Monofoxe.Tiled.MapStructure.TiledMapTileset[])">
             <summary>
-            Builds Tiled tilesets to actual tilesets.
+            Builds tilesets from Tiled templates.
+            Called by BuildMap().
             </summary>
         </member>
-        <member name="M:Monofoxe.Tiled.Map.GetLayerPriority(Monofoxe.Tiled.MapStructure.TiledMapLayer)">
+        <member name="M:Monofoxe.Tiled.MapBuilder.BuildTileLayers(System.Collections.Generic.List{Monofoxe.Engine.Utils.Tilemaps.Tileset})">
+            <summary>
+            Builds tile layers from Tiled templates. 
+            Called by BuildMap().
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapBuilder.BuildObjectLayers">
+            <summary>
+            Builds object layers from Tiled templates.
+            Called by BuildMap().
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapBuilder.BuildImageLayers">
+            <summary>
+            Builds image layers from Tiled templates.
+            Called by BuildMap().
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapBuilder.GetLayerPriority(Monofoxe.Tiled.MapStructure.TiledMapLayer)">
             <summary>
             Returns Tiled layer priority, which is stored in its properties.
             If no such property was found, returns 0.
@@ -70,7 +98,7 @@
             HAS to be called in the beginning of the game, if you want to load Tiled maps.
             </summary>
         </member>
-        <member name="M:Monofoxe.Tiled.MapMgr.MakeEntity(Monofoxe.Tiled.MapStructure.Objects.TiledObject,Monofoxe.Engine.SceneSystem.Layer)">
+        <member name="M:Monofoxe.Tiled.MapMgr.MakeEntity(Monofoxe.Tiled.MapStructure.Objects.TiledObject,Monofoxe.Engine.SceneSystem.Layer,Monofoxe.Tiled.MapBuilder)">
             <summary>
             Makes entity from Tiled temmplate using factory pool.
             </summary>
