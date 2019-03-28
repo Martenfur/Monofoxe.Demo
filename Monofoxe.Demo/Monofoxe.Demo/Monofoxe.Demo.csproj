@@ -55,6 +55,8 @@
     <Compile Include="GameLogic\Entities\CheckpointManager.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
+    <Compile Include="GameLogic\Entities\Core\LinkComponent.cs" />
+    <Compile Include="GameLogic\Entities\Core\LinkSystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Checkpoint.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CheckpointDoggo.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\FrogEnemySystem.cs" />
@@ -65,6 +67,9 @@
     <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathSystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\Button.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\Cannon.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\Switchblock.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Spikes.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorSystem.cs" />
@@ -81,6 +86,9 @@
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
+    <Compile Include="MapEntityFactories\ButtonFactory.cs" />
+    <Compile Include="MapEntityFactories\CannonFactory.cs" />
+    <Compile Include="MapEntityFactories\SwitchblockFactory.cs" />
     <Compile Include="MapEntityFactories\SpikesFactory.cs" />
     <Compile Include="MapEntityFactories\FrogEnemyFactory.cs" />
     <Compile Include="MapEntityFactories\CheckpointFactory.cs" />

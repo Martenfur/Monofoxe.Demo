@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <tileset firstgid="1" source="Template Sprites/template_sprites.tsx"/>
+ <object name="Switchblock" type="Switchblock" gid="8" width="48" height="48">
+  <properties>
+   <property name="active" type="bool" value="false"/>
+   <property name="link_trigger" value="none"/>
+  </properties>
+ </object>
+</template>

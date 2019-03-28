@@ -119,15 +119,17 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 		{
 			var rectangle = (RectangleCollider)collider1;
 			var tilemap = (TilemapCollider)collider2;
+			
 			if ( // Checking tilemap bounds.
 				GameMath.RectangleInRectangleBySize(
 					rectangle.Position, 
 					rectangle.Size, 
-					tilemap.Position, 
+					tilemap.Position + tilemap.Size / 2, 
 					tilemap.Size
 				)
 			)
 			{
+				
 				var blockSize = new Vector2(tilemap.Tilemap.TileWidth, tilemap.Tilemap.TileHeight);
 
 				var corner1 = (rectangle.Position - tilemap.Position - rectangle.Size / 2) / blockSize;

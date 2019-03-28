@@ -2,7 +2,7 @@
 <tileset version="1.2" tiledversion="1.2.2" name="test" tilewidth="56" tileheight="56" spacing="1" tilecount="72" columns="8">
  <tileoffset x="-4" y="4"/>
  <grid orientation="orthogonal" width="48" height="48"/>
- <image source="tilesettest.png" width="455" height="512"/>
+ <image source="terrain.png" width="455" height="512"/>
  <terraintypes>
   <terrain name="Default" tile="1"/>
  </terraintypes>

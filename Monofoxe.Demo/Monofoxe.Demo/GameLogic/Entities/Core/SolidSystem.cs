@@ -40,15 +40,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			var solid = (SolidComponent)component;
 			var position = solid.Owner.GetComponent<PositionComponent>();
 			
-			if (solid.Collider is PlatformCollider)
-				DrawMgr.CurrentColor = Color.Black * 0.5f;
-			else
-				DrawMgr.CurrentColor = Color.Black;
+			DrawMgr.CurrentColor = Color.Red;
 
 			DrawMgr.DrawRectangle(
 				position.Position.Round() - solid.Collider.Size / 2,
 				position.Position.Round() + solid.Collider.Size / 2,
-				false
+				true
 			);
 			
 

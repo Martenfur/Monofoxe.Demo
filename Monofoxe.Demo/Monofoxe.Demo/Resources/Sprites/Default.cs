@@ -24,12 +24,15 @@ namespace Resources.Sprites
 		public static Sprite PlayerMain;
 		public static Sprite Watermelon;
 		public static Sprite Gato;
+		public static Sprite Cannon;
 		public static Sprite Spikes;
+		public static Sprite Switchblock;
 		public static Sprite Frog;
 		public static Sprite CheckpointPedestal;
 		public static Sprite CheckpointDoggo;
 		public static Sprite Boulder;
 		public static Sprite Platform;
+		public static Sprite Button;
 		public static Sprite Rainbow;
 		#endregion Sprites.
 		
@@ -56,12 +59,15 @@ namespace Resources.Sprites
 			PlayerMain = sprites["Characters/player_main"];
 			Watermelon = sprites["Characters/watermelon"];
 			Gato = sprites["Characters/gato"];
+			Cannon = sprites["Objects/cannon"];
 			Spikes = sprites["Objects/spikes"];
+			Switchblock = sprites["Objects/switchblock"];
 			Frog = sprites["Characters/frog"];
 			CheckpointPedestal = sprites["Objects/checkpoint_pedestal"];
 			CheckpointDoggo = sprites["Objects/checkpoint_doggo"];
 			Boulder = sprites["Decorations/boulder"];
 			Platform = sprites["Objects/platform"];
+			Button = sprites["Objects/button"];
 			Rainbow = sprites["Objects/rainbow"];
 			
 			#endregion Sprite constructors.
