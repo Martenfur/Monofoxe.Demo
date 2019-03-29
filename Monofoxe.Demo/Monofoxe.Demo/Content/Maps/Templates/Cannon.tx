@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <tileset firstgid="1" source="Template Sprites/template_sprites.tsx"/>
- <object name="Cannon" type="Cannon" gid="10" width="48" height="48"/>
+ <object name="Cannon" type="Cannon" gid="10" width="48" height="48">
+  <properties>
+   <property name="baseRotation" type="float" value="0"/>
+   <property name="firePeriod" type="float" value="3"/>
+   <property name="initialDelay" type="float" value="0"/>
+   <property name="link_trigger" value="none"/>
+   <property name="shootingMode" value="Auto"/>
+  </properties>
+ </object>
 </template>

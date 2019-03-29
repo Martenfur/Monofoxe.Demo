@@ -57,6 +57,7 @@
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
     <Compile Include="GameLogic\Entities\Core\LinkComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\LinkSystem.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\CannonBall.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Checkpoint.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CheckpointDoggo.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\FrogEnemySystem.cs" />

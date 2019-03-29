@@ -14,7 +14,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		private int _fadeDirection = 1;
 
-		private double _fadeTime = 1;
+		private double _fadeTime = 0.5f;
 
 		private AutoAlarm _alarm;
 

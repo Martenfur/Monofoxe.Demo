@@ -1,11 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Engine.Utils;
-using Monofoxe.Demo.GameLogic.Entities.Core;
-using Monofoxe.Demo.GameLogic.Collisions;
-using System;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -61,17 +60,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 				if (collidedObject.TryGetComponent(out StackableActorComponent actor))
 				{
-					if (collidedObject.TryGetComponent(out PlayerComponent player))
-					{
-						if (!player.Unkillable)
-						{
-							PlayerSystem.Kill(player);
-						}
-					}
-					else
-					{
-						actor.LogicStateMachine.ChangeState(ActorStates.Dead);
-					}
+					StackableActorSystem.Damage(actor);
 				}
 			}
 		}

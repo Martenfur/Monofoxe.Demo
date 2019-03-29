@@ -83,6 +83,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				actor.JumpActionPress = (actor.JumpAction && !actor.JumpActionPrevious);
 				actor.JumpActionPrevious = actor.JumpAction; 
 				
+				if (
+					actor.LogicStateMachine.CurrentState != ActorStates.Dead 
+					&& actor.Owner.GetComponent<PhysicsComponent>().Squashed
+				)
+				{
+					Kill(actor);
+				}
+
 			}
 		}
 
@@ -499,6 +507,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 
 
+
 		void UpdateSpeed(StackableActorComponent actor, PhysicsComponent physics)
 		{
 			var horMovement = actor.RightAction.ToInt() - actor.LeftAction.ToInt();
@@ -537,6 +546,35 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				}
 				// Speeding up.
 			}
+		}
+
+
+
+		public static void Kill(StackableActorComponent actor)
+		{
+			if (actor.LogicStateMachine.CurrentState == ActorStates.Dead)
+			{
+				return;
+			}
+
+			var position = actor.Owner.GetComponent<PositionComponent>();
+			
+			actor.LogicStateMachine.ChangeState(ActorStates.Dead);
+
+			foreach(var camera in actor.Owner.Scene.GetEntityList<GameCamera>())
+			{
+				if (camera.Target == position) // If this camera follows player.
+				{
+					camera.Target = null;
+				}
+			}
+			
+		}
+
+		public static void Damage(StackableActorComponent actor)
+		{
+			// This later can be expanded to take away health.
+			Kill(actor);
 		}
 
 
@@ -940,7 +978,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var ang = 0.0;
 			if (actor.StackedPrevious != null)
 			{
-				ang = 90 - GameMath.Direction(actor.StackedPrevious.GetComponent<PositionComponent>().Position, position.Position);
+				ang = 90 + GameMath.Direction(actor.StackedPrevious.GetComponent<PositionComponent>().Position, position.Position);
 				var master = actor.StackedPrevious.GetComponent<StackableActorComponent>();
 
 				actor.Orientation = master.Orientation;
@@ -955,7 +993,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			if (actor.LogicStateMachine != null && actor.LogicStateMachine.CurrentState == ActorStates.Dead)
 			{
-				ang = GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
+				ang = -GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
 			}
 
 			var color = Color.White;

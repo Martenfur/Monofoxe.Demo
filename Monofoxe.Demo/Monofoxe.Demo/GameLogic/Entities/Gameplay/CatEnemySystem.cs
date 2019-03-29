@@ -75,8 +75,9 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					foreach(var playerEntity in players)
 					{
 						var player = playerEntity.GetComponent<PlayerComponent>();
-					
-						if (player.Unkillable)
+						var playerActor = playerEntity.GetComponent<StackableActorComponent>();
+						
+						if (playerActor.Crouching)
 						{
 							continue;
 						}
@@ -95,7 +96,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 						if (CollisionDetector.CheckCollision(physics.Collider, playerPhysics.Collider))
 						{
-							PlayerSystem.Damage(player);
+							StackableActorSystem.Damage(playerEntity.GetComponent<StackableActorComponent>());
 						}
 					}
 				}

@@ -73,35 +73,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			Active = !Active;
 			solid.Collider.Enabled = Active;
-
-			if (Active)
-			{
-				foreach(var actorEntity in Scene.GetEntityListByComponent<StackableActorComponent>())
-				{
-					var physics = actorEntity.GetComponent<PhysicsComponent>();
-					var position = actorEntity.GetComponent<PositionComponent>();
-
-					physics.Collider.Position = position.Position;
-					physics.Collider.PreviousPosition = position.PreviousPosition;
-
-					if (CollisionDetector.CheckCollision(solid.Collider, physics.Collider))
-					{
-						if (actorEntity.TryGetComponent(out PlayerComponent player))
-						{
-							if (!player.Unkillable)
-							{
-								PlayerSystem.Kill(player);
-							}
-						}
-						else
-						{
-							var actor = actorEntity.GetComponent<StackableActorComponent>();
-							actor.LogicStateMachine.ChangeState(ActorStates.Dead);
-						}
-					}
-				}
-
-			}
 		}
 
 

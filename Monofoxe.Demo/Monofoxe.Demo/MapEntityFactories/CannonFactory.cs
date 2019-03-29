@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Globalization;
+using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure.Objects;
+using System;
 
 namespace Monofoxe.Demo.MapEntityFactories
 {
@@ -22,7 +25,23 @@ namespace Monofoxe.Demo.MapEntityFactories
 			
 			var position = new Vector2(matrix.Translation.X, matrix.Translation.Y) + tile.Position;
 			
-			return new Cannon(position, tile.Rotation, layer);
+			var cannon = new Cannon(
+				position, 
+				(Cannon.ShootingMode)Enum.Parse(typeof(Cannon.ShootingMode), tile.Properties["shootingMode"]),
+				tile.Rotation, 
+				float.Parse(tile.Properties["baseRotation"], CultureInfo.InvariantCulture),
+				float.Parse(tile.Properties["firePeriod"], CultureInfo.InvariantCulture), 
+				float.Parse(tile.Properties["initialDelay"], CultureInfo.InvariantCulture), 
+				layer
+			);
+
+			
+			if (tile.Properties["link_trigger"] != "none")
+			{
+				cannon.AddComponent(new LinkComponent(tile.Properties["link_trigger"]));
+			}
+
+			return cannon;
 		}
 	}
 }

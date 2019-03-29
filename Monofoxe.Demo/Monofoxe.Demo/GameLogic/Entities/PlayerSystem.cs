@@ -34,39 +34,22 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				
 				// If player is crouching or dead, he can't be killed or damaged.
 				var playerState = actor.LogicStateMachine.CurrentState;
-				player.Unkillable = (playerState == ActorStates.Dead || actor.Crouching);
-
 
 				actor.LeftAction = Input.CheckButton(player.Left);
 				actor.RightAction = Input.CheckButton(player.Right);
 				actor.JumpAction = Input.CheckButton(player.Jump);
 				actor.CrouchAction = Input.CheckButton(player.Crouch);
-			}
-		}
 
-		public static void Kill(PlayerComponent player)
-		{
-			var actor = player.Owner.GetComponent<StackableActorComponent>();
-			var position = player.Owner.GetComponent<PositionComponent>();
-			actor.LogicStateMachine.ChangeState(ActorStates.Dead);
-
-			foreach(var camera in player.Owner.Scene.GetEntityList<GameCamera>())
-			{
-				if (camera.Target == position) // If this camera follows player.
-				{
-					camera.Target = null;
+				if (
+					actor.LogicStateMachine.CurrentState == ActorStates.Dead 
+					&& GameplayController.GUILayer.CountEntities<LevelRestartEffect>() == 0
+				)
+				{ // TODO: make it not bugged.
+					new LevelRestartEffect(GameplayController.GUILayer);
 				}
 			}
-
-			new LevelRestartEffect(GameplayController.GUILayer);
-			
 		}
-
-		public static void Damage(PlayerComponent player)
-		{
-			// This later can be expanded to take away health.
-			Kill(player);
-		}
+		
 		
 	}
 }
