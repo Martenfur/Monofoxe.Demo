@@ -48,7 +48,7 @@ namespace Monofoxe.Demo
 			Resources.Effects.Load();
 			Resources.Maps.Load();
 			
-			EntityMgr.LoadEntityTemplates();
+			EntityTemplateMgr.LoadEntityTemplates();
 		}
 
 		/// <summary>

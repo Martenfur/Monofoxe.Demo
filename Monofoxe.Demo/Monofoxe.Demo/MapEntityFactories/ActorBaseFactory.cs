@@ -15,7 +15,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 			var tile = (TiledTileObject)obj;
 			
 			
-			var entity = EntityMgr.CreateEntityFromTemplate(layer, tag);
+			var entity = Entity.CreateFromTemplate(layer, tag);
 			
 			var position = entity.GetComponent<PositionComponent>();
 			var actor = entity.GetComponent<StackableActorComponent>();
@@ -23,8 +23,6 @@ namespace Monofoxe.Demo.MapEntityFactories
 			position.Position = tile.Position 
 				+ new Vector2(actor.MainSprite.Width, -actor.MainSprite.Height) / 2;
 			
-			ComponentMgr.InitComponent(actor);
-
 			return entity;
 		}
 	}

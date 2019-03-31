@@ -44,9 +44,11 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					actor.LogicStateMachine.CurrentState == ActorStates.Dead 
 					&& GameplayController.GUILayer.CountEntities<LevelRestartEffect>() == 0
 				)
-				{ // TODO: make it not bugged.
+				{ 
 					new LevelRestartEffect(GameplayController.GUILayer);
 				}
+				
+
 			}
 		}
 		

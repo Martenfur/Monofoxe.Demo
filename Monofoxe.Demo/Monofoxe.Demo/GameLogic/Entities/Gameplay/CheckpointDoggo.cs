@@ -39,7 +39,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			if (_deathAlarm.Update())
 			{
-				EntityMgr.DestroyEntity(this);
+				DestroyEntity();
 			}
 		}
 

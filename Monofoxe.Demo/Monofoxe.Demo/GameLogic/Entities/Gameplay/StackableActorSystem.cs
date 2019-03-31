@@ -499,7 +499,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 			if (!GameMath.PointInRectangle(position.Position, camera.Camera.Position - camera.Camera.Size, camera.Camera.Position + camera.Camera.Size))
 			{
-				EntityMgr.DestroyEntity(actor.Owner);
+				actor.Owner.DestroyEntity();
 			}
 		}
 		

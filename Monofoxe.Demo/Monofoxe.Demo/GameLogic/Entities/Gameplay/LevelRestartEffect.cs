@@ -31,7 +31,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				_fadeDirection *= -1;
 				if (_fadeDirection == 1)
 				{
-					EntityMgr.DestroyEntity(this);
+					DestroyEntity();
 				}
 				else
 				{

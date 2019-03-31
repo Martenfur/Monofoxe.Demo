@@ -21,7 +21,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public Spikes(Vector2 position, float rotation, Layer layer) : base(layer)
 		{
 			AddComponent(new PositionComponent(position));
-			
+
 			var solid = new SolidComponent();
 			
 			var collider = new RectangleCollider();
@@ -30,6 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			solid.Collider = collider;
 
+			
 			AddComponent(solid);
 
 			_rotation = rotation;

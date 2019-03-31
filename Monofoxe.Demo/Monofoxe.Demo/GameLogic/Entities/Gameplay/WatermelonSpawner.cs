@@ -103,11 +103,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				_spawnAnimation = true;
 				
 				// Spawner can produce only templated entities.
-				_spawnedEntity = EntityMgr.CreateEntityFromTemplate(Layer, _spawnEntityTag);
+				_spawnedEntity = CreateFromTemplate(Layer, _spawnEntityTag);
 			
 				_spawnedEntity.GetComponent<PositionComponent>().Position = GetComponent<PositionComponent>().Position + _spawnPointOffset;
-				ComponentMgr.InitComponent(_spawnedEntity.GetComponent<StackableActorComponent>());
-
+				
 				// Disabling spawned entity during the animation.
 				_spawnedEntity.Enabled = false;
 				_spawnedEntity.Visible = false;

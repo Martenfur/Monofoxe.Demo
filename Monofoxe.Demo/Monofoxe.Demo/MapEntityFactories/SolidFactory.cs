@@ -14,7 +14,7 @@ namespace Monofoxe.Demo.MapEntityFactories
 		{
 			var rectangle = (TiledRectangleObject)obj;
 
-			var entity = EntityMgr.CreateEntityFromTemplate(layer, "SolidBoi");
+			var entity = Entity.CreateFromTemplate(layer, "SolidBoi");
 			entity.GetComponent<PositionComponent>().Position = rectangle.Position + rectangle.Size / 2f;
 			entity.GetComponent<SolidComponent>().Collider.Size = rectangle.Size;
 
