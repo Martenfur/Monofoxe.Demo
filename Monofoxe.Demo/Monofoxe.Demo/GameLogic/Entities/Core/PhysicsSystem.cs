@@ -30,24 +30,35 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		{
 			_solidEntities = SceneMgr.CurrentScene.GetEntityListByComponent<SolidComponent>();
 			
-			foreach(var solidEntity in _solidEntities)
+			// Physics system will execute once for each layer with physics components.
+			// This flag checks if system is being executed for the very first layer.
+			// Some code in the physics system has to be executed only once per update. 
+			var isFirstLayer = SceneMgr.CurrentScene.Layers[0] == SceneMgr.CurrentLayer;
+
+			if (isFirstLayer)
 			{
-				var solid = solidEntity.GetComponent<SolidComponent>();
-				solid.CollisionH = 0;
-				solid.CollisionV = 0;
-				solid.CollidedObjectH = null;
-				solid.CollidedObjectV = null;
+				foreach(var solidEntity in _solidEntities)
+				{
+					var solid = solidEntity.GetComponent<SolidComponent>();
+					solid.CollisionH = 0;
+					solid.CollisionV = 0;
+					solid.CollidedObjectH = null;
+					solid.CollidedObjectV = null;
+				}
 			}
 
 			// Gravity.
 			foreach(PhysicsComponent cPhysics in components)
 			{
-				cPhysics.OneFrameMovement = Vector2.Zero;
-				cPhysics.CollisionH = 0;
-				cPhysics.CollisionV = 0;
-				cPhysics.CollidedSolidH = null;
-				cPhysics.CollidedSolidV = null;
-				cPhysics.Squashed = false;
+				if (isFirstLayer)
+				{
+					cPhysics.OneFrameMovement = Vector2.Zero;
+					cPhysics.CollisionH = 0;
+					cPhysics.CollisionV = 0;
+					cPhysics.CollidedSolidH = null;
+					cPhysics.CollidedSolidV = null;
+					cPhysics.Squashed = false;
+				}
 
 				var cPosition = cPhysics.Owner.GetComponent<PositionComponent>();
 				

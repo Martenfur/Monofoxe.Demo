@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Monofoxe.Engine.ECS;
+using Monofoxe.Engine;
+using Monofoxe.Engine.SceneSystem;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
@@ -11,6 +13,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 
 		public override void Update(List<Component> components)
 		{
+			var allLinks = SceneMgr.CurrentScene.GetComponentList<LinkComponent>();
 			foreach(LinkComponent link in components)
 			{
 				if (link.Passive)
@@ -18,12 +21,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					continue;
 				}
 
-				foreach(LinkComponent otherLink in components)
+				foreach(LinkComponent otherLink in allLinks)
 				{
 					if (otherLink.Passive && link != otherLink && link.Tag == otherLink.Tag)
 					{
 						link.Pair = otherLink;
 						otherLink.Pair = link;
+						Console.WriteLine("FOUND PAIR! Tag: " + link.Tag + " " + otherLink.Tag);
 						break;
 					}
 				}

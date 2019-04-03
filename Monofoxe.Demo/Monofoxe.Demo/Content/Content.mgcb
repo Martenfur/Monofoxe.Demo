@@ -60,3 +60,8 @@
 /processor:SpriteGroupProcessor
 /build:Graphics/default.spritegroup
 
+#begin Maps/lvl1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/lvl1.tmx
+

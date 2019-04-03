@@ -16,7 +16,7 @@ namespace Resources
 			_content = new ContentManager(GameMgr.Game.Services);
 			_content.RootDirectory = AssetMgr.ContentDir + '/' + AssetMgr.MapsDir;
 			
-			Test = _content.Load<TiledMap>("test");
+			Test = _content.Load<TiledMap>("lvl1");
 			System.Console.WriteLine(Test == null);
 		}
 

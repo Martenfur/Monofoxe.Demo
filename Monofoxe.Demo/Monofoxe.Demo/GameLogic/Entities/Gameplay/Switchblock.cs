@@ -64,6 +64,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var position = GetComponent<PositionComponent>();
 			DrawMgr.CurrentColor = Color.White;
+			
+				if (TryGetComponent(out LinkComponent link))
+				{
+					if (link.Pair == null)
+					{
+					DrawMgr.CurrentColor = Color.Red;
+					}
+				}
 			DrawMgr.DrawSprite(Resources.Sprites.Default.Switchblock, 1 - Active.ToInt(), position.Position);
 		}
 

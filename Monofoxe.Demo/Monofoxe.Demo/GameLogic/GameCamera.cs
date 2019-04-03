@@ -32,7 +32,7 @@ namespace Monofoxe.Demo.GameLogic
 		/// <summary>
 		/// Camera can't go further than this from target.
 		/// </summary>
-		public float MaxDistance = 150;
+		public float MaxDistance = 150 * 2;
 
 		public double PullbackMultiplier = 1.0 / 200.0;
 
