@@ -54,7 +54,8 @@ namespace Monofoxe.Demo
 				CurrentMap.Destroy();
 				CurrentMap.Build();
 			}
-
+			
+			// TODO: REMOVE!
 			if (Input.CheckButtonPress(Buttons.E))
 			{
 				if (TimeKeeper.GlobalTimeMultiplier == 1)

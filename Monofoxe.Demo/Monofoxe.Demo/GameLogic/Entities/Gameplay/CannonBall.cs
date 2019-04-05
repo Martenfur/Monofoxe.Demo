@@ -52,14 +52,19 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			if (!_dead)
 			{
+				position.Position += _direction * TimeKeeper.GlobalTime(_speed);
+
 				_collider.Position = position.Position;
 				_collider.PreviousPosition = position.PreviousPosition;
 
 				if (!CollisionDetector.CheckCollision(_collider, _myCannon.GetComponent<SolidComponent>().Collider))
 				{
-					foreach(var solidEntity in Scene.GetEntityListByComponent<SolidComponent>())
+					foreach(SolidComponent solid in Scene.GetComponentList<SolidComponent>())
 					{
-						if (CollisionDetector.CheckCollision(_collider, solidEntity.GetComponent<SolidComponent>().Collider))
+						var solidPosition = solid.Owner.GetComponent<PositionComponent>();
+						solid.Collider.Position = solidPosition.Position;
+						solid.Collider.PreviousPosition = solidPosition.PreviousPosition;
+						if (CollisionDetector.CheckCollision(_collider, solid.Collider))
 						{
 							Die();
 						}
@@ -87,14 +92,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					}
 				}
 	
-				position.Position += _direction * TimeKeeper.GlobalTime(_speed);
 			}
 			else
 			{
 				_deadSpeed.Y += TimeKeeper.GlobalTime(_deadGravity);
 				position.Position += TimeKeeper.GlobalTime(_deadSpeed);
 			}
-
+			
 			if (_lifetimeAlarm.Update())
 			{
 				DestroyEntity();

@@ -40,6 +40,9 @@ namespace Monofoxe.Demo.GameLogic
 
 		private Vector2 _topLeftPoint, _bottomRightPoint;
 
+		private bool _gotStoppers = false;
+
+
 		public GameCamera(Layer layer, Camera camera) : base(layer)
 		{
 			Camera = camera;
@@ -50,36 +53,7 @@ namespace Monofoxe.Demo.GameLogic
 
 		public override void Update()
 		{
-
-			var stoppers = SceneMgr.CurrentScene.GetEntityList<CameraStopper>();
-			
-			_topLeftPoint = stoppers[0].GetComponent<PositionComponent>().Position;
-			_bottomRightPoint = _topLeftPoint;
-			
-			foreach(var stopper in stoppers)
-			{
-				var stopperPosition = stopper.GetComponent<PositionComponent>().Position;
-				
-				if (stopperPosition.X < _topLeftPoint.X)
-				{
-					_topLeftPoint.X = stopperPosition.X;
-				}
-				if (stopperPosition.Y < _topLeftPoint.Y)
-				{
-					_topLeftPoint.Y = stopperPosition.Y;
-				}
-				if (stopperPosition.X > _bottomRightPoint.X)
-				{
-					_bottomRightPoint.X = stopperPosition.X;
-				}
-				if (stopperPosition.Y > _bottomRightPoint.Y)
-				{
-					_bottomRightPoint.Y = stopperPosition.Y;
-				}
-			}
-			
-
-
+			RetrieveStopperPoints();
 
 			if (Target != null)
 			{
@@ -101,30 +75,70 @@ namespace Monofoxe.Demo.GameLogic
 				}
 			}
 			
-			Camera.Position = _position.Round();
 			
+			// Restricting the camera.
 			var adjustedTopLeftPoint = _topLeftPoint + Camera.Size / 2;
 			var adjustedBottomRightPoint = _bottomRightPoint - Camera.Size / 2;
 
+			if (_position.X < adjustedTopLeftPoint.X)
+			{
+				_position.X = adjustedTopLeftPoint.X;
+			}
+			if (_position.Y < adjustedTopLeftPoint.Y)
+			{
+				_position.Y = adjustedTopLeftPoint.Y;
+			}
+			if (_position.X > adjustedBottomRightPoint.X)
+			{
+				_position.X = adjustedBottomRightPoint.X;
+			}
+			if (_position.Y > adjustedBottomRightPoint.Y)
+			{
+				_position.Y = adjustedBottomRightPoint.Y;
+			}
+			// Restricting the camera.
+			
+			Camera.Position = _position.Round();
+			
+		}
 
-			if (Camera.Position.X < adjustedTopLeftPoint.X)
+
+		/// <summary>
+		/// Getting stopper points.
+		/// </summary>
+		private void RetrieveStopperPoints()
+		{
+			if (!_gotStoppers)
 			{
-				Camera.Position.X = adjustedTopLeftPoint.X;
-			}
-			if (Camera.Position.Y < adjustedTopLeftPoint.Y)
-			{
-				Camera.Position.Y = adjustedTopLeftPoint.Y;
-			}
-			if (Camera.Position.X > adjustedBottomRightPoint.X)
-			{
-				Camera.Position.X = adjustedBottomRightPoint.X;
-			}
-			if (Camera.Position.Y > adjustedBottomRightPoint.Y)
-			{
-				Camera.Position.Y = adjustedBottomRightPoint.Y;
-			}
+				var stoppers = SceneMgr.CurrentScene.GetEntityList<CameraStopper>();
 			
+				_topLeftPoint = stoppers[0].GetComponent<PositionComponent>().Position;
+				_bottomRightPoint = _topLeftPoint;
 			
+				foreach(var stopper in stoppers)
+				{
+					var stopperPosition = stopper.GetComponent<PositionComponent>().Position;
+				
+					if (stopperPosition.X < _topLeftPoint.X)
+					{
+						_topLeftPoint.X = stopperPosition.X;
+					}
+					if (stopperPosition.Y < _topLeftPoint.Y)
+					{
+						_topLeftPoint.Y = stopperPosition.Y;
+					}
+					if (stopperPosition.X > _bottomRightPoint.X)
+					{
+						_bottomRightPoint.X = stopperPosition.X;
+					}
+					if (stopperPosition.Y > _bottomRightPoint.Y)
+					{
+						_bottomRightPoint.Y = stopperPosition.Y;
+					}
+					stopper.DestroyEntity();
+				}
+				_gotStoppers = true;
+			}
 		}
 
 
