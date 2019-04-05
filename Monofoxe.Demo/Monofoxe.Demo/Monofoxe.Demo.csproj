@@ -70,6 +70,7 @@
     <Compile Include="GameLogic\Entities\Gameplay\PathSystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Button.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Cannon.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\BottomlessPit.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Switchblock.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Spikes.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\StackableActorComponent.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
     <Compile Include="MapEntityFactories\ButtonFactory.cs" />
     <Compile Include="MapEntityFactories\CannonFactory.cs" />
+    <Compile Include="MapEntityFactories\BottomlessPitFactory.cs" />
     <Compile Include="MapEntityFactories\SwitchblockFactory.cs" />
     <Compile Include="MapEntityFactories\SpikesFactory.cs" />
     <Compile Include="MapEntityFactories\FrogEnemyFactory.cs" />

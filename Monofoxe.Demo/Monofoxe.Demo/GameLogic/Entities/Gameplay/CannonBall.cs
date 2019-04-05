@@ -27,6 +27,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		private int _deathDispersion = 30;
 
+		private Alarm _lifetimeAlarm;
+		private double _lifetime = 15;
+
 		public CannonBall(Vector2 position, Vector2 direction, Cannon myCannon, Layer layer) : base(layer)
 		{
 			AddComponent(new PositionComponent(position));
@@ -37,6 +40,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 			_direction = direction;
 			_myCannon = myCannon;
+
+			_lifetimeAlarm = new Alarm();
+			_lifetimeAlarm.Set(_lifetime);
 		}
 
 
@@ -87,6 +93,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				_deadSpeed.Y += TimeKeeper.GlobalTime(_deadGravity);
 				position.Position += TimeKeeper.GlobalTime(_deadSpeed);
+			}
+
+			if (_lifetimeAlarm.Update())
+			{
+				DestroyEntity();
 			}
 
 		}

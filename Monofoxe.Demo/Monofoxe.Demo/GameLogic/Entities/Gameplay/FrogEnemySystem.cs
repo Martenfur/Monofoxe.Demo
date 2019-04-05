@@ -44,7 +44,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					physics.Collider.Position = position.Position 
 						+ Vector2.UnitX * gato.Direction * physics.Collider.Size.X / 2;
 					
-					var players = SceneMgr.CurrentLayer.GetEntityList("player");
+					var players = SceneMgr.CurrentScene.GetEntityList("player");
 
 					if (players.Count > 0)
 					{

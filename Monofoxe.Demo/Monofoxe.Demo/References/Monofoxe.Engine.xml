@@ -158,6 +158,426 @@
             JSON format for vectors is: {x: 0, y: 0, z: 0}.
             </summary>
         </member>
+        <member name="T:Monofoxe.Engine.ECS.ComponentContainer">
+            <summary>
+            Custom container for entity components.
+            Basically just a dictionary of lists of components.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.ComponentContainer.Add(Monofoxe.Engine.ECS.Component)">
+            <summary>
+            Adds component to the container.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.ComponentContainer.Remove(Monofoxe.Engine.ECS.Component)">
+            <summary>
+            Removes component from the container.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.ComponentContainer.TryGetList(System.Type,System.Collections.Generic.List{Monofoxe.Engine.ECS.Component}@)">
+            <summary>
+            Gets the component list associated with the specified key.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.BaseSystem">
+            <summary>
+            Basic system interface. 
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.BaseSystem.ComponentType">
+            <summary>
+            Type of components, which are processed by this system.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.BaseSystem.Priority">
+            <summary>
+            System priority. If priority is higher, system will be processed sooner.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.BaseSystem._usedByLayers">
+            <summary>
+            Tells, if any layer is currently using this system.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.BaseSystem.Enabled">
+            <summary>
+            If system is enabled, it will invoke its Update and Draw methods.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.Component">
+            <summary>
+            Stores data, which will be processed by corresponding systems.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Component.Owner">
+            <summary>
+            Owner of a component.
+            
+            NOTE: Component should ALWAYS have an owner. 
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Component.Initialized">
+            <summary>
+            Tells if this component was initialized.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Component.Enabled">
+            <summary>
+            If component is enabled, it will be processed by Create and Update methods.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.Component.Visible">
+            <summary>
+            If component is visible, it will be processed by Draw method.
+            
+            NOTE: components are NOT visible by default!
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Component.System">
+            <summary>
+            Component's assigned system. Will be null only if no systems exist for this component.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Component.Clone">
+            <summary>
+            Creates a new object that is a copy of the current instance.
+            
+            NOTE: If you are going to use json entity templates, 
+            this method has to be properly implemented! 
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.Entity">
+            <summary>
+            Parent class of every in-game object.
+            Can hold components, or implement its own logic.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.Entity.Tag">
+            <summary>
+            Unique tag for identifying entity.
+            NOTE: Entity tags should be unique!
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Entity.Depth">
+            <summary>
+            Depth of Draw event. Objects with the lowest depth draw the last.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Entity.Destroyed">
+            <summary>
+            Tells f object was destroyed.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.Entity.Enabled">
+            <summary>
+            If false, Update and Destroy events won't be executed.
+            NOTE: This also applies to entity's components.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.Entity.Visible">
+            <summary>
+            If false, Draw events won't be executed.
+            NOTE: This also applies to entity's components.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Entity.Layer">
+            <summary>
+            Layer that entity is currently on.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.Entity.Scene">
+            <summary>
+            Scene that entity is currently on.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.Entity._components">
+            <summary>
+            Component dictionary.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.FixedUpdate">
+            <summary>
+            Updates at a fixed rate, if entity is enabled.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.Update">
+            <summary>
+            Updates every frame, if entity is enabled.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.Draw">
+            <summary>
+            Draw updates. Triggers only if entity is visible.
+            
+            NOTE: DO NOT put any significant logic into Draw.
+            It may skip frames.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.Destroy">
+            <summary>
+            Triggers right before destruction, if entity is enabled. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.AddComponent(Monofoxe.Engine.ECS.Component)">
+            <summary>
+            Adds component to the entity.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.GetComponent``1">
+            <summary>
+            Returns component of given class.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.GetComponent(System.Type)">
+            <summary>
+            Returns component of given class.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.TryGetComponent``1(``0@)">
+            <summary>
+            Retrieves component of given class, if it exists, and returns true. If it doesn't, returns false.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.TryGetComponent(Monofoxe.Engine.ECS.Component@,System.Type)">
+            <summary>
+            Retrieves component of given class, if it exists, and returns true. If it doesn't, returns false.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.GetAllComponents">
+            <summary>
+            Returns all the components. All of them.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.HasComponent``1">
+            <summary>
+            Checks if an entity has the component of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.HasComponent(System.Type)">
+            <summary>
+            Checks if an entity has the component of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.RemoveComponent``1">
+            <summary>
+            Removes component from an entity and returns it.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.RemoveComponent(System.Type)">
+            <summary>
+            Removes component from an entity and returns it.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.CreateFromTemplate(Monofoxe.Engine.SceneSystem.Layer,System.String)">
+            <summary>
+            Creates new entity from existing template.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.Entity.DestroyEntity">
+            <summary>
+            Destroys entity and all of its components.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.EntityTemplate">
+            <summary>
+            Entity template. Used to store info about entities.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.EntityTemplate.Tag">
+            <summary>
+            Template tag. Will be assigned to entity during its creation.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.EntityTemplate.Components">
+            <summary>
+            Template's list of components.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.IEntityMethods">
+            <summary>
+            Methods for working with entities.
+            
+            NOTE: Methods should return all entities regardless of if they are enabled. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetEntityList``1">
+            <summary>
+            Returns list of entities of certain type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.CountEntities``1">
+            <summary>
+            Counts amount of entities of certain type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.EntityExists``1">
+            <summary>
+            Checks if any instances of an entity exist.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.FindEntity``1">
+            <summary>
+            Finds first entity of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetEntityList(System.String)">
+            Due to ECS, there may be lots of objects with same type, 
+            but different component sets. They differ only by their tag.
+            This is, why we need tag overloads.
+            <summary>
+            Returns list of entities with given tag.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.CountEntities(System.String)">
+            <summary>
+            Counts amount of entities with given tag.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.EntityExists(System.String)">
+            <summary>
+            Checks if given instance exists.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.FindEntity(System.String)">
+            <summary>
+            Finds first entit with given tag.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetEntityListByComponent``1">
+            <summary>
+            Returns list of entities, which have component - enabled or disabled -  of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.CountEntitiesByComponent``1">
+            <summary>
+            Counts amount of entities, which have component - enabled or disabled - of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.FindEntityByComponent``1">
+            <summary>
+            Finds first entity, which has component - enabled or disabled -  of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetComponentList``1">
+            <summary>
+            Returns list of components - enabled and disabled - of given type.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.SystemMgr">
+            <summary>
+            Manages ECS systems.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.SystemMgr._activeSystems">
+            <summary>
+            List of currently active systems.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.SystemMgr._systemPool">
+            <summary>
+            Pool of all game systems.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.SystemMgr._componentsWereRemoved">
+            <summary>
+            Tells if any components were removed in the current step.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.SystemMgr.AutoSystemManagement">
+            <summary>
+            If true, systems will be enabled and disabled automatically.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.FixedUpdate(Monofoxe.Engine.ECS.ComponentContainer)">
+            <summary>
+            Updates at a fixed rate.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.Update(Monofoxe.Engine.ECS.ComponentContainer)">
+            <summary>
+            Updates every frame.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.Draw(Monofoxe.Engine.ECS.Component)">
+            <summary>
+            Draw updates.
+            
+            NOTE: DO NOT put any significant logic into Draw.
+            It may skip frames.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.InitSystemPool">
+            <summary>
+            Creates an instance of each ISystem implementing class.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystem``1">
+            <summary>
+            Puts system in active system list from system pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystem``1">
+            <summary>
+            Removes system from active system list and puts it back in pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystemByComponentType``1">
+            <summary>
+            Puts system in active system list from system pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystemByComponentType``1">
+            <summary>
+            Removes system from active system list and puts it back in pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystem(System.Type)">
+            <summary>
+            Puts system in active system list from system pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystemByComponentType(System.Type)">
+            <summary>
+            Puts system in active system list from system pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystem(System.Type)">
+            <summary>
+            Removes system from active system list and puts it back in pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystemByComponentType(System.Type)">
+            <summary>
+            Removes system from active system list and puts it back in pool.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableInactiveSystems">
+            <summary>
+            Disables systms if no components are using them.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.EntityTemplateMgr">
+            <summary>
+            Contains and loads all entity templates.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.EntityTemplateMgr.EntityTemplates">
+            <summary>
+            All entity templates. Used for creating entities.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.EntityTemplateMgr.LoadEntityTemplates">
+            <summary>
+            Loads entitiy templates from the content.
+            
+            Needs to be called once to use CreateEntityFromTemplate().
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.EntityTemplateMgr.ReadConfig">
+            <summary>
+            Reads config, which contains namespaces for entities and sprite groups.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.Utils.CustomCollections.SafeSortedDictionary`2">
             <summary> 
             Safe sorted dictionary. Makes possible to safely remove from and add items to the list during enumeration.
@@ -348,6 +768,16 @@
         <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.ToVector3(Microsoft.Xna.Framework.Vector2)">
             <summary>
             Converts Vector2 to Vector3 with z axis of 0.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Swap(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Swaps X and Y places.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Rotate90(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rotates vector by 90 degrees.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.Utils.Alarm">
@@ -1441,379 +1871,6 @@
             Resets render target to a previous surface.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.ECS.BaseSystem">
-            <summary>
-            Basic system interface. 
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.BaseSystem.ComponentType">
-            <summary>
-            Type of components, which are processed by this system.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.BaseSystem.Priority">
-            <summary>
-            System priority. If priority is higher, system will be processed sooner.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.BaseSystem._usedByLayers">
-            <summary>
-            Tells, if any layer is currently using this system.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.BaseSystem.Create(Monofoxe.Engine.ECS.Component)">
-            <summary>
-            Create event is called right after new component is created.
-            
-            NOTE: This event won't be called right after component creation.
-            It will be called in the very beginning of next step, so keep this in mind.
-            However, you can speed up this process by calling InitComponent().
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.Component">
-            <summary>
-            Stores data, which will be processed by corresponding systems.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.Component.Owner">
-            <summary>
-            Owner of a component.
-            
-            NOTE: Component should ALWAYS have an owner. 
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.Component.Initialized">
-            <summary>
-            Tells if this component was initialized.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.Component.Enabled">
-            <summary>
-            If component is enabled, it will be processed by Create and Update methods.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.Component.Visible">
-            <summary>
-            If component is visible, it will be processed by Draw method.
-            
-            NOTE: components are NOT visible by default!
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Component.Clone">
-            <summary>
-            Creates a new object that is a copy of the current instance.
-            
-            NOTE: If you are going to use json entity templates, 
-            this method has to be properly implemented! 
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.ComponentMgr">
-            <summary>
-            Set of handy methods for components.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.ComponentMgr.InitComponent(Monofoxe.Engine.ECS.Component)">
-            <summary>
-            Invokes Create event for corresponding system.
-            Create events are usually executed at the beginning of each step,
-            so components stay uninitialized for a bit right after creation.
-            In most cases it's fine, but you may need to init your component
-            right here and right now.
-            
-            NOTE: If component's Initialized property is true, this method will do nothing!
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.ComponentMgr.FilterInactiveComponents(System.Collections.Generic.List{Monofoxe.Engine.ECS.Component})">
-            <summary>
-            Filters out inactive components.
-            Component is inactive, if its owner is inactive.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.Entity">
-            <summary>
-            Parent class of every in-game object.
-            Can hold components, or implement its own logic.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.Entity.Tag">
-            <summary>
-            Unique tag for identifying entity.
-            NOTE: Entity tags should be unique!
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.Entity.Depth">
-            <summary>
-            Depth of Draw event. Objects with the lowest depth draw the last.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.Entity.Destroyed">
-            <summary>
-            Tells f object was destroyed.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.Entity.Enabled">
-            <summary>
-            If false, Update events won't be executed.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.Entity.Visible">
-            <summary>
-            If false, Draw events won't be executed.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.Entity._components">
-            <summary>
-            Component dictionary.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.FixedUpdate">
-            <summary>
-            Updates at a fixed rate.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.Update">
-            <summary>
-            Updates every frame.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.Draw">
-            <summary>
-            Draw updates.
-            
-            NOTE: DO NOT put any significant logic into Draw.
-            It may skip frames.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.Destroy">
-            <summary>
-            Triggers right before destruction, if entity is active. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.AddComponent(Monofoxe.Engine.ECS.Component)">
-            <summary>
-            Adds component to the entity.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.GetComponent``1">
-            <summary>
-            Returns component of given class.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.GetComponent(System.Type)">
-            <summary>
-            Returns component of given class.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.TryGetComponent``1(Monofoxe.Engine.ECS.Component@)">
-            <summary>
-            Retrieves component of given class, if it exists, and returns true. If it doesn't, returns false.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.TryGetComponent(Monofoxe.Engine.ECS.Component@,System.Type)">
-            <summary>
-            Retrieves component of given class, if it exists, and returns true. If it doesn't, returns false.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.GetAllComponents">
-            <summary>
-            Returns all the components. All of them.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.HasComponent``1">
-            <summary>
-            Checks if an entity has the component of given type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.HasComponent(System.Type)">
-            <summary>
-            Checks if an entity has the component of given type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.RemoveComponent``1">
-            <summary>
-            Removes component from an entity and returns it.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.RemoveComponent(System.Type)">
-            <summary>
-            Removes component from an entity and returns it.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.Entity.DestroyAllComponents">
-            <summary>
-            Removes all components from entity's layer.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.EntityTemplate">
-            <summary>
-            Entity template. Used to store info about entities.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.IEntityMethods">
-            <summary>
-            Methods for working with entities.
-            
-            NOTE: Methods should return all entities regardless of if they are enabled. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetEntityList``1">
-            <summary>
-            Returns list of entities of certain type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.CountEntities``1">
-            <summary>
-            Counts amount of entities of certain type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.EntityExists``1">
-            <summary>
-            Checks if any instances of an entity exist.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.FindEntity``1">
-            <summary>
-            Finds first entity of given type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetEntityList(System.String)">
-            Due to ECS, there may be lots of objects with same type, 
-            but different component sets. They differ only by their tag.
-            This is, why we need tag overloads.
-            <summary>
-            Returns list of entities with given tag.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.CountEntities(System.String)">
-            <summary>
-            Counts amount of entities with given tag.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.EntityExists(System.String)">
-            <summary>
-            Checks if given instance exists.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.FindEntity(System.String)">
-            <summary>
-            Finds first entit with given tag.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.GetEntityListByComponent``1">
-            <summary>
-            Returns list of entities, which have component of given type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.CountEntitiesByComponent``1">
-            <summary>
-            Counts amount of entities, which have component of given type.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityMethods.FindEntityByComponent``1">
-            <summary>
-            Finds first entity, which has component of given type.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.SystemMgr">
-            <summary>
-            Manages ECS systems.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.SystemMgr._activeSystems">
-            <summary>
-            List of currently active systems.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.SystemMgr._systemPool">
-            <summary>
-            Pool of all game systems.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.SystemMgr._componentsWereRemoved">
-            <summary>
-            Tells if any components were removed in the current step.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.SystemMgr.AutoSystemManagement">
-            <summary>
-            If true, systems will be enabled and disabled automatically.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.FixedUpdate(System.Collections.Generic.Dictionary{System.Type,System.Collections.Generic.List{Monofoxe.Engine.ECS.Component}})">
-            <summary>
-            Updates at a fixed rate.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.Update(System.Collections.Generic.Dictionary{System.Type,System.Collections.Generic.List{Monofoxe.Engine.ECS.Component}})">
-            <summary>
-            Updates every frame.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.Draw(Monofoxe.Engine.ECS.Component)">
-            <summary>
-            Draw updates.
-            
-            NOTE: DO NOT put any significant logic into Draw.
-            It may skip frames.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.InitSystemPool">
-            <summary>
-            Creates an instance of each ISystem implementing class.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystem``1">
-            <summary>
-            Puts system in active system list from system pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystem``1">
-            <summary>
-            Removes system from active system list and puts it back in pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystem(System.Type)">
-            <summary>
-            Puts system in active system list from system pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystem(System.Type)">
-            <summary>
-            Removes system from active system list and puts it back in pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.UpdateActiveSystems">
-            <summary>
-            Enables and disables systems depending on if there are any components for them.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.EntityMgr._fixedUpdateTimer">
-            <summary>
-            Counts time until next fixed update.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityMgr.LoadEntityTemplates">
-            <summary>
-            Loads entitiy templates from the content.
-            
-            Needs to be called once to use CreateEntityFromTemplate().
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityMgr.ReadConfig">
-            <summary>
-            Reads config, which contains namespaces for entities and sprite groups.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityMgr.CreateEntityFromTemplate(Monofoxe.Engine.SceneSystem.Layer,System.String)">
-            <summary>
-            Creates new entity from existing template.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityMgr.DestroyEntity(Monofoxe.Engine.ECS.Entity)">
-            <summary>
-            Destroys entity and all of its components.
-            </summary>
-        </member>
         <member name="F:Monofoxe.Engine.GameMgr.Game">
             <summary>
             Main Game class.
@@ -1847,6 +1904,16 @@
         <member name="F:Monofoxe.Engine.GameMgr.Types">
             <summary>
             All of game's types.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.GameMgr.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Performs update-related routines and calls Update events for entities and systems.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.GameMgr.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Performs drawing-related routines and calls Draw events for entities and systems.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.GameMgr.ExitGame">
@@ -2093,9 +2160,9 @@
             All components, which belong to all entities on the layer.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.SceneSystem.Layer._newComponents">
+        <member name="F:Monofoxe.Engine.SceneSystem.Layer._disabledComponents">
             <summary>
-            Newly created components. Used for Create event.
+            Disabled components.
             </summary>
         </member>
         <member name="P:Monofoxe.Engine.SceneSystem.Layer.PostprocessorEffects">
@@ -2157,17 +2224,22 @@
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.Layer.GetEntityListByComponent``1">
             <summary>
-            Returns list of entities, which have component of given type.
+            Returns list of entities, which have component - enabled or disabled -  of given type.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.Layer.CountEntitiesByComponent``1">
             <summary>
-            Counts amount of entities, which have component of given type.
+            Counts amount of entities, which have component - enabled or disabled -   of given type.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.Layer.FindEntityByComponent``1">
             <summary>
             Finds first entity, which has component of given type.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.Layer.GetComponentList``1">
+            <summary>
+            Returns list of all components on the layer - enabled and disabled - of given type.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.SceneSystem.Scene">
@@ -2280,14 +2352,34 @@
             Finds first entity on a scene, which has component of given type.
             </summary>
         </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.Scene.GetComponentList``1">
+            <summary>
+            Returns list of all components on the scene - enabled and disabled - of given type.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.SceneSystem.SceneMgr">
             <summary>
-            Manager of all scenes.
+            Manager of all scenes. Updates entities and components.
             </summary>
         </member>
         <member name="P:Monofoxe.Engine.SceneSystem.SceneMgr.Scenes">
             <summary>
             List of all scenes.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.SceneSystem.SceneMgr.CurrentScene">
+            <summary>
+            Current active scene.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.SceneSystem.SceneMgr.CurrentLayer">
+            <summary>
+            Current active layer.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.SceneSystem.SceneMgr._fixedUpdateTimer">
+            <summary>
+            Counts time until next fixed update.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.CreateScene(System.String)">
@@ -2313,6 +2405,26 @@
         <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.SceneExists(System.String)">
             <summary>
             Returns true, if there is a layer with given name. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.PreUpdateRoutine">
+            <summary>
+            Routine needed before updating entities.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.PostUpdateRoutine">
+            <summary>
+            Routine needed after updating entities.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.CallFixedUpdateEvents(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Executes Fixed Update events.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.CallUpdateEvents(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Executes Update events.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.CallDrawEvents">

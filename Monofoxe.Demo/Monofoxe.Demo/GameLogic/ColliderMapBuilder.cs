@@ -104,7 +104,9 @@ namespace Monofoxe.Demo.GameLogic
 				foreach(var tilemap in tilemaps)
 				{
 					var tilemapComponent = tilemap.GetComponent<BasicTilemapComponent>();
-					
+
+					tilemapComponent.Padding = 3; // Padding is increased, so biffer tiles like trees won't disappear while still on screen.
+
 					// Making collider.
 					var collider = new TilemapCollider();
 					collider.Tilemap = tilemapComponent;

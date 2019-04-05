@@ -469,20 +469,24 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var physics = owner.GetComponent<PhysicsComponent>();
 			var actor = owner.GetComponent<StackableActorComponent>();
 			
-			if (actor.StackedPrevious != null)
-			{
-				actor.StackedPrevious.GetComponent<StackableActorComponent>().StackedNext = null;
-				actor.StackedPrevious = null;	
-			}
-
+			
 			physics.Collider.Enabled = false; // Disabling collisions.
 
-			// Applying some speed for cool flying off the screen.
-			physics.Speed = new Vector2(
-				(float)GameplayController.Random.NextDouble(actor.DeadMinSpeed.X, actor.DeadMaxSpeed.X) * GameplayController.Random.Choose(-1, 1), 
-				(float)GameplayController.Random.NextDouble(actor.DeadMinSpeed.Y, actor.DeadMaxSpeed.Y)
-			);
-			
+			if (actor.SyncAngleWithSpeedVector)
+			{
+				if (actor.StackedPrevious != null)
+				{
+					actor.StackedPrevious.GetComponent<StackableActorComponent>().StackedNext = null;
+					actor.StackedPrevious = null;	
+				}
+
+				// Applying some speed for cool flying off the screen.
+				physics.Speed = new Vector2(
+					(float)GameplayController.Random.NextDouble(actor.DeadMinSpeed.X, actor.DeadMaxSpeed.X) * GameplayController.Random.Choose(-1, 1), 
+					(float)GameplayController.Random.NextDouble(actor.DeadMinSpeed.Y, actor.DeadMaxSpeed.Y)
+				);
+			}
+
 			physics.Gravity = actor.DeadGravity;
 		}
 
@@ -550,7 +554,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 
 
-		public static void Kill(StackableActorComponent actor)
+		public static void Kill(StackableActorComponent actor, bool falling = false)
 		{
 			if (actor.LogicStateMachine.CurrentState == ActorStates.Dead)
 			{
@@ -559,11 +563,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			var position = actor.Owner.GetComponent<PositionComponent>();
 			
+			actor.SyncAngleWithSpeedVector = !falling;
+			
 			actor.LogicStateMachine.ChangeState(ActorStates.Dead);
+			
 
 			foreach(var camera in actor.Owner.Scene.GetEntityList<GameCamera>())
 			{
-				if (camera.Target == position) // If this camera follows player.
+				if (camera.Target == position) // If this camera follows actor.
 				{
 					camera.Target = null;
 				}
@@ -728,7 +735,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			var sin = (float)Math.Sin(actor.Animation * Math.PI);
 			actor.SpriteScale = Vector2.One + actor.WalkMaxScale * new Vector2(Math.Abs(sin), Math.Abs(sin));
-			actor.SpriteOffset = actor.WalkMaxOffset * sin * (Vector2.UnitX * -actor.Orientation);
+			actor.SpriteOffset = actor.WalkMaxOffset * sin * Vector2.UnitX;
 			// Animation.
 
 			UpdateOrientation(actor);
@@ -991,7 +998,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					actor.SpriteAnimation = 0f;
 				}
 			}
-			if (actor.LogicStateMachine != null && actor.LogicStateMachine.CurrentState == ActorStates.Dead)
+			if (
+				actor.LogicStateMachine != null 
+				&& actor.LogicStateMachine.CurrentState == ActorStates.Dead 
+				&& actor.SyncAngleWithSpeedVector
+			)
 			{
 				ang = -GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
 			}
@@ -1006,7 +1017,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			DrawMgr.DrawSprite(
 				actor.CurrentSprite, 
 				actor.SpriteAnimation,
-				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset, 
+				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset * -actor.Orientation, 
 				actor.SpriteScale * new Vector2(actor.Orientation, 1f), 
 				(float)ang, 
 				color

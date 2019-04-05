@@ -40,12 +40,13 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					var position = gato.Owner.GetComponent<PositionComponent>();
 					
 					// Checking if there is a wall next to us.
-					physics.Collider.Position = position.Position 
-						+ Vector2.UnitX * gato.Direction * physics.Collider.Size.X / 2;
+					physics.Collider.Position = position.Position
+						+ Vector2.UnitX * gato.Direction * (physics.Collider.Size.X / 2 + 1);
 					
-					if (PhysicsSystem.CheckCollision(gato.Owner, physics.Collider) != null)
+					if (physics.CollisionH == gato.Direction)
 					{
 						gato.Direction *= -1;
+						actor.Orientation = gato.Direction;
 					}
 					// Checking if there is a wall next to us.
 					else
@@ -59,6 +60,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 						if (PhysicsSystem.CheckCollision(gato.Owner, collider) == null)
 						{
 							gato.Direction *= -1;
+							actor.Orientation = gato.Direction;
 						}
 						// Checking if there is a pit below up.
 					}

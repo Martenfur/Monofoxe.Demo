@@ -92,6 +92,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public float DeadGravity = 1500;
 		public Vector2 DeadMinSpeed = new Vector2(300, -800);
 		public Vector2 DeadMaxSpeed = new Vector2(400, -700);
+		public bool SyncAngleWithSpeedVector = true;
 
 		// Dead.
 
