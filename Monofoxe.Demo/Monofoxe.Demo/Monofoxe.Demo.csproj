@@ -57,6 +57,7 @@
     <Compile Include="GameLogic\Entities\Core\PhysicsSystem.cs" />
     <Compile Include="GameLogic\Entities\Core\LinkComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\LinkSystem.cs" />
+    <Compile Include="GameLogic\CameraStopper.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CannonBall.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Checkpoint.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CheckpointDoggo.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="JsonConverters\ColliderConverter.cs" />
     <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
+    <Compile Include="MapEntityFactories\CameraStopperFactory.cs" />
     <Compile Include="MapEntityFactories\ButtonFactory.cs" />
     <Compile Include="MapEntityFactories\CannonFactory.cs" />
     <Compile Include="MapEntityFactories\BottomlessPitFactory.cs" />

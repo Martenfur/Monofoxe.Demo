@@ -38,14 +38,49 @@ namespace Monofoxe.Demo.GameLogic
 
 		Vector2 _position;
 
+		private Vector2 _topLeftPoint, _bottomRightPoint;
+
 		public GameCamera(Layer layer, Camera camera) : base(layer)
 		{
 			Camera = camera;
 			_position = camera.Position;
+
+
 		}
 
 		public override void Update()
 		{
+
+			var stoppers = SceneMgr.CurrentScene.GetEntityList<CameraStopper>();
+			
+			_topLeftPoint = stoppers[0].GetComponent<PositionComponent>().Position;
+			_bottomRightPoint = _topLeftPoint;
+			
+			foreach(var stopper in stoppers)
+			{
+				var stopperPosition = stopper.GetComponent<PositionComponent>().Position;
+				
+				if (stopperPosition.X < _topLeftPoint.X)
+				{
+					_topLeftPoint.X = stopperPosition.X;
+				}
+				if (stopperPosition.Y < _topLeftPoint.Y)
+				{
+					_topLeftPoint.Y = stopperPosition.Y;
+				}
+				if (stopperPosition.X > _bottomRightPoint.X)
+				{
+					_bottomRightPoint.X = stopperPosition.X;
+				}
+				if (stopperPosition.Y > _bottomRightPoint.Y)
+				{
+					_bottomRightPoint.Y = stopperPosition.Y;
+				}
+			}
+			
+
+
+
 			if (Target != null)
 			{
 				var targetDistance = GameMath.Distance(Camera.Position, Target.Position);
@@ -65,7 +100,31 @@ namespace Monofoxe.Demo.GameLogic
 					_position = Target.Position + targetVector * (distanceToMax + PullbackDistance);
 				}
 			}
+			
 			Camera.Position = _position.Round();
+			
+			var adjustedTopLeftPoint = _topLeftPoint + Camera.Size / 2;
+			var adjustedBottomRightPoint = _bottomRightPoint - Camera.Size / 2;
+
+
+			if (Camera.Position.X < adjustedTopLeftPoint.X)
+			{
+				Camera.Position.X = adjustedTopLeftPoint.X;
+			}
+			if (Camera.Position.Y < adjustedTopLeftPoint.Y)
+			{
+				Camera.Position.Y = adjustedTopLeftPoint.Y;
+			}
+			if (Camera.Position.X > adjustedBottomRightPoint.X)
+			{
+				Camera.Position.X = adjustedBottomRightPoint.X;
+			}
+			if (Camera.Position.Y > adjustedBottomRightPoint.Y)
+			{
+				Camera.Position.Y = adjustedBottomRightPoint.Y;
+			}
+			
+			
 		}
 
 

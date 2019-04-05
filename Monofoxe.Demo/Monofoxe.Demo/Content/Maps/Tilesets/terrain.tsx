@@ -301,4 +301,29 @@
    <property name="type" value="None"/>
   </properties>
  </tile>
+ <tile id="56">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="59">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="60">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
 </tileset>
