@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
@@ -110,11 +110,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Draw()
 		{
 			var position = GetComponent<PositionComponent>();
-			DrawMgr.CurrentColor = Color.Orange;
+			GraphicsMgr.CurrentColor = Color.Orange;
 			
 			var rotation = (float)GameMath.Direction(_direction);
 			
-			DrawMgr.DrawSprite(Resources.Sprites.Default.CannonBall, 0, position.Position, Vector2.One, rotation, Color.White);
+			Resources.Sprites.Default.CannonBall.Draw(
+				0, 
+				position.Position, 
+				Resources.Sprites.Default.CannonBall.Origin, 
+				Vector2.One, 
+				rotation, 
+				Color.White
+			);
 		}
 
 		private void Die()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.Utils;
 
@@ -40,9 +40,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			var solid = (SolidComponent)component;
 			var position = solid.Owner.GetComponent<PositionComponent>();
 			
-			DrawMgr.CurrentColor = Color.Red;
+			GraphicsMgr.CurrentColor = Color.Red;
 
-			DrawMgr.DrawRectangle(
+			RectangleShape.Draw(
 				position.Position.Round() - solid.Collider.Size / 2,
 				position.Position.Round() + solid.Collider.Size / 2,
 				true

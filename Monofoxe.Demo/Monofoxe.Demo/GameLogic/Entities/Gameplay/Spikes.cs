@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 
@@ -71,7 +71,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var position = GetComponent<PositionComponent>();
 
-			DrawMgr.DrawSprite(Resources.Sprites.Default.Spikes, 0, position.Position, Vector2.One, _rotation, Color.White);
+			Resources.Sprites.Default.Spikes.Draw(
+				0, 
+				position.Position, 
+				Resources.Sprites.Default.Spikes.Origin, 
+				Vector2.One, 
+				_rotation, 
+				Color.White
+			);
 		}
 	}
 }

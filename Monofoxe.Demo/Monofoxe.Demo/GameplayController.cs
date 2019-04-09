@@ -4,6 +4,7 @@ using Monofoxe.Demo.GameLogic;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils.Cameras;
@@ -27,7 +28,7 @@ namespace Monofoxe.Demo
 			GameMgr.MaxGameSpeed = 60;
 			GameMgr.MinGameSpeed = 60;
 			
-			DrawMgr.CurrentFont = Resources.Fonts.Arial;
+			Text.CurrentFont = Resources.Fonts.Arial;
 
 			ScreenController.Init();
 
@@ -72,8 +73,8 @@ namespace Monofoxe.Demo
 		
 		public override void Draw()
 		{	
-			DrawMgr.CurrentFont = Resources.Fonts.Arial;
-			DrawMgr.DrawText("FPS:" + GameMgr.Fps, DrawMgr.CurrentCamera.Position - Vector2.One * 320);
+			Text.CurrentFont = Resources.Fonts.Arial;
+			Text.Draw("FPS:" + GameMgr.Fps, GraphicsMgr.CurrentCamera.Position - Vector2.One * 320);
 		}
 
 	}

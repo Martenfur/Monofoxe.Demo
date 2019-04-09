@@ -158,6 +158,744 @@
             JSON format for vectors is: {x: 0, y: 0, z: 0}.
             </summary>
         </member>
+        <member name="M:Monofoxe.Engine.Drawing.Text.Draw(System.String,System.Single,System.Single)">
+            <summary>
+            Draws text in specified coordinates.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Text.Draw(System.String,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Draws text in specified coordinates.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Text.Draw(System.String,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <summary>
+            Draws text in specified coordinates with rotation, scale and origin.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Text.Draw(System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Draws text in specified coordinates with rotation, scale and origin.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.CircleShape">
+            <summary>
+            Drawable circle shape. Can be drawn by using static methods or be instantiated.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.CircleShape.Position">
+            <summary>
+            Center point of a circle.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.CircleShape.IsOutline">
+            <summary>
+            If false, circle will be filled with solid color. If true, only outline will be drawn.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.CircleShape.CircleVerticesCount">
+            <summary>
+            Amount of vertices in one circle. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.CircleShape.Draw(Microsoft.Xna.Framework.Vector2,System.Single,System.Boolean)">
+            <summary>
+            Draws a circle.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.CircleShape.Draw(System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Draws a circle.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.CircleShape.Draw(Microsoft.Xna.Framework.Vector2,System.Single,System.Boolean,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a circle.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.CircleShape.Draw(System.Single,System.Single,System.Single,System.Boolean,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a circle.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.CustomTrianglePrimitive">
+            <summary>
+            Triangle primitive, which can accept any array of indices. 
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.CustomTrianglePrimitive.Indices">
+            <summary>
+            Array of primitive indices. They tell primitive what vertices to draw in what order.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.CustomTrianglePrimitive.GetIndices">
+            <summary>
+            Sets user-defined list of indices for a list of triangles.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.IDrawable">
+            <summary>
+            Anything that can be drawn.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.IDrawable.Position">
+            <summary>
+            Drawable object's global position.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.IDrawable.Draw">
+            <summary>
+            Draws the object.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.CustomLinePrimitive">
+            <summary>
+            Line primitive, which can accept any array of indices. 
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.CustomLinePrimitive.Indices">
+            <summary>
+            Array of primitive indices. They tell primitive what vertices to draw in what order.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.CustomLinePrimitive.GetIndices">
+            <summary>
+            Sets user-defined list of indices for a list of lines.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.ThickLineShape">
+            <summary>
+            Drawable thick line shape. Can be drawn by using static methods or be instantiated.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.ThickLineShape.Point1">
+            <summary>
+            First line point. 
+            NOTE: all line points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.ThickLineShape.Point2">
+            <summary>
+            Second line point. 
+            NOTE: all line points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.ThickLineShape.Thickness">
+            <summary>
+            Line thickness.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.ThickLineShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <summary>
+            Draws a line with specified width.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.ThickLineShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a line with specified width and colors.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.ThickLineShape.Draw(System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Draws a line with specified width.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.ThickLineShape.Draw(System.Single,System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a line with specified width and colors.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.Primitive2D">
+            <summary>
+            Base 2D primitive class. Can be used to create other types of primitives.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Primitive2D.Vertices">
+            <summary>
+            List of all primitive's vertices. 
+            NOTE: all vertices treat position as an origin point;
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Primitive2D._graphicsMode">
+            <summary>
+            Graphics mode which will be used while drawing primitive.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Primitive2D._texture">
+            <summary>
+            Frame texture.
+            NOTE: Frame and be only a small part of a big texture.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Primitive2D._textureOffset">
+            <summary>
+            Offset of a texture region.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Primitive2D._textureRatio">
+            <summary>
+            Ratio between texture size and frame size.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Primitive2D.SetTexture(Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Sets texture for a primitive.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Primitive2D.SetTextureFromFrame(Monofoxe.Engine.Drawing.Frame)">
+            <summary>
+            Sets texture for a primitive.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Primitive2D.GetIndices">
+            <summary>
+            Returns an array of vertex indices which essentially determine how primitive will be drawn.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Primitive2D.GetConvertedVertices">
+            <summary>
+            Converts list of Monofoxe Vertex objects to Monogame's vertices.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.LineShape">
+            <summary>
+            Drawable line shape. Can be drawn by using static methods or be instantiated.
+            NOTE: The line has no width. 
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.LineShape.Point1">
+            <summary>
+            First line point. 
+            NOTE: all line points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.LineShape.Point2">
+            <summary>
+            Second line point. 
+            NOTE: all line points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.LineShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Draws a line.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.LineShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a line with specified colors.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.LineShape.Draw(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Draws a line.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.LineShape.Draw(System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a line with specified colors.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.RectangleShape.Position">
+            <summary>
+            Center point of a rectangle.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.RectangleShape.IsOutline">
+            <summary>
+            If false, circle will be filled with solid color. If true, only outline will be drawn.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.Draw">
+            <summary>
+            Draws a rectangle using instance properties.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean)">
+            <summary>
+            Draws a rectangle using top left and bottom right point.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a rectangle using top left and bottom right point with specified colors for each corner.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.Draw(System.Single,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Draws a rectangle using top left and bottom right point.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.Draw(System.Single,System.Single,System.Single,System.Single,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a rectangle using top left and bottom right point with specified colors for each corner.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.DrawBySize(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean)">
+            <summary>
+            Draws a rectangle using center point and size.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.DrawBySize(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a rectangle using center point and size with specified colors for each corner.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.DrawBySize(System.Single,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Draws a rectangle using center point and size.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.RectangleShape.DrawBySize(System.Single,System.Single,System.Single,System.Single,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a rectangle using center point and size with specified colors for each corner.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.LineStripPrimitive">
+            <summary>
+            Drawable line strip primitive. Draws a bunch of connected lines. Can be looped.
+            Pattern: 0 - 1 - 2 - 3
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.LineStripPrimitive.Looped">
+            <summary>
+            If true, a line between first and last vertex will be drawn.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.LineStripPrimitive.GetIndices">
+            <summary>
+            Sets indices according to line strip pattern.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.MeshPrimitive">
+            <summary>
+            Drawable mesh primitive. Draws a grid of triangles.
+            Pattern:
+            0 - 1 - 2
+            | / | / |
+            3 - 4 - 5
+            | / | / |
+            6 - 7 - 8
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.MeshPrimitive.Width">
+            <summary>
+            Mesh width in cells.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.MeshPrimitive.Height">
+            <summary>
+            Mesh height in cells.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.MeshPrimitive.GetIndices">
+            <summary>
+            Sets indexes according to mesh pattern.
+            NOTE: Make sure there's enough vertices for width and height of the mesh.
+            NOTE: Use counter-clockwise culling.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.TriangleStripPrimitive">
+            <summary>
+            Drawable triangle strip primitive. Draws a strip of triangles.
+            Pattern:
+            0 - 2 - 4
+             \ / \ /
+              1 - 3
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TriangleStripPrimitive.GetIndices">
+            <summary>
+            Sets indices according to trianglestrip pattern.
+            NOTE: Use counter-clockwise culling.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.TriangleFanPrimitive">
+            <summary>
+            Drawable triangle fan primitive. 
+            Draws a bunch of triangles, all of which begin at the first vertex.
+            Pattern:
+            1 - 2
+            | / |
+            0 - 3 
+            | \ |
+            5 - 4 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TriangleFanPrimitive.GetIndices">
+            <summary>
+            Sets indexes according to trianglefan pattern.
+            NOTE: Use counter-clockwise culling.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.TriangleShape">
+            <summary>
+            Drawable triangle shape. Can be drawn by using static methods or be instantiated.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.TriangleShape.Point1">
+            <summary>
+            First triangle point. 
+            NOTE: all triangle points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.TriangleShape.Point2">
+            <summary>
+            Second triangle point. 
+            NOTE: all triangle points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.TriangleShape.Point3">
+            <summary>
+            Third triangle point. 
+            NOTE: all triangle points treat position as an origin point;
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.TriangleShape.IsOutline">
+            <summary>
+            If false, circle will be filled with solid color. If true, only outline will be drawn.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TriangleShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean)">
+            <summary>
+            Draws a triangle.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TriangleShape.Draw(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws a triangle with specified colors.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TriangleShape.Draw(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Draws a triangle.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TriangleShape.Draw(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draw a triangle with specified colors.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.Font">
+            <summary>
+            Wrapper of SpriteFont.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.GetGlyphs">
+            <summary>
+            Returns a Dictionary of Glyphs for current font.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureString(System.String)">
+            <summary>
+            Measures both width and height of text.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureString(System.Text.StringBuilder)">
+            <summary>
+            Measures both width and height of text.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringWidth(System.String)">
+            <summary>
+            Measures width of the text. 
+            NOTE: It is highly recommended to use MeasureString, 
+            since under the hood it is still just a MeasureString call.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringWidth(System.Text.StringBuilder)">
+            <summary>
+            Measures width of the text. 
+            NOTE: It is highly recommended to use MeasureString, 
+            since under the hood it is still just a MeasureString call.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringHeight(System.String)">
+            <summary>
+            Measures height of the text. 
+            NOTE: It is highly recommended to use MeasureString, 
+            since under the hood it is still just a MeasureString call.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringHeight(System.Text.StringBuilder)">
+            <summary>
+            Measures height of the text. 
+            NOTE: It is highly recommended to use MeasureString, 
+            since under the hood it is still just a MeasureString call.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Font.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.String,Microsoft.Xna.Framework.Vector2,Monofoxe.Engine.Drawing.TextAlign,Monofoxe.Engine.Drawing.TextAlign)">
+            <summary>
+            Draws text. Not recommended to call on its own, use Text class instead.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.Frame">
+            <summary>
+            Drawable frame.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Frame.Texture">
+            <summary>
+            Texture atlas where frame is stored.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Frame.TexturePosition">
+            <summary>
+            Position of the frame on the atlas.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Frame.Width">
+            <summary>
+            Width of the frame.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Frame.Height">
+            <summary>
+            Height of the frame.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Frame.ParentSprite">
+            <summary>
+            Frame's parent sprite.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.IFont">
+            <summary>
+            XNA's SpriteFont doesn't provide interface for itself, 
+            so we have to make our own.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Drawing.Sprite">
+            <summary>
+            Drawable sprite. 
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Sprite._frames">
+            <summary>
+            An array of sprite's frames.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Sprite.Width">
+            <summary>
+            Sprite width. Can be accessed only if all sprite frames have the same size.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Sprite.Height">
+            <summary>
+            Sprite height. Can be accessed only if all sprite frames have the same size.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.Sprite.SingleFrameSize">
+            <summary>
+            True, if size of every frame is identical.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Sprite.FramesCount">
+            <summary>
+            Amount of sprite's frames.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.Sprite.Item(System.Int32)">
+            <summary>
+            Returns a frame with given index.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Sprite.CheckIdenticalFrameSizes(Monofoxe.Engine.Drawing.Frame[])">
+            <summary>
+            Checks if all frames got identical sizes.
+            </summary>
+            <param name="frames">Array of frames to check.</param>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.Sprite.GetFrame(System.Double)">
+            <summary>
+            Returns sprite frame based on an animation value from 0 to 1.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.TextureFont.Texture">
+            <summary>
+            Unused, because TextureFont can have multiple textures.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureString(System.String)">
+            <summary>
+            Measures width and height of the text.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureString(System.Text.StringBuilder)">
+            <summary>
+            Measures width and height of the text.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringWidth(System.String)">
+            <summary>
+            Measures width of the text. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringWidth(System.Text.StringBuilder)">
+            <summary>
+            Measures width of the text. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringHeight(System.String)">
+            <summary>
+            Measures height of the text. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringHeight(System.Text.StringBuilder)">
+            <summary>
+            Measures height of the text. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.TextureFont.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.String,Microsoft.Xna.Framework.Vector2,Monofoxe.Engine.Drawing.TextAlign,Monofoxe.Engine.Drawing.TextAlign)">
+            <summary>
+            Draws text. Not recommended to call on its own, use Text class instead.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.Batch">
+            <summary>
+            Default sprite batch used to draw sprites, text and surfaces.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentCamera">
+            <summary>
+            Currently enabled camera.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentTransformMatrix">
+            <summary>
+            Current transformation matrix. Used to offset, rotate and scale graphics.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentColor">
+            <summary>
+            Current drawing color. Affects shapes, sprites, text and primitives.
+            TODO: Update description.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.__drawcalls">
+            <summary>
+            Amount of draw calls per frame.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr._currentGraphicsMode">
+            <summary>
+            Current graphics mode. Tells, which type of graphics is being drawn right now.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr._surfaceStack">
+            <summary>
+            We can set surface targets inside another surfaces.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.ScissorRectangle">
+            <summary>
+            Disables rendering for everything that's outside of rectangle.
+            NOTE: To enable scissoring, enable scissor test in Rasterizer.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.Rasterizer">
+            <summary>
+            Rasterizer state. 
+            NOTE: Do NOT modify object which you'll set. This will lead to errors and unexpected behaviour.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.Sampler">
+            <summary>
+            Sampler state. Used for interpolation and texture wrappping.
+            NOTE: Do NOT modify object which you'll set. This will lead to errors and unexpected behaviour.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.BlendState">
+            <summary>
+            Blend state. Used for color blending.
+            NOTE: Do NOT modify object which you'll set. This will lead to errors and unexpected behaviour.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentEffect">
+            <summary>
+            Current shader. Set to null to reset to the default shader.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr._defaultEffect">
+            <summary>
+            Default shader with proper alpha blending. 
+            Replaces BasicEffect. Applied, when CurrentEffect is null.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr._cameraRasterizerState">
+            <summary>
+            Used for drawing cameras.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr.CanvasMatrix">
+            <summary>
+            Matrix for offsetting, scaling and rotating canvas contents.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr._content">
+            <summary>
+            Used to load default shader.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.Init(Microsoft.Xna.Framework.Graphics.GraphicsDevice)">
+            <summary>
+            Initialization function for draw manager. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Performs Draw events for all objects.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.SwitchGraphicsMode(Monofoxe.Engine.GraphicsMode,Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Switches graphics mode.
+            
+            Call it before manually using sprite batches or vertex buffers.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.AddVertices(Monofoxe.Engine.GraphicsMode,Microsoft.Xna.Framework.Graphics.Texture2D,System.Collections.Generic.List{Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture},System.Int16[])">
+            <summary>
+            Adds vertices and indices to global vertex and index list.
+            If current and suggested graphics modes are different, draws accumulated vertices first.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.DrawVertices">
+            <summary>
+            Draws vertices from vertex buffer and empties it.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.SetTransformMatrix(Microsoft.Xna.Framework.Matrix)">
+            <summary>
+            Sets new transform matrix.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.AddTransformMatrix(Microsoft.Xna.Framework.Matrix)">
+            <summary>
+            Sets new transform matrix multiplied by current transform matrix.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.ResetTransformMatrix">
+            <summary>
+            Resets to a previous transform matrix.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.SetSurfaceTarget(Monofoxe.Engine.Drawing.Surface)">
+            <summary>
+            Sets surface as a render target.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.SetSurfaceTarget(Monofoxe.Engine.Drawing.Surface,Microsoft.Xna.Framework.Matrix)">
+            <summary>
+            Sets surface as a render target.
+            </summary>
+            <param name="surf">Target surface.</param>
+            <param name="matrix">Surface transformation matrix.</param>
+        </member>
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.ResetSurfaceTarget">
+            <summary>
+            Resets render target to a previous surface.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.ECS.ComponentContainer">
             <summary>
             Custom container for entity components.
@@ -488,12 +1226,12 @@
             If true, systems will be enabled and disabled automatically.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.FixedUpdate(Monofoxe.Engine.ECS.ComponentContainer)">
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.FixedUpdate">
             <summary>
             Updates at a fixed rate.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.Update(Monofoxe.Engine.ECS.ComponentContainer)">
+        <member name="M:Monofoxe.Engine.ECS.SystemMgr.Update">
             <summary>
             Updates every frame.
             </summary>
@@ -848,16 +1586,6 @@
         <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.Size">
             <summary>
             View size.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.Width">
-            <summary>
-            View width.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.Height">
-            <summary>
-            View height.
             </summary>
         </member>
         <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Offset">
@@ -1403,474 +2131,6 @@
             Updates timer.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.Drawing.Font">
-            <summary>
-            Wrapper of SpriteFont.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.GetGlyphs">
-            <summary>
-            Returns a Dictionary of Glyphs for current font.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureString(System.String)">
-            <summary>
-            Measures both width and height of text.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureString(System.Text.StringBuilder)">
-            <summary>
-            Measures both width and height of text.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringWidth(System.String)">
-            <summary>
-            Measures width of the text. 
-            NOTE: It is highly recommended to use MeasureString, 
-            since under the hood it is still just a MeasureString call.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringWidth(System.Text.StringBuilder)">
-            <summary>
-            Measures width of the text. 
-            NOTE: It is highly recommended to use MeasureString, 
-            since under the hood it is still just a MeasureString call.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringHeight(System.String)">
-            <summary>
-            Measures height of the text. 
-            NOTE: It is highly recommended to use MeasureString, 
-            since under the hood it is still just a MeasureString call.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.MeasureStringHeight(System.Text.StringBuilder)">
-            <summary>
-            Measures height of the text. 
-            NOTE: It is highly recommended to use MeasureString, 
-            since under the hood it is still just a MeasureString call.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Font.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.String,Microsoft.Xna.Framework.Vector2,Monofoxe.Engine.Drawing.TextAlign,Monofoxe.Engine.Drawing.TextAlign)">
-            <summary>
-            Draws text. Not recommended to call on its own, use DrawMgr functions instead.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Drawing.Frame.Texture">
-            <summary>
-            Texture atlas where frame is stored.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Drawing.Frame.TexturePosition">
-            <summary>
-            Position of the frame on the atlas. Note that it may be rotated.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Drawing.Frame.Width">
-            <summary>
-            Width of the frame.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Drawing.Frame.Height">
-            <summary>
-            Height of the frame.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Drawing.Frame.Origin">
-            <summary>
-            Origin point of the frame.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Drawing.Frame.ParentSprite">
-            <summary>
-            Frame's parent sprite.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Drawing.IFont">
-            <summary>
-            XNA's SpriteFont doesn't provide interface for itself, 
-            so we have to make our own.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Drawing.Sprite.SingleFrameSize">
-            <summary>
-            True, if size of every frame is identical.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.Sprite.CheckIdenticalFrameSizes(Monofoxe.Engine.Drawing.Frame[])">
-            <summary>
-            Checks if all frames got identical sizes.
-            </summary>
-            <param name="frames">Array of frames to check.</param>
-        </member>
-        <member name="P:Monofoxe.Engine.Drawing.TextureFont.Texture">
-            <summary>
-            Unused, because TextureFont can have multiple textures.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureString(System.String)">
-            <summary>
-            Measures width and height of the text.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureString(System.Text.StringBuilder)">
-            <summary>
-            Measures width and height of the text.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringWidth(System.String)">
-            <summary>
-            Measures width of the text. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringWidth(System.Text.StringBuilder)">
-            <summary>
-            Measures width of the text. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringHeight(System.String)">
-            <summary>
-            Measures height of the text. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.MeasureStringHeight(System.Text.StringBuilder)">
-            <summary>
-            Measures height of the text. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Drawing.TextureFont.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.String,Microsoft.Xna.Framework.Vector2,Monofoxe.Engine.Drawing.TextAlign,Monofoxe.Engine.Drawing.TextAlign)">
-            <summary>
-            Draws text. Not recommended to call on its own, use DrawMgr functions instead.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.Batch">
-            <summary>
-            Default sprite batch used to draw sprites, text and surfaces.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.CurrentCamera">
-            <summary>
-            Currently enabled camera.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.CurrentTransformMatrix">
-            <summary>
-            Current transformation matrix. Used to offset, rotate and scale graphics.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr.CurrentColor">
-            <summary>
-            Current drawing color. Affects shapes, sprites, text and primitives.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.__drawcalls">
-            <summary>
-            Amount of draw calls per frame.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr._currentPipelineMode">
-            <summary>
-            Current pipeline mode. Tells, which type of graphics is being drawn right now.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr._surfaceStack">
-            <summary>
-            We can set surface targets inside another surfaces.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.ScissorRectangle">
-            <summary>
-            Disables rendering for everything that's outside of rectangle.
-            NOTE: To enable scissoring, enable scissor test in Rasterizer.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.Rasterizer">
-            <summary>
-            Rasterizer state. 
-            NOTE: Do NOT modify object which you'll set. This will lead to errors and unexpected behaviour.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.Sampler">
-            <summary>
-            Sampler state. Used for interpolation and texture wrappping.
-            NOTE: Do NOT modify object which you'll set. This will lead to errors and unexpected behaviour.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.BlendState">
-            <summary>
-            Blend state. Used for color blending.
-            NOTE: Do NOT modify object which you'll set. This will lead to errors and unexpected behaviour.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.CurrentEffect">
-            <summary>
-            Current shader. Set to null to reset to the default shader.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr._defaultEffect">
-            <summary>
-            Default shader with proper alpha blending. 
-            Replaces BasicEffect. Applied, when CurrentEffect is null.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr._cameraRasterizerState">
-            <summary>
-            Used for drawing cameras.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr.CanvasMatrix">
-            <summary>
-            Matrix for offsetting, scaling and rotating canvas contents.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.DrawMgr.CircleVerticesCount">
-            <summary>
-            Amount of vertices in one circle. 
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.DrawMgr._content">
-            <summary>
-            Used to load default shader.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.Init(Microsoft.Xna.Framework.Graphics.GraphicsDevice)">
-            <summary>
-            Initialization function for draw manager. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.Update(Microsoft.Xna.Framework.GameTime)">
-            <summary>
-            Performs Draw events for all objects.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.SwitchPipelineMode(Monofoxe.Engine.PipelineMode,Microsoft.Xna.Framework.Graphics.Texture2D)">
-            <summary>
-            Switches graphics pipeline mode.
-            
-            Call it before manually using sprite batches or vertex buffers.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.AddVertices(Monofoxe.Engine.PipelineMode,Microsoft.Xna.Framework.Graphics.Texture2D,System.Collections.Generic.List{Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture},System.Int16[])">
-            <summary>
-            Adds vertices and indices to global vertex and index list.
-            If current and suggested pipeline modes are different, draws accumulated vertices first.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawVertices">
-            <summary>
-            Draws vertices from vertex buffer and empties it.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.SetTransformMatrix(Microsoft.Xna.Framework.Matrix)">
-            <summary>
-            Sets new transform matrix.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.AddTransformMatrix(Microsoft.Xna.Framework.Matrix)">
-            <summary>
-            Sets new transform matrix multiplied by current transform matrix.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.ResetTransformMatrix">
-            <summary>
-            Resets to a previous transform matrix.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.CalculateSpriteFrame(Monofoxe.Engine.Drawing.Sprite,System.Double)">
-            <summary>
-            Returns sprite frame based on a value from 0 to 1.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Draws a line.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a line with specified colors.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a line with specified width and colors.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            Draws a line.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(System.Single,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            Draws a line with specified width.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a line with specified colors.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawLine(System.Single,System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a line with specified width and colors.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawTriangle(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean)">
-            <summary>
-            Draws a triangle.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawTriangle(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a triangle with specified colors.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawTriangle(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)">
-            <summary>
-            Draws a triangle.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawTriangle(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draw a triangle with specified colors.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawRectangle(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean)">
-            <summary>
-            Draws a rectangle.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawRectangle(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a rectangle with specified colors for each corner.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawRectangle(System.Single,System.Single,System.Single,System.Single,System.Boolean)">
-            <summary>
-            Draws a rectangle.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawRectangle(System.Single,System.Single,System.Single,System.Single,System.Boolean,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws a rectangle with specified colors for each corner.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawCircle(Microsoft.Xna.Framework.Vector2,System.Single,System.Boolean)">
-            <summary>
-            Draws a circle.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawCircle(System.Single,System.Single,System.Single,System.Boolean)">
-            <summary>
-            Draws a circle.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetTexture(Microsoft.Xna.Framework.Graphics.Texture2D)">
-            <summary>
-            Sets texture for a primitive.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetTexture(Monofoxe.Engine.Drawing.Sprite,System.Single)">
-            <summary>
-            Sets texture for a primitive.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetTriangleStripIndices">
-            <summary>
-            Sets indices according to trianglestrip pattern.
-            NOTE: Use counter-clockwise culling.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetTriangleFanIndices">
-            <summary>
-            Sets indexes according to trianglefan pattern.
-            NOTE: Use counter-clockwise culling.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetMeshIndices(System.Int32,System.Int32)">
-            <summary>
-            Sets indexes according to mesh pattern.
-            NOTE: Make sure there's enough vertices for width and height of the mesh.
-            NOTE: Use counter-clockwise culling.
-            </summary>
-            <param name="w">Width of the mesh.</param>
-            <param name="h">Height of the mesh.</param>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetLineStripIndices(System.Boolean)">
-            <summary>
-            Sets indexes according to line strip pattern.
-            </summary>
-            <param name="loop">Tells is first and last vertix will have a line between them.</param>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetCustomLineIndices(System.Int16[])">
-            <summary>
-            Sets user-defined array of indices for alist of lines.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetCustomLineIndices(System.Collections.Generic.List{System.Int16})">
-            <summary>
-            Sets user-defined list of indices for list of lines.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetCustomTriangleIndices(System.Int16[])">
-            <summary>
-            Sets user-defined array of indices for list of triangles.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveSetCustomTriangleIndices(System.Collections.Generic.List{System.Int16})">
-            <summary>
-            Sets user-defined list of indices for list of triangles.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveBegin">
-            <summary>
-            Begins primitive drawing. 
-            It's more of a safety check for junk primitives.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.PrimitiveEnd">
-            <summary>
-            Ends drawing of a primitive.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawText(System.String,System.Single,System.Single)">
-            <summary>
-            Draws text in specified coordinates.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawText(System.String,Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Draws text in specified coordinates.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawText(System.String,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
-            <summary>
-            Draws text in specified coordinates with rotation, scale and origin.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.DrawText(System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            Draws text in specified coordinates with rotation, scale and origin.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.SetSurfaceTarget(Microsoft.Xna.Framework.Graphics.RenderTarget2D)">
-            <summary>
-            Sets surface as a render target.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.SetSurfaceTarget(Microsoft.Xna.Framework.Graphics.RenderTarget2D,Microsoft.Xna.Framework.Matrix)">
-            <summary>
-            Sets surface as a render target.
-            </summary>
-            <param name="surf">Target surface.</param>
-            <param name="matrix">Surface transformation matrix.</param>
-        </member>
-        <member name="M:Monofoxe.Engine.DrawMgr.ResetSurfaceTarget">
-            <summary>
-            Resets render target to a previous surface.
-            </summary>
-        </member>
         <member name="F:Monofoxe.Engine.GameMgr.Game">
             <summary>
             Main Game class.
@@ -2077,34 +2337,34 @@
             Clears mouse, keyboard and gamepad input.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.PipelineMode">
+        <member name="T:Monofoxe.Engine.GraphicsMode">
             <summary>
             Every time we want to draw primitive of a new type
             or switch texture, we need to empty vertex buffer
-            and switch pipeline mode.
+            and switch graphics mode.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.PipelineMode.None">
+        <member name="F:Monofoxe.Engine.GraphicsMode.None">
             <summary>
             No mode set.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.PipelineMode.Sprites">
+        <member name="F:Monofoxe.Engine.GraphicsMode.Sprites">
             <summary>
             Sprite batch.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.PipelineMode.SpritesNonPremultiplied">
+        <member name="F:Monofoxe.Engine.GraphicsMode.SpritesNonPremultiplied">
             <summary>
             Text.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.PipelineMode.TrianglePrimitives">
+        <member name="F:Monofoxe.Engine.GraphicsMode.TrianglePrimitives">
             <summary>
             Triangle list.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.PipelineMode.OutlinePrimitives">
+        <member name="F:Monofoxe.Engine.GraphicsMode.LinePrimitives">
             <summary>
             Line list.
             </summary>

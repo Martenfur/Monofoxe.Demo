@@ -118,7 +118,7 @@
             <summary>
             Sets 3D attributes.
             </summary>
-            <param name="pos">Sound position.</param>
+            <param name="position">Sound position.</param>
             <param name="velocity">Sound velocity.</param>
             <param name="altPanPos">Panning position.</param>
         </member>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.Utils;
 using Monofoxe.Demo.GameLogic.Entities.Core;
@@ -108,13 +108,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var path = (PathComponent)component;
 			
-			DrawMgr.CurrentColor = Color.Red;
+			GraphicsMgr.CurrentColor = Color.Red;
 			
 			for(var i = 0; i < path.Points.Count - (!path.Looped).ToInt(); i += 1)
 			{
-				DrawMgr.DrawLine(path.Position + path.Points[i], path.Position + GetNextPoint(path, i));
+				LineShape.Draw(path.Position + path.Points[i], path.Position + GetNextPoint(path, i));
 			}
-			DrawMgr.DrawCircle(GetCurrentPosition(path), 4, false);
+			CircleShape.Draw(GetCurrentPosition(path), 4, false);
 
 		}
 

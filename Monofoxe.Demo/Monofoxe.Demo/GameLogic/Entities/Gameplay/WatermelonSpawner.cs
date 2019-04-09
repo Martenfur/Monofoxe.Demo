@@ -117,19 +117,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			
 			var position = GetComponent<PositionComponent>();
-			DrawMgr.DrawSprite(StemSprite, position.Position);
+			StemSprite.Draw(position.Position, StemSprite.Origin);
 			
 			if (_spawnAnimation)
 			{
 				var animation = (float)Math.Pow(Math.Pow(_spawnAnimationProgress, 3f), 0.5f);
 				
 				var sprite = _spawnedEntity.GetComponent<StackableActorComponent>().MainSprite;
-
-				DrawMgr.DrawSprite(
-					sprite, 
+				
+				sprite.Draw( 
 					0, 
 					position.Position + _spawnStemOrigin, 
-					new Vector2(0, -sprite.Height),
+					sprite.Origin + new Vector2(0, -sprite.Height),
 					animation * Vector2.One,
 					0, 
 					Color.White

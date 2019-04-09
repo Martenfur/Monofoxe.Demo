@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.FMODAudio;
 using Monofoxe.Tiled;
+
 
 namespace Monofoxe.Demo
 {
@@ -40,7 +42,7 @@ namespace Monofoxe.Demo
 		/// </summary>
 		protected override void LoadContent()
 		{
-			DrawMgr.Init(GraphicsDevice);
+			GraphicsMgr.Init(GraphicsDevice);
 			//189
 			//114
 			Resources.Sprites.Default.Load();	

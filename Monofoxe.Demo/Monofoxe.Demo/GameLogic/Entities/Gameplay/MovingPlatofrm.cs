@@ -56,20 +56,20 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = GetComponent<PositionComponent>();
 			var offset = new Vector2(Width, 1f / HeightDivider) * BaseSize / 2;
 			
-			DrawMgr.CurrentColor = Color.White;
+			GraphicsMgr.CurrentColor = Color.White;
 
 			if (Width == 1)
 			{
-				DrawMgr.DrawFrame(Sprite.Frames[3], (position.Position - offset).Round(), Sprite.Origin);
+				Sprite[3].Draw((position.Position - offset).Round(), Sprite.Origin);
 			}
 			else
 			{
-				DrawMgr.DrawFrame(Sprite.Frames[0], (position.Position - offset).Round(), Sprite.Origin);
-				DrawMgr.DrawFrame(Sprite.Frames[2], (position.Position - offset + Vector2.UnitX * BaseSize * (Width - 1)).Round(), Sprite.Origin);
+				Sprite[0].Draw((position.Position - offset).Round(), Sprite.Origin);
+				Sprite[2].Draw((position.Position - offset + Vector2.UnitX * BaseSize * (Width - 1)).Round(), Sprite.Origin);
 
 				for(var i = 1; i < Width - 1; i += 1)
 				{
-					DrawMgr.DrawFrame(Sprite.Frames[1], (position.Position - offset + Vector2.UnitX * BaseSize * i).Round(), Sprite.Origin);
+					Sprite[1].Draw((position.Position - offset + Vector2.UnitX * BaseSize * i).Round(), Sprite.Origin);
 				}
 
 			}

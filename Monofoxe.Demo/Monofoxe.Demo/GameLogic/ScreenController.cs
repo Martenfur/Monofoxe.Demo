@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.Utils.Cameras;
 
 namespace Monofoxe.Demo.GameLogic
@@ -19,7 +20,7 @@ namespace Monofoxe.Demo.GameLogic
 			window.Window.AllowUserResizing = false;
 			window.ApplyChanges();
 			window.CanvasMode = CanvasMode.Fill;
-			DrawMgr.Sampler = SamplerState.PointClamp;
+			GraphicsMgr.Sampler = SamplerState.PointClamp;
 
 			
 			window.CanvasSize = new Vector2(WindowWidth, WindowHeight);

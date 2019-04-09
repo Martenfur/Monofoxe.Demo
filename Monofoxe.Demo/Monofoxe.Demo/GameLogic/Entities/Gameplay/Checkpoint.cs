@@ -88,12 +88,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var position = GetComponent<PositionComponent>();
 			
-			DrawMgr.CurrentColor = Color.White;
-			DrawMgr.DrawSprite(Resources.Sprites.Default.CheckpointPedestal, position.Position);
+			GraphicsMgr.CurrentColor = Color.White;
+			Resources.Sprites.Default.CheckpointPedestal.Draw(position.Position, Resources.Sprites.Default.CheckpointPedestal.Origin);
 
 			if (!_active)
 			{
-				DrawMgr.DrawSprite(Resources.Sprites.Default.CheckpointDoggo, position.Position + _doggoOffset);
+				Resources.Sprites.Default.CheckpointDoggo.Draw(position.Position + _doggoOffset, Resources.Sprites.Default.CheckpointDoggo.Origin);
 			}
 
 		}

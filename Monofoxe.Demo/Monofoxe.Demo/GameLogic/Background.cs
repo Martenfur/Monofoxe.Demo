@@ -40,45 +40,44 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public override void Draw()
 		{
-			DrawMgr.AddTransformMatrix(
-				Matrix.CreateTranslation((DrawMgr.CurrentCamera.Position - DrawMgr.CurrentCamera.Size / 2).ToVector3())
+			GraphicsMgr.AddTransformMatrix(
+				Matrix.CreateTranslation((GraphicsMgr.CurrentCamera.Position - GraphicsMgr.CurrentCamera.Size / 2).ToVector3())
 			);
 
-			DrawMgr.CurrentColor = Color.White;
+			GraphicsMgr.CurrentColor = Color.White;
 
-			DrawMgr.DrawSprite(_sun, _sunBasePosition);
-
-			DrawMgr.DrawSprite(
-				_mountains, 
-				_mountainsBasePosition + DrawMgr.CurrentCamera.Size * Vector2.UnitY
+			_sun.Draw(_sunBasePosition, _sun.Origin);
+			
+			_mountains.Draw( 
+				_mountainsBasePosition + GraphicsMgr.CurrentCamera.Size * Vector2.UnitY,
+				_mountains.Origin
 			);
 			
 
 			DrawParallaxForest(_forest1, _forest1Parallax);
 			DrawParallaxForest(_forest2, _forest2Parallax);
 
-			DrawMgr.ResetTransformMatrix();
+			GraphicsMgr.ResetTransformMatrix();
 		}
 
 		private void DrawParallaxForest(Sprite sprite, float parallax)
 		{
-			var loops = (int)(DrawMgr.CurrentCamera.Size.X / sprite.Width) + 1;
+			var loops = (int)(GraphicsMgr.CurrentCamera.Size.X / sprite.Width) + 1;
 			
 			for(var i = -1; i < loops; i += 1)
 			{
 				var pos = _forestBasePosition 
-					+ DrawMgr.CurrentCamera.Size * Vector2.UnitY 
+					+ GraphicsMgr.CurrentCamera.Size * Vector2.UnitY 
 					+ GetParallax(sprite, parallax)
 					+ Vector2.UnitX * i * sprite.Width;
 				
-				DrawMgr.DrawSprite(
-					sprite, 
-					pos
+				sprite.Draw(
+					pos,
+					sprite.Origin
 				);
 
 				// Drawing a bottom line of pixels as a filler from the bottom of background sprite to the end of the screen.
-				DrawMgr.DrawSprite(
-					sprite, 
+				sprite.Draw(
 					0, 
 					new Rectangle((int)pos.X, (int)pos.Y - 1, sprite.Width, (int)(Math.Abs(GetParallax(sprite, parallax).Y)) + 2), 
 					new Rectangle(0, sprite.Height - 1, sprite.Width, 1)
@@ -92,11 +91,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		/// </summary>
 		private Vector2 GetParallax(Sprite sprite, float parallaxValue)
 		{
-			var parallaxShiftX = -DrawMgr.CurrentCamera.Position.X * parallaxValue;
+			var parallaxShiftX = -GraphicsMgr.CurrentCamera.Position.X * parallaxValue;
 			var parallaxOverflow = (int)(parallaxShiftX / sprite.Width);
 			parallaxShiftX -= sprite.Width * parallaxOverflow; 
 
-			var parallaxShiftY = -DrawMgr.CurrentCamera.Position.Y * parallaxValue;
+			var parallaxShiftY = -GraphicsMgr.CurrentCamera.Position.Y * parallaxValue;
 			
 			
 			if (parallaxShiftY < _minYParallax * parallaxValue)

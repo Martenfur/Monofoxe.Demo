@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
@@ -63,16 +63,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Draw()
 		{
 			var position = GetComponent<PositionComponent>();
-			DrawMgr.CurrentColor = Color.White;
+			GraphicsMgr.CurrentColor = Color.White;
 			
-				if (TryGetComponent(out LinkComponent link))
+			if (TryGetComponent(out LinkComponent link))
+			{
+				if (link.Pair == null)
 				{
-					if (link.Pair == null)
-					{
-					DrawMgr.CurrentColor = Color.Red;
-					}
+					GraphicsMgr.CurrentColor = Color.Red;
 				}
-			DrawMgr.DrawSprite(Resources.Sprites.Default.Switchblock, 1 - Active.ToInt(), position.Position);
+			}
+			Resources.Sprites.Default.Switchblock.Draw(1 - Active.ToInt(), position.Position, Resources.Sprites.Default.Switchblock.Origin);
 		}
 
 		public void Toggle()

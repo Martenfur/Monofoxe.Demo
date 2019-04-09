@@ -49,17 +49,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var position = GetComponent<PositionComponent>();
 
-
-			DrawMgr.DrawSprite(
-				Resources.Sprites.Default.Rainbow, 
+			Resources.Sprites.Default.Rainbow.Draw(
 				0, 
 				position.Position + _rainbowOffset, 
+				Resources.Sprites.Default.Rainbow.Origin, 				
 				new Vector2(1, Math.Min(_maxRainbowLength, position.StartingPosition.Y - position.Position.Y)),
 				0, 
 				Color.White
 			);
 			
-			DrawMgr.DrawSprite(Resources.Sprites.Default.CheckpointDoggo, position.Position);
+			Resources.Sprites.Default.CheckpointDoggo.Draw(position.Position, Resources.Sprites.Default.CheckpointDoggo.Origin);
 
 		}
 

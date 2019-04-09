@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
@@ -129,17 +129,24 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var position = GetComponent<PositionComponent>();
 
 			_shootingAnimation = (float)Math.Sin(_shootingAnimationProgress * _shootingAnimationProgress * Math.PI);
-
-			DrawMgr.DrawSprite(
-				Resources.Sprites.Default.Cannon, 
+			
+			Resources.Sprites.Default.Cannon.Draw( 
 				0, 
 				position.Position + _shootingAnimationOffset * _direction * _shootingAnimation, 
+				Resources.Sprites.Default.Cannon.Origin,
 				Vector2.One + _shootingAnimationScale * _shootingAnimation, 
 				_rotation, 
 				Color.White
 			);
 
-			DrawMgr.DrawSprite(Resources.Sprites.Default.CannonBase, 0, position.Position, Vector2.One, _baseRotation, Color.White);
+			Resources.Sprites.Default.CannonBase.Draw(
+				0, 
+				position.Position, 
+				Resources.Sprites.Default.CannonBase.Origin, 
+				Vector2.One, 
+				_baseRotation, 
+				Color.White
+			);
 		}
 
 		private void Shoot()

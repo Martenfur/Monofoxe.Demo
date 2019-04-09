@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
@@ -75,11 +75,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Draw()
 		{
 			var position = GetComponent<PositionComponent>();
-
-			DrawMgr.DrawSprite(
-				Resources.Sprites.Default.Button, 
+			
+			Resources.Sprites.Default.Button.Draw(
 				IsDown.ToInt(), 
-				position.Position, 
+				position.Position,
+				Resources.Sprites.Default.Button.Origin,
 				Vector2.One, 
 				_rotation, 
 				Color.White

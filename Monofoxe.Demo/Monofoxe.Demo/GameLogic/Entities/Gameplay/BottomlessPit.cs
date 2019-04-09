@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
-using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
@@ -46,7 +46,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Draw()
 		{
 			var position = GetComponent<PositionComponent>();
-			DrawMgr.DrawRectangle(position.Position - Size / 2, position.Position + Size / 2, true);
+			RectangleShape.DrawBySize(position.Position, Size, true);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
+using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
@@ -53,10 +54,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		public override void Draw()
 		{
-			DrawMgr.CurrentColor = Color.Black * (float)_blackscreenAlpha;
-
-			DrawMgr.DrawRectangle(Vector2.Zero, GameMgr.WindowManager.CanvasSize, false);
-			
+			GraphicsMgr.CurrentColor = Color.Black * (float)_blackscreenAlpha;
+			// TODO: check if something's up with GUI layer.
+			RectangleShape.Draw(Vector2.Zero, GameMgr.WindowManager.CanvasSize, false);
 		}
 	}
 }
