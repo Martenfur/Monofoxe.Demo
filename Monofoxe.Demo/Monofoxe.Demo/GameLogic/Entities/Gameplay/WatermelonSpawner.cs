@@ -15,6 +15,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		OnStacked,
 		// Spawn, if watermelon was destroyed.
 		OnDestroyed,
+		// Spawn, if watermelon is dead.
+		OnDead,
+
 	}
 
 
@@ -79,6 +82,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			// Spawn, if watermelon been stacked.
 
+			// Spawn, if watermelon is dead.
+			if (
+				_spawnedEntity != null
+				&& _spawnMode == SpawnMode.OnDead
+				&& _spawnedEntity.GetComponent<StackableActorComponent>().LogicStateMachine.CurrentState == ActorStates.Dead
+			)
+			{
+				SpawnEntity();
+			}
+			// Spawn, if watermelon is dead.
+
+
 			// Animation.
 			if (_spawnAnimation)
 			{
@@ -88,7 +103,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					_spawnAnimation = false;
 					_spawnedEntity.Enabled = true;
 					_spawnedEntity.Visible = true;
-
 				}
 			}
 			// Animation.

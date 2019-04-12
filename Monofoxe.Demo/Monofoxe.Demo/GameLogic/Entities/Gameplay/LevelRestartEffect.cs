@@ -55,7 +55,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Draw()
 		{
 			GraphicsMgr.CurrentColor = Color.Black * (float)_blackscreenAlpha;
-			// TODO: check if something's up with GUI layer.
 			RectangleShape.Draw(Vector2.Zero, GameMgr.WindowManager.CanvasSize, false);
 		}
 	}

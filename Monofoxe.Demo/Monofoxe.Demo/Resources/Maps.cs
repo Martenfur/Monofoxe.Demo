@@ -9,15 +9,18 @@ namespace Resources
 	{
 		private static ContentManager _content;
 		
-		public static TiledMap Test;
+		public static TiledMap Level1;
 		
+		public static TiledMap Level2;
+		
+
 		public static void Load()
 		{
 			_content = new ContentManager(GameMgr.Game.Services);
 			_content.RootDirectory = AssetMgr.ContentDir + '/' + AssetMgr.MapsDir;
 			
-			Test = _content.Load<TiledMap>("lvl1");
-			System.Console.WriteLine(Test == null);
+			Level1 = _content.Load<TiledMap>("lvl1");
+			Level2 = _content.Load<TiledMap>("lvl2");
 		}
 
 		public static void Unload()

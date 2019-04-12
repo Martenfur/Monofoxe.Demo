@@ -12,7 +12,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 	{
 		public new string Tag => "cannonBall";
 		
-		public static readonly float Size = 10;
+		public static readonly float Size = 16;
 		
 		private float _speed = 600;
 		private Vector2 _direction;

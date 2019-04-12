@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Monofoxe.Engine;
-using Monofoxe.Engine.Utils;
-using Monofoxe.Engine.Utils.Cameras;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Demo.GameLogic.Entities.Core;
+using Monofoxe.Engine.Utils;
+using Monofoxe.Engine.Utils.Cameras;
 
 namespace Monofoxe.Demo.GameLogic
 {
@@ -42,6 +37,7 @@ namespace Monofoxe.Demo.GameLogic
 
 		private bool _gotStoppers = false;
 
+		public const float OffsetY = 100;
 
 		public GameCamera(Layer layer, Camera camera) : base(layer)
 		{
@@ -57,12 +53,13 @@ namespace Monofoxe.Demo.GameLogic
 
 			if (Target != null)
 			{
-				var targetDistance = GameMath.Distance(Camera.Position, Target.Position);
-				var targetVector = (Camera.Position - Target.Position).GetSafeNormalize();
+				var targetPosition = Target.Position - Vector2.UnitY * OffsetY;
+				var targetDistance = GameMath.Distance(Camera.Position, targetPosition);
+				var targetVector = (Camera.Position - targetPosition).GetSafeNormalize();
 
 				if (targetDistance > MaxDistance)
 				{
-					_position = (Target.Position + targetVector * MaxDistance);
+					_position = (targetPosition + targetVector * MaxDistance);
 					targetDistance = MaxDistance;
 				}
 
@@ -71,7 +68,7 @@ namespace Monofoxe.Demo.GameLogic
 					var distanceToMax = targetDistance - PullbackDistance;
 
 					distanceToMax *= (float)Math.Pow(PullbackMultiplier, TimeKeeper.GlobalTime());
-					_position = Target.Position + targetVector * (distanceToMax + PullbackDistance);
+					_position = targetPosition + targetVector * (distanceToMax + PullbackDistance);
 				}
 			}
 			

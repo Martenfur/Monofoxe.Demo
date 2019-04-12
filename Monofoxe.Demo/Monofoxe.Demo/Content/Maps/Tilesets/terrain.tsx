@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="test" tilewidth="56" tileheight="56" spacing="1" tilecount="72" columns="8">
+<tileset version="1.2" tiledversion="1.2.2" name="test" tilewidth="56" tileheight="56" spacing="1" tilecount="112" columns="8">
  <tileoffset x="-4" y="4"/>
  <grid orientation="orthogonal" width="48" height="48"/>
- <image source="terrain.png" width="455" height="512"/>
+ <image source="terrain.png" width="455" height="797"/>
  <terraintypes>
   <terrain name="Default" tile="1"/>
+  <terrain name="Cave" tile="67"/>
  </terraintypes>
  <tile id="0" terrain=",,,0">
   <properties>
@@ -322,6 +323,131 @@
   </properties>
  </tile>
  <tile id="60">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="64" terrain=",,,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="65" terrain=",,1,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="66" terrain=",,1,">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="67">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="68">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="72" terrain=",1,,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="73" terrain="1,1,1,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="74" terrain="1,,1,">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="75">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="76">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="80" terrain=",1,,">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="81" terrain="1,1,,">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="82" terrain="1,,,">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="83">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="88" terrain="1,1,1,">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="89" terrain="1,1,,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="90" terrain="1,,1,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="91" terrain=",1,1,1">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="92">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="97">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="98">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="99">
+  <properties>
+   <property name="type" value="Solid"/>
+  </properties>
+ </tile>
+ <tile id="100">
   <properties>
    <property name="type" value="Solid"/>
   </properties>

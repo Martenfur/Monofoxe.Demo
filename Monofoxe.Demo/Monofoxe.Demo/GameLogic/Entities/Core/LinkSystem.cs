@@ -27,7 +27,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 					{
 						link.Pair = otherLink;
 						otherLink.Pair = link;
-						Console.WriteLine("FOUND PAIR! Tag: " + link.Tag + " " + otherLink.Tag);
 						break;
 					}
 				}

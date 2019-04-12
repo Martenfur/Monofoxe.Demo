@@ -65,3 +65,8 @@
 /processor:TiledMapProcessor
 /build:Maps/lvl1.tmx
 
+#begin Maps/lvl2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/lvl2.tmx
+

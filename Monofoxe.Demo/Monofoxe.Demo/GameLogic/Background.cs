@@ -19,7 +19,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		Vector2 _sunBasePosition = new Vector2(100, 100);
 
 		Sprite _mountains = Resources.Sprites.Default.Mountains;
-		Vector2 _mountainsBasePosition = new Vector2(400, -195);
+		Vector2 _mountainsBasePosition = new Vector2(400, -195 - 100);
 
 
 		Vector2 _forestBasePosition = new Vector2(0, 0);
@@ -67,19 +67,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			for(var i = -1; i < loops; i += 1)
 			{
 				var pos = _forestBasePosition 
-					+ GraphicsMgr.CurrentCamera.Size * Vector2.UnitY 
+					+ GraphicsMgr.CurrentCamera.Size * Vector2.UnitY  
 					+ GetParallax(sprite, parallax)
-					+ Vector2.UnitX * i * sprite.Width;
+					+ Vector2.UnitX * i * sprite.Width
+					- Vector2.UnitY * 100;
 				
-				sprite.Draw(
-					pos,
-					sprite.Origin
-				);
+				sprite.Draw(pos, sprite.Origin);
 
 				// Drawing a bottom line of pixels as a filler from the bottom of background sprite to the end of the screen.
 				sprite.Draw(
 					0, 
-					new Rectangle((int)pos.X, (int)pos.Y - 1, sprite.Width, (int)(Math.Abs(GetParallax(sprite, parallax).Y)) + 2), 
+					new Rectangle((int)pos.X, (int)pos.Y - 1, sprite.Width, (int)(Math.Abs(GetParallax(sprite, parallax).Y) + (int)GameCamera.OffsetY) + 2 ), 
 					new Rectangle(0, sprite.Height - 1, sprite.Width, 1)
 				);
 			}			
