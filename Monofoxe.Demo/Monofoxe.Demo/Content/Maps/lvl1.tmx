@@ -151,8 +151,16 @@
     <property name="link_trigger" value="stackButton"/>
    </properties>
   </object>
-  <object id="134" template="Templates/CatEnemy.tx" x="8880" y="1152"/>
-  <object id="135" template="Templates/CatEnemy.tx" x="9552" y="1152"/>
+  <object id="134" template="Templates/CatEnemy.tx" x="8880" y="1152">
+   <properties>
+    <property name="stack" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="135" template="Templates/CatEnemy.tx" x="9552" y="1152">
+   <properties>
+    <property name="stack" type="int" value="7"/>
+   </properties>
+  </object>
   <object id="136" template="Templates/Checkpoint.tx" x="7824" y="1440"/>
   <object id="138" template="Templates/WatermelonSpawner.tx" x="10992" y="1152">
    <properties>

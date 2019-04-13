@@ -67,6 +67,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public Entity StackedNext;
 		public Entity StackedPrevious;
+		public Entity StackOwner;
+
 		public float StackDirectionOffset;
 		public float StackDirectionOffsetTarget;
 		public float StackDirectionMaxOffset = 3;

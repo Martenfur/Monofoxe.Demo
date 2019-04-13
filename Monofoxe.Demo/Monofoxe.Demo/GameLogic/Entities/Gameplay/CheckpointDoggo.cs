@@ -27,6 +27,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			AddComponent(new PositionComponent(position));
 			_deathAlarm.Set(_deathTime);
+
+			if (SceneMgr.CurrentScene.TryGetLayer("ObjectsFront", out Layer frontLayer))
+			{
+				Layer = frontLayer;
+			}
 		}
 
 

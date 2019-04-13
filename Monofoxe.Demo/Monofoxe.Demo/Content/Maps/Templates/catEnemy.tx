@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <tileset firstgid="1" source="Template Sprites/template_sprites.tsx"/>
- <object name="gato" type="CatEnemy" gid="1" width="63" height="52"/>
+ <object name="gato" type="CatEnemy" gid="1" width="63" height="52">
+  <properties>
+   <property name="stack" type="int" value="0"/>
+  </properties>
+ </object>
 </template>

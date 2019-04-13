@@ -129,6 +129,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			_dead = true;		
 			_deadSpeed.X = -_speed * _direction.X / 4 + GameplayController.Random.Next(-_deathDispersion, _deathDispersion);
 			_deadSpeed.Y = -_speed  + GameplayController.Random.Next(-_deathDispersion, _deathDispersion);
+
+			if (SceneMgr.CurrentScene.TryGetLayer("ObjectsFront", out Layer frontLayer))
+			{
+				Layer = frontLayer;
+			}
 		}
 	}
 }

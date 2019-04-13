@@ -51,7 +51,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					// Checking if there is a wall next to us.
 					else
 					{
-						// Checking if there is a pit below up.
+						// Checking if there is a pit below us.
 						var collider = new RectangleCollider();
 						collider.Size = Vector2.One;
 						collider.Position = position.Position 
@@ -62,14 +62,20 @@ namespace Monofoxe.Demo.GameLogic.Entities
 							gato.Direction *= -1;
 							actor.Orientation = gato.Direction;
 						}
-						// Checking if there is a pit below up.
+						// Checking if there is a pit below us.
 					}
 				}
 
 				
 				// Damaging the player.
 				if (
-					actor.LogicStateMachine.CurrentState != ActorStates.Stacked 
+					(
+						actor.StackOwner == null 
+						|| (
+							actor.StackOwner != null 
+							&& !actor.StackOwner.HasComponent<PlayerComponent>()
+						)
+					)
 					&& actor.LogicStateMachine.CurrentState != ActorStates.Dead
 				)
 				{

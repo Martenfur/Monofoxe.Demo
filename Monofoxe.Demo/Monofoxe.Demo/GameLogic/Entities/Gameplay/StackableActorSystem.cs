@@ -76,7 +76,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 				if (actor.StackedPrevious == null && actor.StackedNext != null)
 				{
-					StackedUpdate(actor.StackedNext.GetComponent<StackableActorComponent>(), 90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 3, 1);
+					StackedUpdate(
+						actor.StackedNext.GetComponent<StackableActorComponent>(), 
+						90 + (float)Math.Sin(GameMgr.ElapsedTimeTotal) * 3, 
+						1, 
+						actor.Owner
+					);
 				}
 
 				// Maybe all this could be packed into class.
@@ -364,7 +369,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			
 		}
 		
-		void StackedUpdate(StackableActorComponent actor, float baseDirection, int stackIndex)
+		void StackedUpdate(StackableActorComponent actor, float baseDirection, int stackIndex, Entity owner)
 		{
 			var position = actor.Owner.GetComponent<PositionComponent>();
 			var physics = actor.Owner.GetComponent<PhysicsComponent>();
@@ -373,6 +378,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var masterPhysics = actor.StackedPrevious.GetComponent<PhysicsComponent>();
 			var masterActor = actor.StackedPrevious.GetComponent<StackableActorComponent>();
 
+			actor.StackOwner = owner;
 
 			// Pendulum.
 
@@ -433,7 +439,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				StackedUpdate(
 					actor.StackedNext.GetComponent<StackableActorComponent>(), 
 					baseDirection + actor.StackDirectionOffset, 
-					stackIndex + 1
+					stackIndex + 1,
+					owner
 				);
 			}
 
@@ -444,7 +451,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		}
 
-		void StackEntity(StackableActorComponent master, StackableActorComponent slave)
+		public static void StackEntity(StackableActorComponent master, StackableActorComponent slave)
 		{
 			if (master.StackedNext != null)
 			{
@@ -469,6 +476,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var physics = owner.GetComponent<PhysicsComponent>();
 			var actor = owner.GetComponent<StackableActorComponent>();
 			
+			if (SceneMgr.CurrentScene.TryGetLayer("ObjectsFront", out Layer frontLayer))
+			{
+				owner.Layer = frontLayer;
+			}
 			
 			physics.Collider.Enabled = false; // Disabling collisions.
 
