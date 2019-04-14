@@ -33,7 +33,7 @@ namespace Monofoxe.Demo
 			ScreenController.Init();
 
 			
-			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level1);
+			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level2);
 			CurrentMap.Build();
 			
 			

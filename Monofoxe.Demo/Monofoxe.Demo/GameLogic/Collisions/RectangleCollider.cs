@@ -15,6 +15,8 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 
 		public bool Enabled {get; set;} = true;
 		
+		public bool IgnorePlatforms = false;
+
 		public object Clone()
 		{
 			var o = new RectangleCollider();
@@ -22,6 +24,7 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 			o.PreviousPosition = o.PreviousPosition;
 			o.Size = Size;
 			o.Enabled = Enabled;
+			o.IgnorePlatforms = IgnorePlatforms;
 
 			return o;
 		}

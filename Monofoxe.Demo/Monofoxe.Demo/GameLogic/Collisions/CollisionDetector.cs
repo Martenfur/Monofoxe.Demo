@@ -94,7 +94,13 @@ namespace Monofoxe.Demo.GameLogic.Collisions
 		static bool RectanglePlatform(ICollider collider1, ICollider collider2)
 		{
 			var rectangle = (RectangleCollider)collider1;
+			if (rectangle.IgnorePlatforms)
+			{
+				return false;
+			}
+
 			var platform = (PlatformCollider)collider2;
+
 
 			if ( // If rectangle enters platform from above.
 				rectangle.PreviousPosition.Y + rectangle.Size.Y / 2f 

@@ -70,3 +70,9 @@
 /processor:TiledMapProcessor
 /build:Maps/lvl2.tmx
 
+#begin Audio/Music/MainBaseLayer.ogg
+/copy:Audio/Music/MainBaseLayer.ogg
+
+#begin Audio/Music/MainTopLayer.ogg
+/copy:Audio/Music/MainTopLayer.ogg
+

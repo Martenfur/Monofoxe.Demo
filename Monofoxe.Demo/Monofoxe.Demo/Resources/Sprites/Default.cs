@@ -35,6 +35,7 @@ namespace Resources.Sprites
 		public static Sprite CannonBall;
 		public static Sprite Platform;
 		public static Sprite Button;
+		public static Sprite PlatformDot;
 		public static Sprite Rainbow;
 		#endregion Sprites.
 		
@@ -72,6 +73,7 @@ namespace Resources.Sprites
 			CannonBall = sprites["Objects/cannon_ball"];
 			Platform = sprites["Objects/platform"];
 			Button = sprites["Objects/button"];
+			PlatformDot = sprites["Objects/platform_dot"];
 			Rainbow = sprites["Objects/rainbow"];
 			
 			#endregion Sprite constructors.

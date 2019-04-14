@@ -20,6 +20,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public bool Looped = false;
 
+		public float DotSpacing = 48f;
+
 		public PathComponent()
 		{
 			Visible = true; // TODO: remove

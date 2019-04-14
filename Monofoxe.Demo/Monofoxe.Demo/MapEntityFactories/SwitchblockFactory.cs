@@ -18,7 +18,12 @@ namespace Monofoxe.Demo.MapEntityFactories
 			
 			var position = new Vector2(Switchblock.Size, -Switchblock.Size) / 2 + tile.Position;
 			
-			var switchblock = new Switchblock(position, tile.Properties["active"] == "true", layer);
+			var switchblock = new Switchblock(
+				position, 
+				tile.Properties["active"] == "true", 
+				tile.Properties["switchOnce"] == "true", 
+				layer
+			);
 	
 			if (tile.Properties["link_trigger"] != "none")
 			{

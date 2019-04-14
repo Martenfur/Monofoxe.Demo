@@ -31,7 +31,7 @@
 			"collider": {"type": "rectangle", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {},
-		"StackableActorComponent": {"walkMovementSpeed":  150, "mainSprite": "Default.Frog"},
+		"StackableActorComponent": {"walkMovementSpeed":  150, "mainSprite": "Default.Frog", "jumpSpeed": 1200},
 		"FrogEnemyComponent": {}
 	},
 

@@ -355,13 +355,18 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var collider = (ICollider)physics.Collider.Clone();
 			
 			collider.Position = position.Position;
-			collider.PreviousPosition = position.Position; 
+			collider.PreviousPosition = position.PreviousPosition; 
 			// Making collider a bit smaller, so actor will not die to everything.
 			collider.Size /= 3f; 
 
+			if (collider is RectangleCollider)
+			{
+				((RectangleCollider)collider).IgnorePlatforms = true;
+			}
+
 			var colliderEntity = PhysicsSystem.CheckCollision(physics.Owner, collider);
 
-			if (colliderEntity != null && !(colliderEntity.GetComponent<SolidComponent>().Collider is PlatformCollider))
+			if (colliderEntity != null)
 			{
 				stateMachine.ChangeState(ActorStates.Dead);
 				return;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="template_sprites" tilewidth="63" tileheight="56" tilecount="10" columns="0">
+<tileset version="1.2" tiledversion="1.2.3" name="template_sprites" tilewidth="63" tileheight="56" tilecount="10" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>
-  <property name="__ignoreTileset" value="false"/>
+  <property name="__ignoreTileset" value="true"/>
   <property name="test" value="toast"/>
  </properties>
  <tile id="0">

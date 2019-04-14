@@ -19,9 +19,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		private Button _myButton;
 
-		public Switchblock(Vector2 position, bool active, Layer layer) : base(layer)
+		private bool _switchOnce;
+
+		private bool _switchingAllowed = true;
+
+		public Switchblock(Vector2 position, bool active, bool switchOnce, Layer layer) : base(layer)
 		{
 			Active = active;
+			_switchOnce = switchOnce;
 
 			AddComponent(new PositionComponent(position));
 			
@@ -41,9 +46,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			if (_myButton != null)
 			{
-				if (_myButton.Pressed)
+				if (_myButton.Pressed && _switchingAllowed)
 				{
 					Toggle();
+					if (_switchOnce)
+					{
+						_switchingAllowed = false;
+					}
 				}
 			}
 			else

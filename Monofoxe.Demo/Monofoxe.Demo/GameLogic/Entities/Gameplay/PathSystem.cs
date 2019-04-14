@@ -108,14 +108,35 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var path = (PathComponent)component;
 			
-			GraphicsMgr.CurrentColor = Color.Red;
+			GraphicsMgr.CurrentColor = Color.White;
+			
+			var dot = Resources.Sprites.Default.PlatformDot;
+
+			
 			
 			for(var i = 0; i < path.Points.Count - (!path.Looped).ToInt(); i += 1)
 			{
-				LineShape.Draw(path.Position + path.Points[i], path.Position + GetNextPoint(path, i));
-			}
-			CircleShape.Draw(GetCurrentPosition(path), 4, false);
+				var pt1 = path.Points[i];
+				var pt2 = GetNextPoint(path, i);
 
+				var distance = GameMath.Distance(pt1, pt2);
+
+				var v = (pt2 - pt1).GetSafeNormalize();
+
+				var dotCount = (int)(distance / path.DotSpacing);
+
+				var adjustedSpacing = distance / dotCount;
+
+				for(var k = 0; k < dotCount; k += 1)
+				{
+					dot.Draw(path.Position + pt1 + v * k * adjustedSpacing, dot.Origin);
+				}
+			}
+
+			if (!path.Looped)
+			{
+				dot.Draw(path.Position + path.Points[path.Points.Count - 1], dot.Origin);
+			}
 		}
 
 

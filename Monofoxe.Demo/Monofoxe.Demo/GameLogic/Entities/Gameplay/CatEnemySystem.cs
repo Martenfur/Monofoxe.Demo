@@ -85,7 +85,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 						var player = playerEntity.GetComponent<PlayerComponent>();
 						var playerActor = playerEntity.GetComponent<StackableActorComponent>();
 						
-						if (playerActor.Crouching)
+						if (playerActor.Crouching && actor.LogicStateMachine.CurrentState != ActorStates.Stacked)
 						{
 							continue;
 						}
