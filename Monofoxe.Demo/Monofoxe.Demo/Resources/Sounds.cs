@@ -15,8 +15,8 @@ namespace Resources
 			MainTopLayer = AudioMgr.LoadStreamedSound("Music/MainTopLayer");
 			//MainTopLayer.Play();
 			//MainTopLayer.Loops = -1;
-			MainBaseLayer.Play();
-			MainBaseLayer.Loops = -1;
+			//MainBaseLayer.Play();
+			//MainBaseLayer.Loops = -1;
 			
 		}
 

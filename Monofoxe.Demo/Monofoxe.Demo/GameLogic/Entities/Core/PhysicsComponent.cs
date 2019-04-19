@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Demo.JsonConverters;
-using Monofoxe.Engine.Converters;
 using Monofoxe.Engine.ECS;
-using Newtonsoft.Json;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
@@ -18,7 +15,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// <summary>
 		/// Entity will move according to this vector. Measured in px/sec.
 		/// </summary>
-		[JsonConverter(typeof(Vector2Converter))]
 		public Vector2 Speed;
 		
 		/// <summary>
@@ -33,7 +29,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// Currently only RectangleCollider is supported,
 		/// others will provide unknown results.
 		/// </summary>
-		[JsonConverter(typeof(ColliderConverter))]
 		public ICollider Collider;
 
 		/// <summary>
@@ -89,17 +84,5 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// Entity that physics object has collided with.
 		/// </summary>
 		public Entity StandingOn;
-
-
-		public override object Clone()
-		{
-			var c = new PhysicsComponent();
-			c.Speed = Speed;
-			c.Collider = (ICollider)Collider.Clone();
-			c.Gravity = Gravity;
-			c.MaxFallSpeed = MaxFallSpeed;
-
-			return c;
-		}
 	}
 }

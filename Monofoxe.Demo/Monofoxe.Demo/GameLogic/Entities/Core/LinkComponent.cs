@@ -16,9 +16,5 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			Tag = link;
 			Passive = passive;
 		}
-
-		public override object Clone() =>
-			new LinkComponent(Tag, Passive);
-		
 	}
 }

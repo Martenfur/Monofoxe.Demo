@@ -43,8 +43,6 @@ namespace Monofoxe.Demo.GameLogic
 		{
 			Camera = camera;
 			_position = camera.Position;
-
-
 		}
 
 		public override void Update()

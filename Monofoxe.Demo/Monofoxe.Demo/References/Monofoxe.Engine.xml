@@ -90,72 +90,9 @@
             Canvas stays as is, without any transforming.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.ContentReaders.EntityTemplateReader">
-            <summary>
-            Reads and unencrypts entity templates.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ContentReaders.EntityTemplateReader._namespaces">
-            <summary>
-            Suggested namespaces for component classes. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ContentReaders.EntityTemplateReader.GetEntityType(System.String)">
-            <summary>
-            Returns entity type from string with mathing namespace. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ContentReaders.EntityTemplateReader.Decode(System.Byte[])">
-            <summary>
-            Decrypting entity template json.
-            </summary>
-        </member>
         <member name="T:Monofoxe.Engine.ContentReaders.SpriteGroupReader">
             <summary>
             Reads sprite group file.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Converters.BasicConverter">
-            <summary>
-            Basic abstract json converter. Can be inherited to create new converters. 
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Converters.ColorConverter">
-            <summary>
-            Color JSON converter.
-            Colors can be written as #RRGGBBAA or #RRGGBB.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Converters.RectangleConverter">
-            <summary>
-            Rectangle JSON converter.
-            JSON format for rectangles is: {x: 0, y: 0, w: 0, h: 0}.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Converters.SpriteConverter">
-            <summary>
-            Sprite JSON converter.
-            Sprites can only be deserialized as static fields in some class.
-            For example: Resources.Sprites.SpritesDefault.Foxe.
-            
-            NOTE: Sprites cannot be serialized!
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Converters.SpriteConverter._namespaces">
-            <summary>
-            Suggested namespaces for sprite class. 
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Converters.Vector2Converter">
-            <summary>
-            Vector2 JSON converter.
-            JSON format for vectors is: {x: 0, y: 0}.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Converters.Vector3Converter">
-            <summary>
-            Vector3 JSON converter.
-            JSON format for vectors is: {x: 0, y: 0, z: 0}.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.Drawing.Text.Draw(System.String,System.Single,System.Single)">
@@ -846,14 +783,14 @@
             Performs Draw events for all objects.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.SwitchGraphicsMode(Monofoxe.Engine.GraphicsMode,Microsoft.Xna.Framework.Graphics.Texture2D)">
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.SwitchGraphicsMode(Monofoxe.Engine.Drawing.GraphicsMode,Microsoft.Xna.Framework.Graphics.Texture2D)">
             <summary>
             Switches graphics mode.
             
             Call it before manually using sprite batches or vertex buffers.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.AddVertices(Monofoxe.Engine.GraphicsMode,Microsoft.Xna.Framework.Graphics.Texture2D,System.Collections.Generic.List{Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture},System.Int16[])">
+        <member name="M:Monofoxe.Engine.Drawing.GraphicsMgr.AddVertices(Monofoxe.Engine.Drawing.GraphicsMode,Microsoft.Xna.Framework.Graphics.Texture2D,System.Collections.Generic.List{Microsoft.Xna.Framework.Graphics.VertexPositionColorTexture},System.Int16[])">
             <summary>
             Adds vertices and indices to global vertex and index list.
             If current and suggested graphics modes are different, draws accumulated vertices first.
@@ -896,6 +833,38 @@
             Resets render target to a previous surface.
             </summary>
         </member>
+        <member name="T:Monofoxe.Engine.Drawing.GraphicsMode">
+            <summary>
+            Every time we want to draw primitive of a new type
+            or switch texture, we need to empty vertex buffer
+            and switch graphics mode.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMode.None">
+            <summary>
+            No mode set.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMode.Sprites">
+            <summary>
+            Sprite batch.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMode.SpritesNonPremultiplied">
+            <summary>
+            Text.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMode.TrianglePrimitives">
+            <summary>
+            Triangle list.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Drawing.GraphicsMode.LinePrimitives">
+            <summary>
+            Line list.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.ECS.ComponentContainer">
             <summary>
             Custom container for entity components.
@@ -915,6 +884,38 @@
         <member name="M:Monofoxe.Engine.ECS.ComponentContainer.TryGetList(System.Type,System.Collections.Generic.List{Monofoxe.Engine.ECS.Component}@)">
             <summary>
             Gets the component list associated with the specified key.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.EntityFactoryPool">
+            <summary>
+            Entity factory pool stores in instance of each entity factory.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.ECS.EntityFactoryPool.FactoryPool">
+            <summary>
+            Pool of all factories in all assemblies. Sorted by their tags.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.EntityFactoryPool.InitFactoryPool">
+            <summary>
+            Initialized factory pool by creating an instance of each IEntityFactory class.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.ECS.IEntityFactory">
+            <summary>
+            Entity factory interface. Used to create entity by tag.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.ECS.IEntityFactory.Tag">
+            <summary>
+            Identifying tag. Will be assigned to created entities.
+            
+            NOTE: All factory tags should be unique!
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.ECS.IEntityFactory.Make(Monofoxe.Engine.SceneSystem.Layer)">
+            <summary>
+            Creates an entity on a given layer.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.ECS.BaseSystem">
@@ -976,14 +977,6 @@
             Component's assigned system. Will be null only if no systems exist for this component.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.Component.Clone">
-            <summary>
-            Creates a new object that is a copy of the current instance.
-            
-            NOTE: If you are going to use json entity templates, 
-            this method has to be properly implemented! 
-            </summary>
-        </member>
         <member name="T:Monofoxe.Engine.ECS.Entity">
             <summary>
             Parent class of every in-game object.
@@ -1006,7 +999,7 @@
             Tells f object was destroyed.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.ECS.Entity.Enabled">
+        <member name="P:Monofoxe.Engine.ECS.Entity.Enabled">
             <summary>
             If false, Update and Destroy events won't be executed.
             NOTE: This also applies to entity's components.
@@ -1114,21 +1107,6 @@
         <member name="M:Monofoxe.Engine.ECS.Entity.DestroyEntity">
             <summary>
             Destroys entity and all of its components.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.EntityTemplate">
-            <summary>
-            Entity template. Used to store info about entities.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.EntityTemplate.Tag">
-            <summary>
-            Template tag. Will be assigned to entity during its creation.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.EntityTemplate.Components">
-            <summary>
-            Template's list of components.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.ECS.IEntityMethods">
@@ -1292,28 +1270,6 @@
         <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableInactiveSystems">
             <summary>
             Disables systms if no components are using them.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.ECS.EntityTemplateMgr">
-            <summary>
-            Contains and loads all entity templates.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.EntityTemplateMgr.EntityTemplates">
-            <summary>
-            All entity templates. Used for creating entities.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityTemplateMgr.LoadEntityTemplates">
-            <summary>
-            Loads entitiy templates from the content.
-            
-            Needs to be called once to use CreateEntityFromTemplate().
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityTemplateMgr.ReadConfig">
-            <summary>
-            Reads config, which contains namespaces for entities and sprite groups.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.Utils.CustomCollections.SafeSortedDictionary`2">
@@ -2337,38 +2293,6 @@
             Clears mouse, keyboard and gamepad input.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.GraphicsMode">
-            <summary>
-            Every time we want to draw primitive of a new type
-            or switch texture, we need to empty vertex buffer
-            and switch graphics mode.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.GraphicsMode.None">
-            <summary>
-            No mode set.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.GraphicsMode.Sprites">
-            <summary>
-            Sprite batch.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.GraphicsMode.SpritesNonPremultiplied">
-            <summary>
-            Text.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.GraphicsMode.TrianglePrimitives">
-            <summary>
-            Triangle list.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.GraphicsMode.LinePrimitives">
-            <summary>
-            Line list.
-            </summary>
-        </member>
         <member name="T:Monofoxe.Engine.SceneSystem.Layer">
             <summary>
             A layer is a container for entities and components.
@@ -2547,7 +2471,12 @@
             Returns layer with given name.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.SceneSystem.Scene.LayerExists(System.String)">
+        <member name="M:Monofoxe.Engine.SceneSystem.Scene.TryGetLayer(System.String,Monofoxe.Engine.SceneSystem.Layer@)">
+            <summary>
+            Finds layer with given name. Returns true, if layer was found.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.Scene.HasLayer(System.String)">
             <summary>
             Returns true, if there is a layer with given name. 
             </summary>
@@ -2555,6 +2484,7 @@
         <member name="M:Monofoxe.Engine.SceneSystem.Scene.__GetLayerInfo">
             <summary>
             Returns info about layers.
+            TODO: Remove?
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.Scene.GetEntityList``1">
@@ -2659,12 +2589,17 @@
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.GetScene(System.String)">
             <summary>
-            Returns layer with given name.
+            Returns scene with given name.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.SceneExists(System.String)">
+        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.TryGetScene(System.String,Monofoxe.Engine.SceneSystem.Scene@)">
             <summary>
-            Returns true, if there is a layer with given name. 
+            Finds scene with given name. Returns true, if scene was found.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.HasScene(System.String)">
+            <summary>
+            Returns true, if there is a scene with given name. 
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.SceneMgr.PreUpdateRoutine">

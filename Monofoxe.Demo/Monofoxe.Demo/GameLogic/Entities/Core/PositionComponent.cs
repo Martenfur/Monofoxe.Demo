@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Monofoxe.Engine.Converters;
 using Monofoxe.Engine.ECS;
-using Newtonsoft.Json;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Core
-{	
+{
 	/// <summary>
 	/// Basic position component. 
 	/// </summary>
@@ -14,7 +12,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// <summary>
 		/// Entity position on the scene.
 		/// </summary>
-		[JsonConverter(typeof(Vector2Converter))]
 		public Vector2 Position;
 
 		/// <summary>
@@ -25,7 +22,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// <summary>
 		/// Starting entity position on the scene.
 		/// </summary>
-		[JsonConverter(typeof(Vector2Converter))]
 		public Vector2 StartingPosition;
 
 
@@ -34,17 +30,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 			Position = position;
 			StartingPosition = position;
 			PreviousPosition = position;
-		}
-
-		public override object Clone()
-		{
-			var c = new PositionComponent(Position);
-			c.Position = Position;
-			c.PreviousPosition = PreviousPosition;
-			c.StartingPosition = StartingPosition;
-
-
-			return c;
 		}
 	}
 }

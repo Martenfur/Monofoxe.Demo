@@ -1,9 +1,7 @@
-﻿using Monofoxe.Engine.ECS;
-using Monofoxe.Engine.Utils;
+﻿using Microsoft.Xna.Framework;
 using Monofoxe.Engine.Drawing;
-using Microsoft.Xna.Framework;
-using Monofoxe.Engine.Converters;
-using Newtonsoft.Json;
+using Monofoxe.Engine.ECS;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -157,7 +155,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		/// </summary>
 		public StateMachine<ActorAnimationStates> AnimationStateMachine;
 		
-		[JsonConverter(typeof(SpriteConverter))]
 		public Sprite MainSprite = Resources.Sprites.Default.PlayerMain;
 
 		public Sprite CurrentSprite;
@@ -190,33 +187,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public StackableActorComponent()
 		{
 			Visible = true;
-		}
-
-		public override object Clone()
-		{
-			var c = new StackableActorComponent();
-		
-			c.WalkMovementSpeed = WalkMovementSpeed;
-			c.GroundAcceleration = GroundAcceleration;
-			c.GroundDeceleration = GroundDeceleration;
-	
-			c.AirAcceleration = AirAcceleration;
-			c.AirDeceleration = AirDeceleration;
-			c.FallGravity = FallGravity;
-			c.LandingBufferTime = LandingBufferTime;
-
-			c.JumpSpeed = JumpSpeed;
-			c.JumpGravity = JumpGravity;
-			c.JumpBufferTime = JumpBufferTime;
-
-			c.CrouchingHeight = CrouchingHeight;
-			c.CrouchMovementSpeed = CrouchMovementSpeed;
-			c.CrouchAcceleration = CrouchAcceleration;
-			c.CrouchDeceleration = CrouchDeceleration;
-
-			c.MainSprite = MainSprite;
-
-			return c;
 		}
 	}
 }

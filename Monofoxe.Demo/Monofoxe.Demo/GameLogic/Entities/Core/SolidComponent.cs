@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Demo.JsonConverters;
 using Monofoxe.Engine.ECS;
-using Newtonsoft.Json;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Core
 {
@@ -14,7 +12,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 	/// </summary>
 	public class SolidComponent : Component
 	{
-		[JsonConverter(typeof(ColliderConverter))]
 		public ICollider Collider;
 		
 		/// <summary>
@@ -48,16 +45,5 @@ namespace Monofoxe.Demo.GameLogic.Entities.Core
 		/// Entity that physics object has collided with vertically.
 		/// </summary>
 		public Entity CollidedObjectV;
-		
-
-
-		public override object Clone()
-		{
-			var c = new SolidComponent();
-			c.Collider = (ICollider)Collider.Clone();
-			c.Speed = Speed;
-
-			return c;
-		}
 	}
 }

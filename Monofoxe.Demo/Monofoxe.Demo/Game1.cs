@@ -33,7 +33,7 @@ namespace Monofoxe.Demo
 			AudioMgr.Init(AssetMgr.ContentDir + '/' + AssetMgr.AudioDir + '/');
 			Resources.Sounds.Load();
 
-			MapMgr.Init();
+			TiledEntityFactoryPool.InitFactoryPool();
 
 			new GameplayController();
 		}
@@ -51,9 +51,6 @@ namespace Monofoxe.Demo
 			Resources.Fonts.Load();
 			Resources.Effects.Load();
 			Resources.Maps.Load();
-			
-			
-			EntityTemplateMgr.LoadEntityTemplates();
 		}
 
 		/// <summary>

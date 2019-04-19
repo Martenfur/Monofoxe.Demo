@@ -19,7 +19,11 @@
 			"collider": {"type": "rectangle", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {},
-		"StackableActorComponent": {"walkMovementSpeed":  100, "mainSprite": "Default.Gato"},
+		"StackableActorComponent": 
+		{
+			"walkMovementSpeed": 100,
+			"mainSprite": "Default.Gato"
+		},
 		"CatEnemyComponent": {}
 	},
 
@@ -31,7 +35,12 @@
 			"collider": {"type": "rectangle", "w" : 32, "h": 32}
 		},
 		"PositionComponent": {},
-		"StackableActorComponent": {"walkMovementSpeed":  150, "mainSprite": "Default.Frog", "jumpSpeed": 1200},
+		"StackableActorComponent": {
+			
+			"walkMovementSpeed": 150,
+			"mainSprite": "Default.Frog",
+			"jumpSpeed": 1200
+		},
 		"FrogEnemyComponent": {}
 	},
 

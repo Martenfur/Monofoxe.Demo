@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Monofoxe.Engine.ECS;
-using Monofoxe.Engine.Utils;
-using Monofoxe.Engine.Drawing;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Monofoxe.Engine.ECS;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -24,12 +21,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public PathComponent()
 		{
-			Visible = true; // TODO: remove
-		}
-
-		public override object Clone()
-		{
-			throw new NotImplementedException();
+			Visible = true;
 		}
 	}
 }
