@@ -1,4 +1,4 @@
-﻿using Monofoxe.FMODAudio;
+﻿using ChaiFoxes.FMODAudio;
 
 
 namespace Resources
@@ -11,12 +11,14 @@ namespace Resources
 
 		public static void Load()
 		{
-			MainBaseLayer = AudioMgr.LoadStreamedSound("Music/MainBaseLayer");
-			MainTopLayer = AudioMgr.LoadStreamedSound("Music/MainTopLayer");
-			//MainTopLayer.Play();
-			//MainTopLayer.Loops = -1;
-			//MainBaseLayer.Play();
-			//MainBaseLayer.Loops = -1;
+			MainBaseLayer = AudioMgr.LoadStreamedSound("Music/MainBaseLayer.ogg");
+			MainTopLayer = AudioMgr.LoadStreamedSound("Music/MainTopLayer.ogg");
+			
+			var top = MainTopLayer.Play();
+			top.Looping = true;
+			
+			var b = MainBaseLayer.Play();
+			b.Looping = true;
 			
 		}
 

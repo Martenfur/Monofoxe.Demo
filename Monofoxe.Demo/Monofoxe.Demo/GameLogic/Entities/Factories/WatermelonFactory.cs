@@ -26,7 +26,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Factories
 				}
 			);
 
-			entity.AddComponent(new StackableActorComponent());
+			entity.AddComponent(
+				new StackableActorComponent
+				{
+					MainSprite = Resources.Sprites.Default.Watermelon
+				}
+			);
 			
 			return entity;
 		}

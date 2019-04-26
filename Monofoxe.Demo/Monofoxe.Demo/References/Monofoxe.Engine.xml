@@ -705,7 +705,6 @@
         <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentColor">
             <summary>
             Current drawing color. Affects shapes, sprites, text and primitives.
-            TODO: Update description.
             </summary>
         </member>
         <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.__drawcalls">
@@ -2479,12 +2478,6 @@
         <member name="M:Monofoxe.Engine.SceneSystem.Scene.HasLayer(System.String)">
             <summary>
             Returns true, if there is a layer with given name. 
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.SceneSystem.Scene.__GetLayerInfo">
-            <summary>
-            Returns info about layers.
-            TODO: Remove?
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.SceneSystem.Scene.GetEntityList``1">

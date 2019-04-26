@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ChaiFoxes.FMODAudio;
+using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
-using Monofoxe.Engine.ECS;
-using Monofoxe.FMODAudio;
 using Monofoxe.Tiled;
 
 
@@ -30,7 +29,7 @@ namespace Monofoxe.Demo
 		{
 			base.Initialize();
 			
-			AudioMgr.Init(AssetMgr.ContentDir + '/' + AssetMgr.AudioDir + '/');
+			AudioMgr.Init(AssetMgr.ContentDir + '/' + AssetMgr.AudioDir);
 			Resources.Sounds.Load();
 
 			TiledEntityFactoryPool.InitFactoryPool();
