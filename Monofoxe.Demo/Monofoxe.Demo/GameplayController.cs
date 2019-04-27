@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Monofoxe.Demo.GameLogic;
 using Monofoxe.Demo.GameLogic.Collisions;
-using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Engine.Utils.Cameras;
-using Monofoxe.Tiled;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Tiled;
 
 namespace Monofoxe.Demo
 {
@@ -33,7 +30,7 @@ namespace Monofoxe.Demo
 			ScreenController.Init();
 
 			
-			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level1);
+			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level2);
 			CurrentMap.Build();
 			
 			

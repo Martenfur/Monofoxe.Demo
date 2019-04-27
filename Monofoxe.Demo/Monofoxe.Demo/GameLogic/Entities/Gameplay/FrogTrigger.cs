@@ -8,13 +8,19 @@ using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
-	public class BottomlessPit : Entity
+	/// <summary>
+	/// Frog enemies attack the player only if he is inside trigger's rectangle.
+	/// </summary>
+	public class FrogTrigger : Entity
 	{
-		public new string Tag => "bottomlessPit";
+		public new string Tag => "frogTrigger";
 		
 		public Vector2 Size;
 
-		public BottomlessPit(Vector2 position, Vector2 size, Layer layer) : base(layer)
+		public bool HasPlayer {get; private set;} = false;
+
+
+		public FrogTrigger(Vector2 position, Vector2 size, Layer layer) : base(layer)
 		{
 			AddComponent(new PositionComponent(position));
 
@@ -26,25 +32,28 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public override void Update()
 		{
 			var position = GetComponent<PositionComponent>();
+			
+			HasPlayer = false;
 
-			foreach(StackableActorComponent actor in SceneMgr.CurrentScene.GetComponentList<StackableActorComponent>())
+			foreach(PlayerComponent player in SceneMgr.CurrentScene.GetComponentList<PlayerComponent>())
 			{
-				var actorPosition = actor.Owner.GetComponent<PositionComponent>();
+				var actorPosition = player.Owner.GetComponent<PositionComponent>();
 	
 				if (GameMath.PointInRectangleBySize(actorPosition.Position, position.Position, Size))
 				{
-					StackableActorSystem.Kill(actor, true);
+					HasPlayer = true;
+					break;
 				}
 			}
 
-			
 		}
 
 		
 		public override void Draw()
 		{
+			GraphicsMgr.CurrentColor = Color.Red * 0.3f;
 			var position = GetComponent<PositionComponent>();
-			RectangleShape.DrawBySize(position.Position, Size, true);
+			RectangleShape.DrawBySize(position.Position, Size, false);
 		}
 	}
 }

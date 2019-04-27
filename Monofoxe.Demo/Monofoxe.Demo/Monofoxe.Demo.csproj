@@ -42,7 +42,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Content\Entities\Actors.json" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameLogic\Background.cs" />
     <Compile Include="GameLogic\ColliderMapBuilder.cs" />
@@ -71,6 +70,7 @@
     <Compile Include="GameLogic\Entities\Gameplay\FrogEnemyComponent.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemySystem.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CatEnemyComponent.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\FrogTrigger.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\LevelRestartEffect.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\MovingPlatofrm.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\PathComponent.cs" />
@@ -94,6 +94,7 @@
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
+    <Compile Include="MapEntityFactories\FrogTriggerFactory.cs" />
     <Compile Include="MapEntityFactories\CameraStopperFactory.cs" />
     <Compile Include="MapEntityFactories\ButtonFactory.cs" />
     <Compile Include="MapEntityFactories\CannonFactory.cs" />
@@ -218,19 +219,8 @@
       <Link>MonoGame.Framework.dll.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Content\Entities\Platform.json" />
-    <None Include="Content\Entities\SolidBoi.json" />
-    <None Include="Content\Entities\_config.json" />
-    <None Include="FMOD\x32\fmod.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FMOD\x64\fmod.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

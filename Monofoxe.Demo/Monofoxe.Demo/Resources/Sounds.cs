@@ -16,10 +16,10 @@ namespace Resources
 			
 			var top = MainTopLayer.Play();
 			top.Looping = true;
-			
+			/*
 			var b = MainBaseLayer.Play();
 			b.Looping = true;
-			
+			*/
 		}
 
 		public static void Unload()

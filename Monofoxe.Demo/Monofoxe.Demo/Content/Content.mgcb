@@ -25,19 +25,6 @@
 /processorParam:DebugMode=Auto
 /build:Effects/AlphaBlend.fx
 
-#begin Entities/_config.json
-/copy:Entities/_config.json
-
-#begin Entities/Platform.json
-/importer:EntityTemplateImporter
-/processor:EntityTemplateProcessor
-/build:Entities/Platform.json
-
-#begin Entities/SolidBoi.json
-/importer:EntityTemplateImporter
-/processor:EntityTemplateProcessor
-/build:Entities/SolidBoi.json
-
 #begin Fonts/Arial.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -49,11 +36,6 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:Maps/test.tmx
-
-#begin Entities/Actors.json
-/importer:EntityTemplateImporter
-/processor:EntityTemplateProcessor
-/build:Entities/Actors.json
 
 #begin Graphics/default.spritegroup
 /importer:SpriteGroupImporter

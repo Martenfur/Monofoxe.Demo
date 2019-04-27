@@ -30,8 +30,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Factories
 				new StackableActorComponent
 				{
 					WalkMovementSpeed = 100,
-					JumpSpeed = 1000,
-					MainSprite = Resources.Sprites.Default.Frog
+					JumpSpeed = 1290,
+					MainSprite = Resources.Sprites.Default.Frog,
 				}
 			);
 
