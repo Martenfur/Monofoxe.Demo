@@ -5,11 +5,11 @@ using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 
-namespace Monofoxe.Demo.GameLogic.Entities.Factories
+namespace Monofoxe.Demo.GameLogic.Entities.Templates
 {
-	public class WatermelonFactory : IEntityFactory
+	public class PlayerTemplate : IEntityTemplate
 	{
-		public string Tag => "Watermelon";
+		public string Tag => "Player";
 
 		public Entity Make(Layer layer)
 		{
@@ -26,12 +26,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Factories
 				}
 			);
 
-			entity.AddComponent(
-				new StackableActorComponent
-				{
-					MainSprite = Resources.Sprites.Default.Watermelon
-				}
-			);
+			entity.AddComponent(new StackableActorComponent());
+			entity.AddComponent(new PlayerComponent());
 			
 			return entity;
 		}

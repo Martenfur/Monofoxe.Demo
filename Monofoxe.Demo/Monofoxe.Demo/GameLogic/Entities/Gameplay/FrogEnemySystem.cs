@@ -51,6 +51,50 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			{
 				frog.LogicStateMachine.Update();
 				frog.AttackDelay.Update();
+
+				var actor = frog.Owner.GetComponent<StackableActorComponent>();
+
+				// Damaging the player.
+				if (
+					!actor.Crouching
+					&& actor.LogicStateMachine.CurrentState == ActorStates.InAir
+					&& actor.StackedNext == null
+				)
+				{
+					var players = SceneMgr.CurrentScene.GetEntityListByComponent<PlayerComponent>();
+					var physics = frog.Owner.GetComponent<PhysicsComponent>();
+
+					foreach(var playerEntity in players)
+					{
+						var player = playerEntity.GetComponent<PlayerComponent>();
+						var playerActor = playerEntity.GetComponent<StackableActorComponent>();
+						
+						if (playerActor.Crouching && actor.LogicStateMachine.CurrentState != ActorStates.Stacked)
+						{
+							continue;
+						}
+						
+						var position = frog.Owner.GetComponent<PositionComponent>();
+						var playerPosition = playerEntity.GetComponent<PositionComponent>();
+						var playerPhysics = playerEntity.GetComponent<PhysicsComponent>();
+					
+						
+						// Setting up colliders.
+						physics.Collider.Position = position.Position;
+						physics.Collider.PreviousPosition = position.PreviousPosition;
+						playerPhysics.Collider.Position = playerPosition.Position;
+						playerPhysics.Collider.PreviousPosition = playerPosition.PreviousPosition	;
+						// Seting up colliders.
+
+						if (CollisionDetector.CheckCollision(physics.Collider, playerPhysics.Collider))
+						{
+							StackableActorSystem.Damage(playerEntity.GetComponent<StackableActorComponent>());
+						}
+					}
+				}
+				// Damaging the player.
+
+
 			}
 		}
 

@@ -885,34 +885,34 @@
             Gets the component list associated with the specified key.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.ECS.EntityFactoryPool">
+        <member name="T:Monofoxe.Engine.ECS.EntityTemplatePool">
             <summary>
             Entity factory pool stores in instance of each entity factory.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.ECS.EntityFactoryPool.FactoryPool">
+        <member name="F:Monofoxe.Engine.ECS.EntityTemplatePool.TemplatePool">
             <summary>
             Pool of all factories in all assemblies. Sorted by their tags.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.EntityFactoryPool.InitFactoryPool">
+        <member name="M:Monofoxe.Engine.ECS.EntityTemplatePool.InitTemplatePool">
             <summary>
-            Initialized factory pool by creating an instance of each IEntityFactory class.
+            Initialized template pool by creating an instance of each IEntityTemplateclass.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.ECS.IEntityFactory">
+        <member name="T:Monofoxe.Engine.ECS.IEntityTemplate">
             <summary>
-            Entity factory interface. Used to create entity by tag.
+            Entity template interface. Used to create entity by tag.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.ECS.IEntityFactory.Tag">
+        <member name="P:Monofoxe.Engine.ECS.IEntityTemplate.Tag">
             <summary>
             Identifying tag. Will be assigned to created entities.
             
-            NOTE: All factory tags should be unique!
+            NOTE: All template tags should be unique!
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.ECS.IEntityFactory.Make(Monofoxe.Engine.SceneSystem.Layer)">
+        <member name="M:Monofoxe.Engine.ECS.IEntityTemplate.Make(Monofoxe.Engine.SceneSystem.Layer)">
             <summary>
             Creates an entity on a given layer.
             </summary>

@@ -5,11 +5,11 @@ using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 
-namespace Monofoxe.Demo.GameLogic.Entities.Factories
+namespace Monofoxe.Demo.GameLogic.Entities.Templates
 {
-	public class CatEnemyFactory : IEntityFactory
+	public class FrogEnemyTemplate : IEntityTemplate
 	{
-		public string Tag => "CatEnemy";
+		public string Tag => "FrogEnemy";
 
 		public Entity Make(Layer layer)
 		{
@@ -30,11 +30,12 @@ namespace Monofoxe.Demo.GameLogic.Entities.Factories
 				new StackableActorComponent
 				{
 					WalkMovementSpeed = 100,
-					MainSprite = Resources.Sprites.Default.Gato
+					JumpSpeed = 1290,
+					MainSprite = Resources.Sprites.Default.Frog,
 				}
 			);
 
-			entity.AddComponent(new CatEnemyComponent());
+			entity.AddComponent(new FrogEnemyComponent());
 			
 			return entity;
 		}

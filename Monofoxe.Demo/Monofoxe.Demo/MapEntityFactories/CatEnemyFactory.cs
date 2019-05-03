@@ -4,6 +4,7 @@ using Monofoxe.Tiled;
 using Monofoxe.Tiled.MapStructure.Objects;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Demo.GameLogic.Entities.Core;
+using Microsoft.Xna.Framework;
 
 
 namespace Monofoxe.Demo.MapEntityFactories
@@ -22,8 +23,8 @@ namespace Monofoxe.Demo.MapEntityFactories
 				var slave = Entity.CreateFromTemplate(layer, Tag);
 				StackableActorSystem.StackEntity(master.GetComponent<StackableActorComponent>(), slave.GetComponent<StackableActorComponent>());
 				master = slave;
-				slave.GetComponent<PositionComponent>().Position = obj.Position;
-				slave.GetComponent<PositionComponent>().PreviousPosition = obj.Position;
+				slave.GetComponent<PositionComponent>().Position = obj.Position - Vector2.UnitY * 32; // Fixes cats colliding with the ground.
+				slave.GetComponent<PositionComponent>().PreviousPosition = obj.Position - Vector2.UnitY * 32;
 
 			}
 

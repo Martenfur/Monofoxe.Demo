@@ -29,6 +29,10 @@ namespace Monofoxe.Demo.GameLogic
 		/// </summary>
 		public float MaxDistance = 150 * 2;
 
+
+		public bool MaxDistanceEnabled = true;
+
+
 		public double PullbackMultiplier = 1.0 / 200.0;
 
 		Vector2 _position;
@@ -55,7 +59,7 @@ namespace Monofoxe.Demo.GameLogic
 				var targetDistance = GameMath.Distance(Camera.Position, targetPosition);
 				var targetVector = (Camera.Position - targetPosition).GetSafeNormalize();
 
-				if (targetDistance > MaxDistance)
+				if (targetDistance > MaxDistance && MaxDistanceEnabled)
 				{
 					_position = (targetPosition + targetVector * MaxDistance);
 					targetDistance = MaxDistance;

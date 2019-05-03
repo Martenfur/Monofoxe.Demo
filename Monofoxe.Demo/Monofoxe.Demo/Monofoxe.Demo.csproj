@@ -57,12 +57,13 @@
     <Compile Include="GameLogic\Entities\Core\LinkComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\LinkSystem.cs" />
     <Compile Include="GameLogic\CameraStopper.cs" />
-    <Compile Include="GameLogic\Entities\Factories\WatermelonFactory.cs" />
-    <Compile Include="GameLogic\Entities\Factories\FrogEnemyFactory.cs" />
-    <Compile Include="GameLogic\Entities\Factories\PlatformFactory.cs" />
-    <Compile Include="GameLogic\Entities\Factories\CatEnemyFactory.cs" />
-    <Compile Include="GameLogic\Entities\Factories\PlayerFactory.cs" />
-    <Compile Include="GameLogic\Entities\Factories\SolidBoiFactory.cs" />
+    <Compile Include="GameLogic\Entities\Templates\WatermelonTemplate.cs" />
+    <Compile Include="GameLogic\Entities\Templates\FrogEnemyTemplate.cs" />
+    <Compile Include="GameLogic\Entities\Templates\PlatformTemplate.cs" />
+    <Compile Include="GameLogic\Entities\Templates\CatEnemyTemplate.cs" />
+    <Compile Include="GameLogic\Entities\Templates\PlayerTemplate.cs" />
+    <Compile Include="GameLogic\Entities\Templates\SolidBoiTemplate.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\CameraMagnet.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CannonBall.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\Checkpoint.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\CheckpointDoggo.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="MapEntityFactories\ButtonFactory.cs" />
     <Compile Include="MapEntityFactories\CannonFactory.cs" />
     <Compile Include="MapEntityFactories\BottomlessPitFactory.cs" />
+    <Compile Include="MapEntityFactories\CameraMagnetFactory.cs" />
     <Compile Include="MapEntityFactories\SwitchblockFactory.cs" />
     <Compile Include="MapEntityFactories\SpikesFactory.cs" />
     <Compile Include="MapEntityFactories\FrogEnemyFactory.cs" />

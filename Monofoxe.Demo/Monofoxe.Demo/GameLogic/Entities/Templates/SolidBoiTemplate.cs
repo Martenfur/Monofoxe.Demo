@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
-using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 
-namespace Monofoxe.Demo.GameLogic.Entities.Factories
+namespace Monofoxe.Demo.GameLogic.Entities.Templates
 {
-	public class PlayerFactory : IEntityFactory
+	public class SolidBoiTemplate : IEntityTemplate
 	{
-		public string Tag => "Player";
+		public string Tag => "SolidBoid";
 
 		public Entity Make(Layer layer)
 		{
@@ -17,18 +16,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Factories
 
 			entity.AddComponent(new PositionComponent(Vector2.Zero));
 			entity.AddComponent(
-				new PhysicsComponent
+				new SolidComponent
 				{
 					Collider = new RectangleCollider
 					{
-						Size = new Vector2(32, 32)
+						Size = new Vector2(64, 64)
 					}
 				}
 			);
 
-			entity.AddComponent(new StackableActorComponent());
-			entity.AddComponent(new PlayerComponent());
-			
 			return entity;
 		}
 	}

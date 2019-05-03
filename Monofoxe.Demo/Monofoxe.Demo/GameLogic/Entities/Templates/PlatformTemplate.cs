@@ -4,11 +4,11 @@ using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 
-namespace Monofoxe.Demo.GameLogic.Entities.Factories
+namespace Monofoxe.Demo.GameLogic.Entities.Templates
 {
-	public class SolidBoiFactory : IEntityFactory
+	public class PlatformTemplate : IEntityTemplate
 	{
-		public string Tag => "SolidBoid";
+		public string Tag => "Platofrm";
 
 		public Entity Make(Layer layer)
 		{
@@ -18,12 +18,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Factories
 			entity.AddComponent(
 				new SolidComponent
 				{
-					Collider = new RectangleCollider
+					Collider = new PlatformCollider
 					{
-						Size = new Vector2(64, 64)
+						Size = new Vector2(32, 32)
 					}
 				}
 			);
+
 
 			return entity;
 		}
