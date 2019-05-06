@@ -43,6 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameLogic\Audio\LayeredSound.cs" />
+    <Compile Include="GameLogic\Audio\SoundController.cs" />
     <Compile Include="GameLogic\Background.cs" />
     <Compile Include="GameLogic\ColliderMapBuilder.cs" />
     <Compile Include="GameLogic\Collisions\ColliderType.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="GameLogic\Entities\Core\LinkComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\LinkSystem.cs" />
     <Compile Include="GameLogic\CameraStopper.cs" />
+    <Compile Include="GameLogic\Entities\Gameplay\MusicModifier.cs" />
     <Compile Include="GameLogic\Entities\Templates\WatermelonTemplate.cs" />
     <Compile Include="GameLogic\Entities\Templates\FrogEnemyTemplate.cs" />
     <Compile Include="GameLogic\Entities\Templates\PlatformTemplate.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
     <Compile Include="MapEntityFactories\ActorBaseFactory.cs" />
+    <Compile Include="MapEntityFactories\MusicModifierFactory.cs" />
     <Compile Include="MapEntityFactories\FrogTriggerFactory.cs" />
     <Compile Include="MapEntityFactories\CameraStopperFactory.cs" />
     <Compile Include="MapEntityFactories\ButtonFactory.cs" />

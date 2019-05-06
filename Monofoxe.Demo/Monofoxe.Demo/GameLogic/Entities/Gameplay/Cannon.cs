@@ -6,6 +6,7 @@ using Monofoxe.Engine.Utils;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Collisions;
 using System;
+using Monofoxe.Demo.GameLogic.Audio;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -155,7 +156,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			new CannonBall(position.Position + _direction * 24, _direction, this, Layer);
 			_shootingAnimationRunning = true;
 			_shootingAnimationProgress = 0;
-			
+
+			SoundController.PlaySoundAt(Resources.Sounds.Cannon, position.Position);
 		}
 
 	}

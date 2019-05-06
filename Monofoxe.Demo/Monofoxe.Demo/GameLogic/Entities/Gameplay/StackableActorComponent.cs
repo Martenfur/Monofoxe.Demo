@@ -2,6 +2,7 @@
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.Utils;
+using ChaiFoxes.FMODAudio;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -58,6 +59,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		// Crouching.
 		
 		public bool Crouching = false;
+
+		public SoundChannel SlideSound;
 
 		// Crouching.
 		

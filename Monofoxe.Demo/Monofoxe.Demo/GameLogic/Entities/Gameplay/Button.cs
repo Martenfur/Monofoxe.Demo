@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Monofoxe.Engine.Drawing;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Audio;
+using Monofoxe.Demo.GameLogic.Collisions;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
-using Monofoxe.Demo.GameLogic.Entities.Core;
-using Monofoxe.Demo.GameLogic.Collisions;
-using System;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -24,7 +24,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		private ICollider _collider;
 
 		private float _rotation;
-
+		// TODO: Make collider narrower.
 		public Button(Vector2 position, float rotation, Layer layer) : base(layer)
 		{
 			_rotation = rotation;
@@ -68,6 +68,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					break;
 				}
 
+			}
+
+			if (Pressed)
+			{	
+				var position = GetComponent<PositionComponent>();
+				SoundController.PlaySoundAt(Resources.Sounds.ButtonPress, position.Position);
+			}
+			if (Released)
+			{
+				var position = GetComponent<PositionComponent>();
+				SoundController.PlaySoundAt(Resources.Sounds.ButtonRelease, position.Position);
 			}
 		}
 

@@ -58,3 +58,27 @@
 #begin Audio/Music/MainTopLayer.ogg
 /copy:Audio/Music/MainTopLayer.ogg
 
+#begin Audio/Sounds/ButtonPress.wav
+/copy:Audio/Sounds/ButtonPress.wav
+
+#begin Audio/Sounds/ButtonRelease.wav
+/copy:Audio/Sounds/ButtonRelease.wav
+
+#begin Audio/Sounds/Cannon.wav
+/copy:Audio/Sounds/Cannon.wav
+
+#begin Audio/Sounds/Slide.wav
+/copy:Audio/Sounds/Slide.wav
+
+#begin Audio/Sounds/Crouch.wav
+/copy:Audio/Sounds/Crouch.wav
+
+#begin Audio/Sounds/Jump.wav
+/copy:Audio/Sounds/Jump.wav
+
+#begin Audio/Sounds/Checkpoint.wav
+/copy:Audio/Sounds/Checkpoint.wav
+
+#begin Audio/Sounds/CatDeath.wav
+/copy:Audio/Sounds/CatDeath.wav
+

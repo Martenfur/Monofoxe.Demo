@@ -141,5 +141,12 @@ namespace Monofoxe.Demo.GameLogic
 		}
 
 
+		/// <summary>
+		/// Checks if a point is in camera's bounds.
+		/// </summary>
+		public bool InBounds(Vector2 position) => 
+			GameMath.PointInRectangle(position, _position - Camera.Size / 2, _position + Camera.Size / 2);
+
+
 	}
 }

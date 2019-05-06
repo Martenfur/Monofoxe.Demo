@@ -7,6 +7,7 @@ using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
 using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Audio;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -68,6 +69,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 						if (!_noEffectAlarm.Running)
 						{
 							new CheckpointDoggo(position.Position + _doggoOffset, Layer);
+							SoundController.PlaySound(Resources.Sounds.Checkpoint);
 						}
 
 						var defaultLayer = SceneMgr.GetScene("default")["default"];

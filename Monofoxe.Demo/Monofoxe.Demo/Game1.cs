@@ -68,8 +68,8 @@ namespace Monofoxe.Demo
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			GameMgr.Update(gameTime);
 			AudioMgr.Update();
+			GameMgr.Update(gameTime);
 			
 			base.Update(gameTime);
 		}

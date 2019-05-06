@@ -7,7 +7,8 @@ using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
-
+using ChaiFoxes.FMODAudio;
+using Monofoxe.Demo.GameLogic.Audio;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -42,7 +43,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var actor = (StackableActorComponent)component;
 			actor.LogicStateMachine = new StateMachine<ActorStates>(ActorStates.OnGround, actor.Owner);
-			actor.LogicStateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter);
+			actor.LogicStateMachine.AddState(ActorStates.OnGround, OnGround, OnGroundEnter, OnGroundExit);
 			actor.LogicStateMachine.AddState(ActorStates.InAir, InAir, InAirEnter);
 			actor.LogicStateMachine.AddState(ActorStates.Stacked, Stacked, StackedEnter, StackedExit);
 			actor.LogicStateMachine.AddState(ActorStates.Dead, Dead, DeadEnter);
@@ -213,6 +214,17 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		}
 
+		void OnGroundExit(StateMachine<ActorStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			
+			if (actor.SlideSound != null)
+			{
+				actor.SlideSound.Stop();
+				actor.SlideSound = null;
+			}
+		}
+
 		void Jump(PhysicsComponent physics, StackableActorComponent actor)
 		{	
 			physics.Speed.Y = -actor.JumpSpeed;
@@ -222,6 +234,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			actor.CanJump = false; 
 			actor.Jumping = true;
+			
+			SoundController.PlaySound(Resources.Sounds.Jump);
 		}
 
 		void Crouch(PositionComponent position, PhysicsComponent physics, StackableActorComponent actor)
@@ -235,6 +249,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			position.Position.Y -= (colliderSize.Y - oldH) / 2;
 
 			actor.Crouching = true;
+			
+			if (actor.StackedPrevious == null)
+			{
+				SoundController.PlaySound(Resources.Sounds.Crouch);
+			}
 		}
 
 		void Uncrouch(PositionComponent position, PhysicsComponent physics, StackableActorComponent actor)
@@ -248,6 +267,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			position.Position.Y -= (colliderSize.Y - oldH) / 2;
 
 			actor.Crouching = false;
+			
+			if (actor.StackedPrevious == null)
+			{
+				SoundController.PlaySound(Resources.Sounds.Crouch);
+			}
 		}
 
 		#endregion On the ground.
@@ -504,6 +528,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 
 			physics.Gravity = actor.DeadGravity;
+
+			//SoundController.PlaySound(Resources.Sounds.CatDeath);
+
 		}
 
 		
@@ -532,6 +559,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			var horMovement = actor.RightAction.ToInt() - actor.LeftAction.ToInt();
 			
+			var sliding = false;
+
 			if (
 				horMovement == 0 
 				|| (
@@ -551,6 +580,10 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 					}
 				}
 				// Slowing down.
+
+				
+				sliding = (physics.Speed.X != 0 && actor.Crouching);
+				
 			}
 			else
 			{
@@ -566,6 +599,31 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				}
 				// Speeding up.
 			}
+
+
+			var speedRatio = Math.Abs(physics.Speed.X / 2) / actor.MaxMovementSpeed;
+			if (sliding)
+			{
+				if (actor.SlideSound == null)
+				{
+					if (speedRatio > 1.1f)
+					{
+						actor.SlideSound = SoundController.PlaySound(Resources.Sounds.Slide);
+					}
+				}
+				else
+				{
+					actor.SlideSound.Volume = Math.Min(1, speedRatio);
+				}
+			}
+
+			if (actor.SlideSound != null && !sliding)
+			{
+				actor.SlideSound.Stop();
+				actor.SlideSound = null;
+			}
+
+
 		}
 
 

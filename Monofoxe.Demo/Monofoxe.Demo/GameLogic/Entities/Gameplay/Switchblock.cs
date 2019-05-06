@@ -6,6 +6,7 @@ using Monofoxe.Engine.Utils;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Collisions;
 using System;
+using Monofoxe.Demo.GameLogic.Audio;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {

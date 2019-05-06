@@ -7,6 +7,7 @@ using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
 using Monofoxe.Tiled;
+using Monofoxe.Demo.GameLogic.Audio;
 
 namespace Monofoxe.Demo
 {
@@ -19,6 +20,10 @@ namespace Monofoxe.Demo
 
 		public static Layer GUILayer;
 
+		public static SoundController Audio;
+
+		public static LayeredSound music;
+
 		public GameplayController() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
@@ -29,8 +34,9 @@ namespace Monofoxe.Demo
 
 			ScreenController.Init();
 
+			Audio = new SoundController(Layer);
 			
-			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level2);
+			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level1);
 			CurrentMap.Build();
 			
 			
@@ -39,6 +45,13 @@ namespace Monofoxe.Demo
 
 			GUILayer = Scene.CreateLayer("gui");
 			GUILayer.IsGUI = true;
+
+			
+			music = new LayeredSound();
+			music.AddLayer("top", Resources.Sounds.MainTopLayer);
+			music.AddLayer("base", Resources.Sounds.MainBaseLayer);
+			music.Play();
+			SoundController.UpdatedSounds.Add(music);
 		}
 		
 		public override void Update()
@@ -64,6 +77,19 @@ namespace Monofoxe.Demo
 				{
 					TimeKeeper.GlobalTimeMultiplier = 1;
 				}
+				
+
+
+				//SoundController.PlaySound(Resources.Sounds.Switchblock);
+			}
+
+			if (Input.CheckButtonPress(Buttons.K))
+			{
+				music.AddVolumeTransition("top", 0, 0.10f);
+			}
+			if (Input.CheckButtonPress(Buttons.L))
+			{
+				music.AddVolumeTransition("top", 1, 0.1f);
 			}
 		}
 

@@ -5,6 +5,8 @@ using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Microsoft.Xna.Framework;
+using ChaiFoxes.FMODAudio;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -21,6 +23,10 @@ namespace Monofoxe.Demo.GameLogic.Entities
 
 			var cam = new GameCamera(player.Owner.Layer, ScreenController.MainCamera);
 			cam.Target = player.Owner.GetComponent<PositionComponent>();
+
+			player.Listener = Listener3D.Create();
+			player.Listener.ForwardOrientation = - player.Listener.ForwardOrientation;
+			
 		}
 
 		public override void Update(List<Component> components)
@@ -48,9 +54,17 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					new LevelRestartEffect(GameplayController.GUILayer);
 				}
 				
-
+				player.Listener.Position3D = position.Position.ToVector3();
 			}
 		}
+
+		public override void Destroy(Component component)
+		{
+			var player = (PlayerComponent)component;
+			
+			player.Listener.Destroy();
+		}
+
 		
 		
 	}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="MusicModifier" type="MusicModifier" width="101.333" height="148">
+  <properties>
+   <property name="soundLayer" value="top"/>
+   <property name="transitionSpeed" type="float" value="1"/>
+   <property name="transitionValue" type="float" value="1"/>
+  </properties>
+ </object>
+</template>

@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Resources;
+using Monofoxe.Engine.ECS;
+using Microsoft.Xna.Framework;
+using ChaiFoxes.FMODAudio;
+using Monofoxe.Engine.SceneSystem;
+using Monofoxe.Engine.Utils;
+
+
+namespace Monofoxe.Demo.GameLogic.Audio
+{
+	public class SoundController : Entity
+	{
+		public static float SoundVolume = 1f;
+
+		public static float MusicVolume = 1;
+
+		public static FMOD.ChannelGroup MusicGroup;
+		public static FMOD.ChannelGroup SoundGroup;
+
+		public static List<LayeredSound> UpdatedSounds = new List<LayeredSound>();
+
+		public SoundController(Layer layer) : base(layer)
+		{
+			MusicGroup = AudioMgr.CreateChannelGroup("music");
+			SoundGroup = AudioMgr.CreateChannelGroup("sound");
+			
+			MusicGroup.setVolume(MusicVolume);
+			SoundGroup.setVolume(SoundVolume);
+
+		}
+		
+		public override void Update()
+		{
+			foreach(var sound in UpdatedSounds)
+			{
+				sound.Update();
+			}
+		}
+
+		public static SoundChannel PlaySound(Sound sound) =>
+			sound.Play(SoundGroup);
+		
+		public static SoundChannel PlaySoundAt(Sound sound, Vector2 position)
+		{
+			var inBounds = false;
+			foreach(var camera in SceneMgr.CurrentScene.GetEntityList<GameCamera>())
+			{
+				if (camera.InBounds(position))
+				{
+					inBounds = true;
+					break;
+				}
+			}
+
+			if (!inBounds)
+			{
+				return null;
+			}
+
+			sound.Position3D = position.ToVector3();
+			var channel = sound.Play(SoundGroup, true);
+			channel.Resume();
+			return channel;
+		}
+		
+
+	}
+}
