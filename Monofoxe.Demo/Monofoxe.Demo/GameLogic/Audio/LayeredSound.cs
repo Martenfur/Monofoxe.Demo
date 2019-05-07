@@ -15,6 +15,8 @@ namespace Monofoxe.Demo.GameLogic.Audio
 		
 		private Dictionary<string, Transition> _volumeTransitions;
 		
+		public FMOD.ChannelGroup ChannelGroup;
+
 		private class Transition
 		{
 			public float Speed;
@@ -22,6 +24,7 @@ namespace Monofoxe.Demo.GameLogic.Audio
 			public float CurrentValue;
 
 			public bool Complete;
+
 
 			public Transition(float speed, float targetValue, float currentValue)
 			{
@@ -48,12 +51,14 @@ namespace Monofoxe.Demo.GameLogic.Audio
 			}
 		}
 
-		public LayeredSound()
+		public LayeredSound(FMOD.ChannelGroup group)
 		{
 			_layers = new Dictionary<string, Sound>();
 			_channels = new Dictionary<string, SoundChannel>();
 			
 			_volumeTransitions = new Dictionary<string, Transition>();
+
+			ChannelGroup = group;
 		}
 
 		public void Update()
@@ -94,7 +99,7 @@ namespace Monofoxe.Demo.GameLogic.Audio
 		{
 			foreach(var layer in _layers)
 			{
-				_channels.Add(layer.Key, layer.Value.Play(paused));
+				_channels.Add(layer.Key, layer.Value.Play(ChannelGroup, paused));
 			}
 		}
 

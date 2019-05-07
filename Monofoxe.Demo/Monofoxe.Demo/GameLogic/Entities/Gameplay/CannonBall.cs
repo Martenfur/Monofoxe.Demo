@@ -99,6 +99,25 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				position.Position += TimeKeeper.GlobalTime(_deadSpeed);
 			}
 			
+			if (_dead)
+			{
+				var inBounds = false;
+				foreach(var camera in SceneMgr.CurrentScene.GetEntityList<GameCamera>())
+				{
+					if (camera.InBounds(position.Position))
+					{
+						inBounds = true;
+						break;
+					}
+				}
+
+				if (!inBounds)
+				{
+					DestroyEntity();
+				}
+
+			}
+
 			if (_lifetimeAlarm.Update())
 			{
 				DestroyEntity();

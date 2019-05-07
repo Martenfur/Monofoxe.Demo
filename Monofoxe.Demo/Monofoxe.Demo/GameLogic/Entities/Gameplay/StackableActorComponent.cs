@@ -3,6 +3,7 @@ using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.Utils;
 using ChaiFoxes.FMODAudio;
+using System.Collections.Generic;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -147,6 +148,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		// Crouching.
 		
+		public bool Silent = false;
+		public List<Sound> PickupSounds = new List<Sound>();
+		public bool FellIntoBottomlessPit = false;
 
 		#endregion Customizable properties.
 

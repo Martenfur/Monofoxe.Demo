@@ -47,11 +47,11 @@ namespace Monofoxe.Demo
 			GUILayer.IsGUI = true;
 
 			
-			music = new LayeredSound();
+			music = new LayeredSound(SoundController.MusicGroup);
 			music.AddLayer("top", Resources.Sounds.MainTopLayer);
 			music.AddLayer("base", Resources.Sounds.MainBaseLayer);
 			music.Play();
-			SoundController.UpdatedSounds.Add(music);
+			SoundController.UpdatingSounds.Add(music);
 		}
 		
 		public override void Update()

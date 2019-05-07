@@ -15,6 +15,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		public static readonly Vector2 Size = new Vector2(48, 8);
 
+		public static readonly Vector2 PushRegionSize = new Vector2(32, 8);
+
+
 		public bool IsDown {get; private set;} = false;
 		public bool IsDownPrevious {get; private set;} = false;
 		
@@ -41,13 +44,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			if (rotationVector.X != 0)
 			{
-				_collider.Size = new Vector2(Size.Y, Size.X);
+				_collider.Size = new Vector2(PushRegionSize.Y, PushRegionSize.X);
 			}
 			else
 			{
-				_collider.Size = Size;	
+				_collider.Size = PushRegionSize;	
 			}
-			_collider.Position = position + rotationVector * Size.Y / 2;
+			_collider.Position = position + rotationVector * PushRegionSize.Y / 2;
 		}
 
 		public override void Update()

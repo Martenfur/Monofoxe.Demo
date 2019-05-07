@@ -21,7 +21,9 @@ namespace Monofoxe.Demo.MapEntityFactories
 			for(var i = 0; i < int.Parse(obj.Properties["stack"]); i += 1)
 			{
 				var slave = Entity.CreateFromTemplate(layer, Tag);
-				StackableActorSystem.StackEntity(master.GetComponent<StackableActorComponent>(), slave.GetComponent<StackableActorComponent>());
+				var slaveActor = slave.GetComponent<StackableActorComponent>();
+				slaveActor.Silent = true;
+				StackableActorSystem.StackEntity(master.GetComponent<StackableActorComponent>(), slaveActor);
 				master = slave;
 				slave.GetComponent<PositionComponent>().Position = obj.Position - Vector2.UnitY * 32; // Fixes cats colliding with the ground.
 				slave.GetComponent<PositionComponent>().PreviousPosition = obj.Position - Vector2.UnitY * 32;

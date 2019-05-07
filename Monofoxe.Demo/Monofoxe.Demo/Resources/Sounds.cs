@@ -16,7 +16,13 @@ namespace Resources
 		public static Sound Crouch;
 		public static Sound Jump;
 		public static Sound Checkpoint;
-		public static Sound CatDeath;
+		public static Sound Death;
+
+		public static Sound CatPickup1;
+		public static Sound CatPickup2;
+		public static Sound CatPickup3;
+
+		public static Sound FrogPickup;
 
 
 		public static void Load()
@@ -26,9 +32,9 @@ namespace Resources
 			MainTopLayer = AudioMgr.LoadStreamedSound("Music/MainTopLayer.ogg");
 			MainTopLayer.Looping = true;
 			
-			ButtonPress = Load3DSound("Sounds/ButtonPress.wav", 400, 500);
-			ButtonRelease = Load3DSound("Sounds/ButtonRelease.wav", 400, 500);
-			Cannon = Load3DSound("Sounds/Cannon.wav", 400, 500);
+			ButtonPress = Load3DSound("Sounds/ButtonPress.wav", 700, 900);
+			ButtonRelease = Load3DSound("Sounds/ButtonRelease.wav", 400, 900);
+			Cannon = Load3DSound("Sounds/Cannon.wav", 700, 900);
 			Cannon.Volume = 0.2f;
 
 
@@ -43,7 +49,12 @@ namespace Resources
 			
 			Checkpoint = AudioMgr.LoadSound("Sounds/Checkpoint.wav");
 			
-			CatDeath = AudioMgr.LoadSound("Sounds/CatDeath.wav");
+			Death = Load3DSound("Sounds/Death.wav", 700, 900);
+			CatPickup1 = AudioMgr.LoadSound("Sounds/CatPickup1.wav");
+			CatPickup2 = AudioMgr.LoadSound("Sounds/CatPickup2.wav");
+			CatPickup3 = AudioMgr.LoadSound("Sounds/CatPickup3.wav");
+			
+			FrogPickup = AudioMgr.LoadSound("Sounds/FrogPickup.wav");
 			
 		}
 

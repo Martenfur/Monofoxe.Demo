@@ -10,9 +10,7 @@ namespace Resources
 		private static ContentManager _content;
 		
 		public static TiledMap Level1;
-		
 		public static TiledMap Level2;
-		
 
 		public static void Load()
 		{

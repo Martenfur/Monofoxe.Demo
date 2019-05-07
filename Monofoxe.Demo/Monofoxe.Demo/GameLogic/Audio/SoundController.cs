@@ -17,12 +17,14 @@ namespace Monofoxe.Demo.GameLogic.Audio
 	{
 		public static float SoundVolume = 1f;
 
-		public static float MusicVolume = 1;
+		public static float MusicVolume = 1f;
 
 		public static FMOD.ChannelGroup MusicGroup;
 		public static FMOD.ChannelGroup SoundGroup;
 
-		public static List<LayeredSound> UpdatedSounds = new List<LayeredSound>();
+		public static List<LayeredSound> UpdatingSounds = new List<LayeredSound>();
+
+		private static List<Sound> _playedCurrently = new List<Sound>();
 
 		public SoundController(Layer layer) : base(layer)
 		{
@@ -31,20 +33,32 @@ namespace Monofoxe.Demo.GameLogic.Audio
 			
 			MusicGroup.setVolume(MusicVolume);
 			SoundGroup.setVolume(SoundVolume);
-
 		}
 		
 		public override void Update()
 		{
-			foreach(var sound in UpdatedSounds)
+			foreach(var sound in UpdatingSounds)
 			{
 				sound.Update();
 			}
+			_playedCurrently.Clear();
 		}
 
 		public static SoundChannel PlaySound(Sound sound) =>
 			sound.Play(SoundGroup);
 		
+		public static SoundChannel PlaySoundOnce(Sound sound)
+		{
+			if (!_playedCurrently.Contains(sound))
+			{
+				_playedCurrently.Add(sound);
+				return sound.Play(SoundGroup);
+			}
+
+			return null;
+		}
+		
+
 		public static SoundChannel PlaySoundAt(Sound sound, Vector2 position)
 		{
 			var inBounds = false;

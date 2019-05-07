@@ -68,6 +68,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		}
 
+		public override void Destroy(Component component)
+		{
+			var actor = (StackableActorComponent)component;
+			if (actor.SlideSound != null)
+			{
+				actor.SlideSound.Stop();
+			}
+		}
+
 		public override void Update(List<Component> components)
 		{
 			foreach(StackableActorComponent actor in components)
@@ -351,6 +360,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			owner.GetComponent<PhysicsComponent>().Enabled = false;
 			owner.GetComponent<StackableActorComponent>().Visible = false;
+			
+			var actor = owner.GetComponent<StackableActorComponent>();
+			
+			if (!actor.Silent && actor.PickupSounds.Count > 0)
+			{
+				var sound = actor.PickupSounds[GameplayController.Random.Next(actor.PickupSounds.Count)];
+				SoundController.PlaySoundOnce(sound);
+			}
 		}
 
 		void StackedExit(StateMachine<ActorStates> stateMachine, Entity owner)
@@ -392,7 +409,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			if (colliderEntity != null)
 			{
-				stateMachine.ChangeState(ActorStates.Dead);
+				Kill(actor);
 				return;
 			}
 			
@@ -488,9 +505,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 			else
 			{
-				slave.LogicStateMachine.ChangeState(ActorStates.Stacked);
 				slave.StackedPrevious = master.Owner;
 				master.StackedNext = slave.Owner;
+				slave.LogicStateMachine.ChangeState(ActorStates.Stacked);
 			}
 		}
 
@@ -528,9 +545,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 
 			physics.Gravity = actor.DeadGravity;
-
-			//SoundController.PlaySound(Resources.Sounds.CatDeath);
-
+			
 		}
 
 		
@@ -648,6 +663,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				{
 					camera.Target = null;
 				}
+			}
+
+			if (!falling)
+			{
+				SoundController.PlaySoundAt(Resources.Sounds.Death, position.Position);
 			}
 			
 		}

@@ -37,7 +37,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			TransitionSpeed = transitionSpeed;
 			TransitionValue = transitionValue;
 
-			//Visible = false;
+			Visible = false;
 		}
 
 		public override void Update()

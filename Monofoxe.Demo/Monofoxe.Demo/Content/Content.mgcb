@@ -79,6 +79,15 @@
 #begin Audio/Sounds/Checkpoint.wav
 /copy:Audio/Sounds/Checkpoint.wav
 
-#begin Audio/Sounds/CatDeath.wav
-/copy:Audio/Sounds/CatDeath.wav
+#begin Audio/Sounds/CatPickup1.wav
+/copy:Audio/Sounds/CatPickup1.wav
+
+#begin Audio/Sounds/CatPickup2.wav
+/copy:Audio/Sounds/CatPickup2.wav
+
+#begin Audio/Sounds/CatPickup3.wav
+/copy:Audio/Sounds/CatPickup3.wav
+
+#begin Audio/Sounds/Death.wav
+/copy:Audio/Sounds/Death.wav
 
