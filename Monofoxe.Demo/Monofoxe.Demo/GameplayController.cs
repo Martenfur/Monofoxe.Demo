@@ -16,13 +16,14 @@ namespace Monofoxe.Demo
 		
 		public static RandomExt Random = new RandomExt();
 
-		public static MapBuilder CurrentMap;
-
+		
 		public static Layer GUILayer;
 
 		public static SoundController Audio;
 
 		public static LayeredSound music;
+
+		private Pause _pause;
 
 		public GameplayController() : base(SceneMgr.GetScene("default")["default"])
 		{
@@ -36,10 +37,10 @@ namespace Monofoxe.Demo
 
 			Audio = new SoundController(Layer);
 			
-			CurrentMap = new ColliderMapBuilder(Resources.Maps.Level1);
-			CurrentMap.Build();
+			MapController.Init();
+			MapController.CurrentMap.Build();
 			
-			
+
 			CollisionDetector.Init();
 			Scene.Priority = -10000;
 
@@ -56,14 +57,18 @@ namespace Monofoxe.Demo
 		
 		public override void Update()
 		{
+			if (Input.CheckButtonPress(Buttons.Escape) && _pause == null)
+			{
+				_pause = new Pause(Layer, MapController.CurrentMap.MapScene);
+			}
+
 			if (Input.CheckButtonPress(Buttons.F))
 			{
 				ScreenController.SetFullscreen(!GameMgr.WindowManager.IsFullScreen);
 			}
 			if (Input.CheckButtonPress(Buttons.R))
 			{
-				CurrentMap.Destroy();
-				CurrentMap.Build();
+				MapController.RebuildCurrentMap();
 			}
 			
 			// TODO: REMOVE!

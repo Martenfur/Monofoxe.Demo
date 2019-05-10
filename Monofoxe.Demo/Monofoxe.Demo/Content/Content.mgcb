@@ -91,3 +91,6 @@
 #begin Audio/Sounds/Death.wav
 /copy:Audio/Sounds/Death.wav
 
+#begin Audio/Sounds/FrogPickup.wav
+/copy:Audio/Sounds/FrogPickup.wav
+

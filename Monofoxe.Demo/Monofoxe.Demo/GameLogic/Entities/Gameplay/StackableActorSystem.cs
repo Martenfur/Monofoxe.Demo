@@ -1103,11 +1103,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 			var color = Color.White;
 
-			if (physics.Squashed)
+			if (actor.JumpBufferAlarm.Running && actor.CanJump)
 			{
 				color = Color.Red;
 			}
-		
+			
 			actor.CurrentSprite.Draw( 
 				actor.SpriteAnimation,
 				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset * -actor.Orientation, 

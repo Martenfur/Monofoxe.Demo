@@ -932,12 +932,7 @@
             System priority. If priority is higher, system will be processed sooner.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.ECS.BaseSystem._usedByLayers">
-            <summary>
-            Tells, if any layer is currently using this system.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.BaseSystem.Enabled">
+        <member name="F:Monofoxe.Engine.ECS.BaseSystem.Enabled">
             <summary>
             If system is enabled, it will invoke its Update and Draw methods.
             </summary>
@@ -998,7 +993,7 @@
             Tells f object was destroyed.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.ECS.Entity.Enabled">
+        <member name="F:Monofoxe.Engine.ECS.Entity.Enabled">
             <summary>
             If false, Update and Destroy events won't be executed.
             NOTE: This also applies to entity's components.
@@ -1183,24 +1178,9 @@
             Manages ECS systems.
             </summary>
         </member>
-        <member name="F:Monofoxe.Engine.ECS.SystemMgr._activeSystems">
-            <summary>
-            List of currently active systems.
-            </summary>
-        </member>
         <member name="F:Monofoxe.Engine.ECS.SystemMgr._systemPool">
             <summary>
-            Pool of all game systems.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.ECS.SystemMgr._componentsWereRemoved">
-            <summary>
-            Tells if any components were removed in the current step.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.ECS.SystemMgr.AutoSystemManagement">
-            <summary>
-            If true, systems will be enabled and disabled automatically.
+            List of currently active systems.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.ECS.SystemMgr.FixedUpdate">
@@ -1224,51 +1204,6 @@
         <member name="M:Monofoxe.Engine.ECS.SystemMgr.InitSystemPool">
             <summary>
             Creates an instance of each ISystem implementing class.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystem``1">
-            <summary>
-            Puts system in active system list from system pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystem``1">
-            <summary>
-            Removes system from active system list and puts it back in pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystemByComponentType``1">
-            <summary>
-            Puts system in active system list from system pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystemByComponentType``1">
-            <summary>
-            Removes system from active system list and puts it back in pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystem(System.Type)">
-            <summary>
-            Puts system in active system list from system pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.EnableSystemByComponentType(System.Type)">
-            <summary>
-            Puts system in active system list from system pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystem(System.Type)">
-            <summary>
-            Removes system from active system list and puts it back in pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableSystemByComponentType(System.Type)">
-            <summary>
-            Removes system from active system list and puts it back in pool.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.ECS.SystemMgr.DisableInactiveSystems">
-            <summary>
-            Disables systms if no components are using them.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.Utils.CustomCollections.SafeSortedDictionary`2">

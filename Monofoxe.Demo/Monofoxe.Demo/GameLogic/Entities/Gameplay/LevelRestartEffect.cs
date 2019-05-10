@@ -19,14 +19,29 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		private AutoAlarm _alarm;
 
-		public LevelRestartEffect(Layer layer) : base(layer)
+		private double _fadeDelay = 1f;
+
+		private Alarm _delayAlarm;
+
+		private bool _nextLevel;
+
+		public LevelRestartEffect(Layer layer, bool nextLevel = false) : base(layer)
 		{
+			_nextLevel = nextLevel;
 			_alarm = new AutoAlarm(_fadeTime);
-			
+			_delayAlarm = new Alarm();
+			_delayAlarm.Set(_fadeDelay);
 		}
 
 		public override void Update()
 		{
+			_delayAlarm.Update();
+
+			if (_delayAlarm.Running)
+			{
+				return;
+			}
+
 			if (_alarm.Update())
 			{
 				_fadeDirection *= -1;
@@ -36,8 +51,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				}
 				else
 				{
-					GameplayController.CurrentMap.Destroy();
-					GameplayController.CurrentMap.Build();
+					if (_nextLevel)
+					{
+						MapController.BuildNextMap();
+					}
+					else
+					{
+						MapController.RebuildCurrentMap();
+					}
 				}
 			}
 

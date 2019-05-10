@@ -132,7 +132,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public float JumpSpeed = 750;
 		public float JumpGravity = 1500;
 
-		public double JumpBufferTime = 0.1;
+		public double JumpBufferTime = 0.11;
 
 		// Jumping.
 

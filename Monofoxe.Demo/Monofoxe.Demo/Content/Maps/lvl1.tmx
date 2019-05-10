@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="300" height="64" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="185">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="300" height="64" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="187">
  <tileset firstgid="1" source="Tilesets/terrain.tsx"/>
  <tileset firstgid="113" source="Templates/Template Sprites/template_sprites.tsx"/>
  <tileset firstgid="123" source="Tilesets/Decorations.tsx"/>
@@ -577,5 +577,6 @@
   <object id="157" template="Templates/CameraStopper.tx" x="420" y="2086"/>
   <object id="159" template="Templates/CameraStopper.tx" x="456.667" y="114.667"/>
   <object id="160" template="Templates/CameraStopper.tx" x="12948" y="717.333"/>
+  <object id="186" template="Templates/NextMapTrigger.tx" x="12449.3" y="1092"/>
  </objectgroup>
 </map>
