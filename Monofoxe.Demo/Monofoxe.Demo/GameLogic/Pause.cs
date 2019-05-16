@@ -7,7 +7,7 @@ using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.Utils.Cameras;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine;
-
+using System.Collections.Generic;
 
 namespace Monofoxe.Demo.GameLogic
 {
@@ -22,6 +22,10 @@ namespace Monofoxe.Demo.GameLogic
 		private Alarm _blurAlarm;
 
 		private int _blur;
+
+		private SelectionMenu _menu;
+		
+		private Vector2 _menuOffset = new Vector2(0, 100);
 
 		private enum TransitionState
 		{
@@ -47,6 +51,16 @@ namespace Monofoxe.Demo.GameLogic
 			_state = TransitionState.FadeIn;
 			_blurAlarm = new Alarm();
 			_blurAlarm.Set(_blurTime);
+
+			_menu = new SelectionMenu(
+				Layer, 
+				new List<Sprite>
+				{
+					Resources.Sprites.Default.TitleContinue,
+					Resources.Sprites.Default.TitleExit,
+				},
+				ScreenController.MainCamera.Size / 2 + _menuOffset
+			);
 		}
 
 		public override void Update()
@@ -81,11 +95,30 @@ namespace Monofoxe.Demo.GameLogic
 
 					ScreenController.MainCamera.PostprocessingMode = PostprocessingMode.None;
 					ScreenController.MainCamera.PostprocessorEffects.Remove(Resources.Effects.Blur);
+					
+					_menu.DestroyEntity();
 
 					DestroyEntity();
 				}
 			}
 
+			if (_menu.Triggered)
+			{
+				// This is very bad design, but it's only two elements, so whatever.
+				// Don't repeat my mistakes, kids. : - )
+				var continueOption = (_menu.SelectedItem == 0);
+				var exitOption = (_menu.SelectedItem == 1);
+			
+				if (continueOption)
+				{
+					Unpause();
+				}
+
+				if (exitOption)
+				{
+					GameMgr.ExitGame();
+				}
+			}
 			
 			Resources.Effects.Blur.Parameters["radius"].SetValue(_blur);
 			
@@ -94,8 +127,18 @@ namespace Monofoxe.Demo.GameLogic
 		public override void Draw()
 		{
 			GraphicsMgr.CurrentColor = Color.White;
-			Resources.Sprites.Default.PlayerMain.Draw(GameMgr.WindowManager.CanvasSize / 2, Vector2.One * 32);
+			Resources.Sprites.Default.Pause.Draw(
+				_menu.GetComponent<PositionComponent>().Position, 
+				Resources.Sprites.Default.Pause.Origin 
+					+ Vector2.UnitY * (
+						_menu.GetMenuHeight() / 2 
+						+ _menu.ButtonSpacing 
+						+ _menu.ButtonSize.Y / 2
+					)
+			);
 		}
+
+	
 
 
 		public void Unpause()

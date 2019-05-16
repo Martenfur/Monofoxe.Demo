@@ -15,7 +15,7 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
   {
     [unroll(9)] for(int y = 0; y < limit; y += 1)
     {
-	    color += tex2D(s0, float2(coords.x + (x - radius) * pixel.x, coords.y + (y - radius) * pixel.y));
+      color += tex2D(s0, float2(coords.x + (x - radius) * pixel.x, coords.y + (y - radius) * pixel.y));
     }
   }
 

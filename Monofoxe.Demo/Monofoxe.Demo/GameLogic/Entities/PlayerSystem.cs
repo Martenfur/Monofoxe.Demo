@@ -41,10 +41,10 @@ namespace Monofoxe.Demo.GameLogic.Entities
 				// If player is crouching or dead, he can't be killed or damaged.
 				var playerState = actor.LogicStateMachine.CurrentState;
 
-				actor.LeftAction = Input.CheckButton(player.Left);
-				actor.RightAction = Input.CheckButton(player.Right);
-				actor.JumpAction = Input.CheckButton(player.Jump);
-				actor.CrouchAction = Input.CheckButton(player.Crouch);
+				actor.LeftAction = player.Left.Check();
+				actor.RightAction = player.Right.Check();
+				actor.JumpAction = player.Jump.Check();
+				actor.CrouchAction = player.Crouch.Check();
 
 				if (
 					actor.LogicStateMachine.CurrentState == ActorStates.Dead 
@@ -63,6 +63,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			var player = (PlayerComponent)component;
 			
 			player.Listener.Destroy();
+			
 		}
 
 		

@@ -59,7 +59,7 @@ namespace Monofoxe.Demo
 		
 		public override void Update()
 		{
-			if (Input.CheckButtonPress(Buttons.Escape) && PausingEnabled)
+			if (GameButtons.Back.CheckPress() && PausingEnabled)
 			{
 				if (_pause == null || _pause.Destroyed)
 				{
@@ -91,20 +91,8 @@ namespace Monofoxe.Demo
 				{
 					TimeKeeper.GlobalTimeMultiplier = 1;
 				}
-				
-
-
-				//SoundController.PlaySound(Resources.Sounds.Switchblock);
 			}
-
-			if (Input.CheckButtonPress(Buttons.K))
-			{
-				music.AddVolumeTransition("top", 0, 0.10f);
-			}
-			if (Input.CheckButtonPress(Buttons.L))
-			{
-				music.AddVolumeTransition("top", 1, 0.1f);
-			}
+			
 		}
 
 		

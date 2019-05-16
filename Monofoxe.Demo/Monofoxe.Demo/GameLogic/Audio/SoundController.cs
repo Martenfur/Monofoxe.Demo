@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Resources;
-using Monofoxe.Engine.ECS;
-using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
 using ChaiFoxes.FMODAudio;
+using Microsoft.Xna.Framework;
+using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
 
@@ -15,7 +10,7 @@ namespace Monofoxe.Demo.GameLogic.Audio
 {
 	public class SoundController : Entity
 	{
-		public static float SoundVolume = 1f;
+		public static float SoundVolume = 0f;
 
 		public static float MusicVolume = 0f;
 

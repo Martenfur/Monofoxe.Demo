@@ -1,16 +1,15 @@
-﻿using Monofoxe.Engine;
+﻿using ChaiFoxes.FMODAudio;
 using Monofoxe.Engine.ECS;
-using ChaiFoxes.FMODAudio;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
 	public class PlayerComponent : Component
 	{
-		public Buttons Left = Buttons.A;
-		public Buttons Right = Buttons.D;
-		public Buttons Jump = Buttons.W;
-		public Buttons Crouch = Buttons.S;
-
+		public Multibutton Left = GameButtons.Left;
+		public Multibutton Right = GameButtons.Right;
+		public Multibutton Jump = GameButtons.Jump;
+		public Multibutton Crouch = GameButtons.Down;
+		
 		public Listener3D Listener;
 	}
 }

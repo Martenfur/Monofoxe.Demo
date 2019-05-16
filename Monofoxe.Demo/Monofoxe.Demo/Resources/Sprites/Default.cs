@@ -18,6 +18,7 @@ namespace Resources.Sprites
 		public static Sprite Forest1;
 		public static Sprite Forest2;
 		public static Sprite Tree;
+		public static Sprite Pause;
 		public static Sprite Sun;
 		public static Sprite Snowman;
 		public static Sprite WatermelonStem;
@@ -25,6 +26,7 @@ namespace Resources.Sprites
 		public static Sprite Watermelon;
 		public static Sprite Gato;
 		public static Sprite Switchblock;
+		public static Sprite MenuButton;
 		public static Sprite Cannon;
 		public static Sprite Spikes;
 		public static Sprite Frog;
@@ -33,6 +35,8 @@ namespace Resources.Sprites
 		public static Sprite CheckpointDoggo;
 		public static Sprite Boulder;
 		public static Sprite CannonBall;
+		public static Sprite TitleContinue;
+		public static Sprite TitleExit;
 		public static Sprite Platform;
 		public static Sprite Button;
 		public static Sprite PlatformDot;
@@ -56,6 +60,7 @@ namespace Resources.Sprites
 			Forest1 = sprites["Background/forest1"];
 			Forest2 = sprites["Background/forest2"];
 			Tree = sprites["Decorations/Tree"];
+			Pause = sprites["Interface/pause"];
 			Sun = sprites["Background/sun"];
 			Snowman = sprites["Decorations/Snowman"];
 			WatermelonStem = sprites["Objects/watermelon_stem"];
@@ -63,6 +68,7 @@ namespace Resources.Sprites
 			Watermelon = sprites["Characters/watermelon"];
 			Gato = sprites["Characters/gato"];
 			Switchblock = sprites["Objects/switchblock"];
+			MenuButton = sprites["Interface/menu_button"];
 			Cannon = sprites["Objects/cannon"];
 			Spikes = sprites["Objects/spikes"];
 			Frog = sprites["Characters/frog"];
@@ -71,6 +77,8 @@ namespace Resources.Sprites
 			CheckpointDoggo = sprites["Objects/checkpoint_doggo"];
 			Boulder = sprites["Decorations/Boulder"];
 			CannonBall = sprites["Objects/cannon_ball"];
+			TitleContinue = sprites["Interface/title_continue"];
+			TitleExit = sprites["Interface/title_exit"];
 			Platform = sprites["Objects/platform"];
 			Button = sprites["Objects/button"];
 			PlatformDot = sprites["Objects/platform_dot"];

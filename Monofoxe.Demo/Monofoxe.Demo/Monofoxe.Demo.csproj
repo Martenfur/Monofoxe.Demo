@@ -94,9 +94,12 @@
     <Compile Include="GameLogic\Entities\Core\SolidComponent.cs" />
     <Compile Include="GameLogic\Entities\Core\SolidSystem.cs" />
     <Compile Include="GameLogic\GameCamera.cs" />
+    <Compile Include="GameLogic\GameButtons.cs" />
     <Compile Include="GameLogic\MapController.cs" />
+    <Compile Include="GameLogic\Multibutton.cs" />
     <Compile Include="GameLogic\Pause.cs" />
     <Compile Include="GameLogic\ScreenController.cs" />
+    <Compile Include="GameLogic\SelectionMenu.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
