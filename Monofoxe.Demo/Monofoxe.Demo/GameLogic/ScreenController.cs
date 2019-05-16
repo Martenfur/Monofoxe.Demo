@@ -29,7 +29,6 @@ namespace Monofoxe.Demo.GameLogic
 			MainCamera = new Camera(window.CanvasWidth, window.CanvasHeight);
 			MainCamera.BackgroundColor = new Color(117, 190, 255);
 			MainCamera.Offset = MainCamera.Size / 2;
-			
 		}
 		
 

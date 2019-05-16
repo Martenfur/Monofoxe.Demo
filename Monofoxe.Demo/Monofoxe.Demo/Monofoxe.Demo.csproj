@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Effects\AlphaBlend.fx" />
+    <Content Include="Content\Effects\Blur.fx" />
     <Content Include="x64\fmod.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

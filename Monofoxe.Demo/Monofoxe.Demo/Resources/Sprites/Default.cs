@@ -55,9 +55,9 @@ namespace Resources.Sprites
 			Mountains = sprites["Background/mountains"];
 			Forest1 = sprites["Background/forest1"];
 			Forest2 = sprites["Background/forest2"];
-			Tree = sprites["Decorations/tree"];
+			Tree = sprites["Decorations/Tree"];
 			Sun = sprites["Background/sun"];
-			Snowman = sprites["Decorations/snowman"];
+			Snowman = sprites["Decorations/Snowman"];
 			WatermelonStem = sprites["Objects/watermelon_stem"];
 			PlayerMain = sprites["Characters/player_main"];
 			Watermelon = sprites["Characters/watermelon"];
@@ -69,7 +69,7 @@ namespace Resources.Sprites
 			CheckpointPedestal = sprites["Objects/checkpoint_pedestal"];
 			CannonBase = sprites["Objects/cannon_base"];
 			CheckpointDoggo = sprites["Objects/checkpoint_doggo"];
-			Boulder = sprites["Decorations/boulder"];
+			Boulder = sprites["Decorations/Boulder"];
 			CannonBall = sprites["Objects/cannon_ball"];
 			Platform = sprites["Objects/platform"];
 			Button = sprites["Objects/button"];

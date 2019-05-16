@@ -31,6 +31,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			_alarm = new AutoAlarm(_fadeTime);
 			_delayAlarm = new Alarm();
 			_delayAlarm.Set(_fadeDelay);
+
+			GameplayController.PausingEnabled = false;
 		}
 
 		public override void Update()
@@ -72,7 +74,11 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		}
 
-		
+		public override void Destroy()
+		{
+			GameplayController.PausingEnabled = true;
+		}
+
 		public override void Draw()
 		{
 			GraphicsMgr.CurrentColor = Color.Black * (float)_blackscreenAlpha;

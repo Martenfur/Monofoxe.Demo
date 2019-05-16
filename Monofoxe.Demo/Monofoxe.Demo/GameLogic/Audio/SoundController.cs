@@ -17,7 +17,7 @@ namespace Monofoxe.Demo.GameLogic.Audio
 	{
 		public static float SoundVolume = 1f;
 
-		public static float MusicVolume = 1f;
+		public static float MusicVolume = 0f;
 
 		public static FMOD.ChannelGroup MusicGroup;
 		public static FMOD.ChannelGroup SoundGroup;

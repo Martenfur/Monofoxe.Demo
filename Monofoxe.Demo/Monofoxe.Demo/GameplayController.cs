@@ -25,6 +25,8 @@ namespace Monofoxe.Demo
 
 		private Pause _pause;
 
+		public static bool PausingEnabled = true;
+
 		public GameplayController() : base(SceneMgr.GetScene("default")["default"])
 		{
 			
@@ -57,9 +59,16 @@ namespace Monofoxe.Demo
 		
 		public override void Update()
 		{
-			if (Input.CheckButtonPress(Buttons.Escape) && _pause == null)
+			if (Input.CheckButtonPress(Buttons.Escape) && PausingEnabled)
 			{
-				_pause = new Pause(Layer, MapController.CurrentMap.MapScene);
+				if (_pause == null || _pause.Destroyed)
+				{
+					_pause = new Pause(GUILayer, MapController.CurrentMap.MapScene);
+				}
+				else
+				{
+					_pause.Unpause();
+				}
 			}
 
 			if (Input.CheckButtonPress(Buttons.F))

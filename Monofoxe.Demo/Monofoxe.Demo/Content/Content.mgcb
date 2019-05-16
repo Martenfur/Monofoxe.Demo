@@ -58,9 +58,6 @@
 #begin Audio/Music/MainTopLayer.ogg
 /copy:Audio/Music/MainTopLayer.ogg
 
-#begin Audio/Sounds/ButtonPress.wav
-/copy:Audio/Sounds/ButtonPress.wav
-
 #begin Audio/Sounds/ButtonRelease.wav
 /copy:Audio/Sounds/ButtonRelease.wav
 
@@ -93,4 +90,13 @@
 
 #begin Audio/Sounds/FrogPickup.wav
 /copy:Audio/Sounds/FrogPickup.wav
+
+#begin Audio/Sounds/ButtonPress.wav
+/copy:Audio/Sounds/ButtonPress.wav
+
+#begin Effects/Blur.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Effects/Blur.fx
 

@@ -7,8 +7,10 @@ using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Engine.Drawing;
 using ChaiFoxes.FMODAudio;
 using Monofoxe.Demo.GameLogic.Audio;
+
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
@@ -1100,21 +1102,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				ang = -GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
 			}
-
-			var color = Color.White;
-
-			if (actor.JumpBufferAlarm.Running && actor.CanJump)
-			{
-				color = Color.Red;
-			}
-			
+		
 			actor.CurrentSprite.Draw( 
 				actor.SpriteAnimation,
 				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset * -actor.Orientation, 
 				actor.CurrentSprite.Origin,
 				actor.SpriteScale * new Vector2(actor.Orientation, 1f), 
 				(float)ang, 
-				color
+				Color.White
 			);
 		}
 
