@@ -9,7 +9,7 @@ namespace Monofoxe.Demo.GameLogic
 		public static Multibutton Up = new Multibutton(Buttons.W, Buttons.Up);
 		public static Multibutton Down = new Multibutton(Buttons.S, Buttons.Down);
 
-		public static Multibutton Jump = new Multibutton(Buttons.W, Buttons.Space, Buttons.Z);
+		public static Multibutton Jump = new Multibutton(Buttons.W, Buttons.Space, Buttons.Z, Buttons.Up);
 
 		public static Multibutton Back = new Multibutton(Buttons.Escape, Buttons.Back);
 		public static Multibutton Select = new Multibutton(Buttons.Space, Buttons.Enter);
