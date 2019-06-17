@@ -162,7 +162,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		/// </summary>
 		public StateMachine<ActorAnimationStates> AnimationStateMachine;
 		
-		public Sprite MainSprite = Resources.Sprites.Default.PlayerMain;
+		public Sprite MainSprite = Resources.Sprites.Default.Foxe;
+		public Sprite SleepingSprite = Resources.Sprites.Default.FoxeSleeping;
 
 		public Sprite CurrentSprite;
 		public double SpriteAnimation = 0;
@@ -178,6 +179,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public double WalkAnimationSpeed = 4f;
 		public double CrouchAnimationSpeed = 10f;
 		public double CrawlAnimationSpeed = 4;
+		public double SleepAnimationSpeed = 0.2f;
 
 
 		public Vector2 WalkMaxScale = new Vector2(0.05f, -0.1f);
@@ -188,6 +190,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 		public Vector2 FallMaxScale = new Vector2(0f, 0.6f);
 		public float FallBaseScale = 1000f;
+
+		public Vector2 SleepMaxScale = new Vector2(0f, -0.1f);
+
+		public bool Sleeping = false;
+
+		public AutoAlarm SleepParticleAlarm;
+		public double SleepParticleSpawnTime = 1;
 
 		#endregion Animations.
 

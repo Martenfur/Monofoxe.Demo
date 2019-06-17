@@ -16,13 +16,16 @@ namespace Resources.Sprites
 		#region Sprites.
 		public static Sprite Mountains;
 		public static Sprite Forest1;
+		public static Sprite Title;
 		public static Sprite Forest2;
 		public static Sprite Tree;
 		public static Sprite Pause;
 		public static Sprite Sun;
 		public static Sprite Snowman;
+		public static Sprite Credits;
 		public static Sprite WatermelonStem;
-		public static Sprite PlayerMain;
+		public static Sprite Foxe;
+		public static Sprite FoxeSleeping;
 		public static Sprite Watermelon;
 		public static Sprite Gato;
 		public static Sprite Switchblock;
@@ -32,13 +35,15 @@ namespace Resources.Sprites
 		public static Sprite Frog;
 		public static Sprite CheckpointPedestal;
 		public static Sprite CannonBase;
+		public static Sprite PressStartTitle;
 		public static Sprite CheckpointDoggo;
 		public static Sprite Boulder;
-		public static Sprite CannonBall;
-		public static Sprite TitleContinue;
 		public static Sprite TitleExit;
+		public static Sprite TitleContinue;
+		public static Sprite CannonBall;
 		public static Sprite Platform;
 		public static Sprite Button;
+		public static Sprite SleepParticle;
 		public static Sprite PlatformDot;
 		public static Sprite Rainbow;
 		#endregion Sprites.
@@ -58,13 +63,16 @@ namespace Resources.Sprites
 			
 			Mountains = sprites["Background/mountains"];
 			Forest1 = sprites["Background/forest1"];
+			Title = sprites["Title/title"];
 			Forest2 = sprites["Background/forest2"];
 			Tree = sprites["Decorations/Tree"];
 			Pause = sprites["Interface/pause"];
 			Sun = sprites["Background/sun"];
 			Snowman = sprites["Decorations/Snowman"];
+			Credits = sprites["Title/credits"];
 			WatermelonStem = sprites["Objects/watermelon_stem"];
-			PlayerMain = sprites["Characters/player_main"];
+			Foxe = sprites["Characters/foxe"];
+			FoxeSleeping = sprites["Characters/foxe_sleeping"];
 			Watermelon = sprites["Characters/watermelon"];
 			Gato = sprites["Characters/gato"];
 			Switchblock = sprites["Objects/switchblock"];
@@ -74,13 +82,15 @@ namespace Resources.Sprites
 			Frog = sprites["Characters/frog"];
 			CheckpointPedestal = sprites["Objects/checkpoint_pedestal"];
 			CannonBase = sprites["Objects/cannon_base"];
+			PressStartTitle = sprites["Title/press_start_title"];
 			CheckpointDoggo = sprites["Objects/checkpoint_doggo"];
 			Boulder = sprites["Decorations/Boulder"];
-			CannonBall = sprites["Objects/cannon_ball"];
-			TitleContinue = sprites["Interface/title_continue"];
 			TitleExit = sprites["Interface/title_exit"];
+			TitleContinue = sprites["Interface/title_continue"];
+			CannonBall = sprites["Objects/cannon_ball"];
 			Platform = sprites["Objects/platform"];
 			Button = sprites["Objects/button"];
+			SleepParticle = sprites["Characters/sleep_particle"];
 			PlatformDot = sprites["Objects/platform_dot"];
 			Rainbow = sprites["Objects/rainbow"];
 			

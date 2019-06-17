@@ -8,6 +8,7 @@ using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
 using Monofoxe.Tiled;
 using Monofoxe.Demo.GameLogic.Audio;
+using Monofoxe.Demo.GameLogic.Entities;
 
 namespace Monofoxe.Demo
 {
@@ -41,14 +42,14 @@ namespace Monofoxe.Demo
 			
 			MapController.Init();
 			MapController.CurrentMap.Build();
-			
 
 			CollisionDetector.Init();
 			Scene.Priority = -10000;
 
 			GUILayer = Scene.CreateLayer("gui");
 			GUILayer.IsGUI = true;
-
+			
+			new TitleScreen(GUILayer);
 			
 			music = new LayeredSound(SoundController.MusicGroup);
 			music.AddLayer("top", Resources.Sounds.MainTopLayer);

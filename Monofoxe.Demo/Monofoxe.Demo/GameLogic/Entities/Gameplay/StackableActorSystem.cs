@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Audio;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
-using Monofoxe.Engine.Drawing;
-using ChaiFoxes.FMODAudio;
-using Monofoxe.Demo.GameLogic.Audio;
+using System;
+using System.Collections.Generic;
 
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
@@ -32,6 +30,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		Crawling,
 		Stacked,
 		Dead,
+		Sleeping
 	}
 
 	public class StackableActorSystem : BaseSystem
@@ -58,8 +57,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Crouching, CrouchAnimation, CrouchAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.CrouchTransition, CrouchTransitionAnimation, CrouchTransitionAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Stacked, StackedAnimation, StackedAnimationEnter);
+			actor.AnimationStateMachine.AddState(ActorAnimationStates.Sleeping, SleepingAnimation, SleepingAnimationEnter);
 
-			
+
 
 			actor.JumpBufferAlarm = new Alarm();
 			actor.LandingBufferAlarm = new Alarm();
@@ -67,6 +67,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.CurrentSprite = actor.MainSprite;
 
 			actor.Height = actor.Owner.GetComponent<PhysicsComponent>().Collider.Size.Y;
+
+			actor.SleepParticleAlarm = new AutoAlarm(actor.SleepParticleSpawnTime);
 
 		}
 
@@ -106,6 +108,13 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				)
 				{
 					Kill(actor);
+				}
+
+				if (actor.Sleeping && actor.SleepParticleAlarm.Update())
+				{
+					var position = actor.Owner.GetComponent<PositionComponent>();
+					actor.Owner.Scene.TryGetLayer("ObjectsBack", out Layer l);
+					new SleepParticle(position.Position - Vector2.UnitY * 8, l);
 				}
 
 			}
@@ -725,6 +734,38 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 		}
 
+		void SleepingAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			ResetAnimation(actor);
+			actor.CurrentSprite = actor.SleepingSprite;
+			actor.AnimationSpeed = actor.SleepAnimationSpeed;
+		}
+
+		void SleepingAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+
+			var newState = stateMachine.CurrentState;
+
+			if (!actor.Sleeping)
+			{
+				newState = ActorAnimationStates.Idle;
+				actor.AnimationSpeed = actor.WalkAnimationSpeed;
+			}
+
+			// Animation.
+			if (UpdateAnimation(stateMachine, actor, newState))
+			{
+				return;
+			}
+
+			var sin = (float)Math.Sin(actor.Animation * Math.PI);
+			actor.SpriteScale = Vector2.One + actor.SleepMaxScale * new Vector2(Math.Abs(sin), Math.Abs(sin));
+			// Animation.
+
+		}
+
 
 		void IdleAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
@@ -735,7 +776,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		void IdleAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
-			
+
+			// Sleeping.
+			if (actor.Sleeping)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.Sleeping);
+				return;
+			}
+			// Sleeping.
+
+
 			// Stacked.
 			if (actor.LogicStateMachine.CurrentState == ActorStates.Stacked)
 			{

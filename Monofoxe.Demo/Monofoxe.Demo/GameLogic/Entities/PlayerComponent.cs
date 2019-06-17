@@ -11,5 +11,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		public Multibutton Crouch = GameButtons.Down;
 		
 		public Listener3D Listener;
+
+		public bool ControlsEnabled = true;
 	}
 }

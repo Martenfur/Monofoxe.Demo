@@ -33,9 +33,15 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		{
 			foreach(PlayerComponent player in components)
 			{
+				var actor = player.Owner.GetComponent<StackableActorComponent>();
+				
+				if (!player.ControlsEnabled || actor.AnimationStateMachine.CurrentState == ActorAnimationStates.Sleeping)
+				{
+					continue;
+				}
+
 				var physics = player.Owner.GetComponent<PhysicsComponent>();
 				var position = player.Owner.GetComponent<PositionComponent>();
-				var actor = player.Owner.GetComponent<StackableActorComponent>();
 
 				
 				// If player is crouching or dead, he can't be killed or damaged.
