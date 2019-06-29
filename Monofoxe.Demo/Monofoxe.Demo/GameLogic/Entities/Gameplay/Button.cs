@@ -5,7 +5,7 @@ using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Engine.Utils;
+using Monofoxe.Engine;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {

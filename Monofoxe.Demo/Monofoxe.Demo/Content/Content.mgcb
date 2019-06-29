@@ -13,90 +13,90 @@
 /reference:References\Pipefoxe.dll
 
 #---------------------------------- Content ---------------------------------#
-#begin Audio/Music/MainBaseLayer.ogg
-/copy:audio/music/mainbaselayer.ogg
-
-#begin Audio/Music/MainTopLayer.ogg
-/copy:audio/music/maintoplayer.ogg
-
-#begin Audio/Sounds/ButtonPress.wav
-/copy:audio/sounds/buttonpress.wav
-
-#begin Audio/Sounds/ButtonRelease.wav
-/copy:audio/sounds/buttonrelease.wav
-
-#begin Audio/Sounds/Cannon.wav
-/copy:audio/sounds/cannon.wav
-
-#begin Audio/Sounds/CatPickup1.wav
-/copy:audio/sounds/catpickup1.wav
-
-#begin Audio/Sounds/CatPickup2.wav
-/copy:audio/sounds/catpickup2.wav
-
-#begin Audio/Sounds/CatPickup3.wav
-/copy:audio/sounds/catpickup3.wav
-
-#begin Audio/Sounds/Checkpoint.wav
-/copy:audio/sounds/checkpoint.wav
-
-#begin Audio/Sounds/Crouch.wav
-/copy:audio/sounds/crouch.wav
-
-#begin Audio/Sounds/Death.wav
-/copy:audio/sounds/death.wav
-
-#begin Audio/Sounds/FrogPickup.wav
-/copy:audio/sounds/frogpickup.wav
-
-#begin Audio/Sounds/Jump.wav
-/copy:audio/sounds/jump.wav
-
-#begin Audio/Sounds/Slide.wav
-/copy:audio/sounds/slide.wav
-
-#begin Effects/AlphaBlend.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/build:effects/alphablend.fx
-
-#begin Effects/Blur.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/build:effects/blur.fx
-
-#begin Maps/lvl1.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:maps/lvl1.tmx
-
-#begin Maps/lvl2.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:maps/lvl2.tmx
-
-#begin Maps/map_template.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:maps/map_template.tmx
-
-#begin Maps/test.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:maps/test.tmx
-
-#begin Fonts/Arial.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/build:fonts/arial.spritefont
-
 #begin Content.mgcb
 /importer:AssetInfoImporter
 /processor:PassThroughProcessor
-/build:content.mgcb
+/build:Content.mgcb
+
+#begin Audio/Music/MainBaseLayer.ogg
+/copy:Audio/Music/MainBaseLayer.ogg
+
+#begin Audio/Music/MainTopLayer.ogg
+/copy:Audio/Music/MainTopLayer.ogg
+
+#begin Audio/Sounds/ButtonPress.wav
+/copy:Audio/Sounds/ButtonPress.wav
+
+#begin Audio/Sounds/ButtonRelease.wav
+/copy:Audio/Sounds/ButtonRelease.wav
+
+#begin Audio/Sounds/Cannon.wav
+/copy:Audio/Sounds/Cannon.wav
+
+#begin Audio/Sounds/CatPickup1.wav
+/copy:Audio/Sounds/CatPickup1.wav
+
+#begin Audio/Sounds/CatPickup2.wav
+/copy:Audio/Sounds/CatPickup2.wav
+
+#begin Audio/Sounds/CatPickup3.wav
+/copy:Audio/Sounds/CatPickup3.wav
+
+#begin Audio/Sounds/Checkpoint.wav
+/copy:Audio/Sounds/Checkpoint.wav
+
+#begin Audio/Sounds/Crouch.wav
+/copy:Audio/Sounds/Crouch.wav
+
+#begin Audio/Sounds/Death.wav
+/copy:Audio/Sounds/Death.wav
+
+#begin Audio/Sounds/FrogPickup.wav
+/copy:Audio/Sounds/FrogPickup.wav
+
+#begin Audio/Sounds/Jump.wav
+/copy:Audio/Sounds/Jump.wav
+
+#begin Audio/Sounds/Slide.wav
+/copy:Audio/Sounds/Slide.wav
 
 #begin Graphics/default.spritegroup
 /importer:SpriteGroupImporter
 /processor:SpriteGroupProcessor
-/build:graphics/default.spritegroup
+/build:Graphics/default.spritegroup
+
+#begin Effects/AlphaBlend.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/build:Effects/AlphaBlend.fx
+
+#begin Effects/Blur.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/build:Effects/Blur.fx
+
+#begin Maps/lvl1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/lvl1.tmx
+
+#begin Maps/lvl2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/lvl2.tmx
+
+#begin Maps/map_template.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_template.tmx
+
+#begin Maps/test.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/test.tmx
+
+#begin Fonts/Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:Fonts/Arial.spritefont
 

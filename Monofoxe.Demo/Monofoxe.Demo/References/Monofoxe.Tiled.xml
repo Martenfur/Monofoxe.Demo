@@ -35,13 +35,13 @@
         </member>
         <member name="M:Monofoxe.Tiled.MapBuilder.Build">
             <summary>
-            Builds map scene from TIled map template.
+            Builds map scene from Tiled map template.
             
             Building goes in four stages:
             - Building tilesets.
             - Building tile layers.
             - Building object layers.
-            - Builsing image layers.
+            - Building image layers.
             
             Each of those stages can be overriden.
             Override this method if you want full control over the map loading.
@@ -52,28 +52,38 @@
             Unloads map scene.
             </summary>
         </member>
+        <member name="F:Monofoxe.Tiled.MapBuilder._tilesetLookupMap">
+            <summary>
+            An array which tells which index corresponds to which tileset.
+            </summary>
+        </member>
         <member name="M:Monofoxe.Tiled.MapBuilder.BuildTilesets(Monofoxe.Tiled.MapStructure.TiledMapTileset[])">
             <summary>
             Builds tilesets from Tiled templates.
-            Called by BuildMap().
+            Called by Build().
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Tiled.MapBuilder.CreateTileLookupTable(System.Collections.Generic.List{Monofoxe.Engine.Utils.Tilemaps.Tileset})">
+            <summary>
+            Creates tile lookup table to optimize tile matching for tilemaps.
             </summary>
         </member>
         <member name="M:Monofoxe.Tiled.MapBuilder.BuildTileLayers(System.Collections.Generic.List{Monofoxe.Engine.Utils.Tilemaps.Tileset})">
             <summary>
             Builds tile layers from Tiled templates. 
-            Called by BuildMap().
+            Called by Build().
             </summary>
         </member>
         <member name="M:Monofoxe.Tiled.MapBuilder.BuildObjectLayers">
             <summary>
             Builds object layers from Tiled templates.
-            Called by BuildMap().
+            Called by Build().
             </summary>
         </member>
         <member name="M:Monofoxe.Tiled.MapBuilder.BuildImageLayers">
             <summary>
             Builds image layers from Tiled templates.
-            Called by BuildMap().
+            Called by Build().
             </summary>
         </member>
         <member name="M:Monofoxe.Tiled.MapBuilder.GetLayerPriority(Monofoxe.Tiled.MapStructure.TiledMapLayer)">

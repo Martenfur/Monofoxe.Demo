@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Collisions;
 using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Engine.Utils;
+using System.Collections.Generic;
 
 
 namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
@@ -27,6 +26,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		{
 			Width = width;
 			
+		
+
 			var cPosition = new PositionComponent(position);
 			var cSolid = new SolidComponent();
 			
@@ -57,19 +58,21 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var offset = new Vector2(Width, 1f / HeightDivider) * BaseSize / 2;
 			
 			GraphicsMgr.CurrentColor = Color.White;
+			
+			
 
 			if (Width == 1)
 			{
-				Sprite[3].Draw((position.Position - offset).Round(), Sprite.Origin);
+				Sprite[3].Draw((position.Position - offset).RoundV(), Sprite.Origin);
 			}
 			else
 			{
-				Sprite[0].Draw((position.Position - offset).Round(), Sprite.Origin);
-				Sprite[2].Draw((position.Position - offset + Vector2.UnitX * BaseSize * (Width - 1)).Round(), Sprite.Origin);
+				Sprite[0].Draw((position.Position - offset).RoundV(), Sprite.Origin);
+				Sprite[2].Draw((position.Position - offset + Vector2.UnitX * BaseSize * (Width - 1)).RoundV(), Sprite.Origin);
 
 				for(var i = 1; i < Width - 1; i += 1)
 				{
-					Sprite[1].Draw((position.Position - offset + Vector2.UnitX * BaseSize * i).Round(), Sprite.Origin);
+					Sprite[1].Draw((position.Position - offset + Vector2.UnitX * BaseSize * i).RoundV(), Sprite.Origin);
 				}
 
 			}

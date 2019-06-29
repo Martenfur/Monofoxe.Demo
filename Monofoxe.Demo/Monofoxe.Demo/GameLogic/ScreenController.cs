@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
-using Monofoxe.Engine.Utils.Cameras;
+using Monofoxe.Engine.Cameras;
 
 namespace Monofoxe.Demo.GameLogic
 {

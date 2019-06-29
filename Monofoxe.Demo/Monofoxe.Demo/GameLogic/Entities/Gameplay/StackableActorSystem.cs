@@ -1155,7 +1155,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		
 			actor.CurrentSprite.Draw( 
 				actor.SpriteAnimation,
-				position.Position.Round() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset * -actor.Orientation, 
+				position.Position.RoundV() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset * -actor.Orientation, 
 				actor.CurrentSprite.Origin,
 				actor.SpriteScale * new Vector2(actor.Orientation, 1f), 
 				(float)ang, 

@@ -576,7 +576,7 @@
   <object id="156" template="Templates/CameraStopper.tx" x="49" y="1416"/>
   <object id="157" template="Templates/CameraStopper.tx" x="420" y="2086"/>
   <object id="159" template="Templates/CameraStopper.tx" x="456.667" y="114.667"/>
-  <object id="160" template="Templates/CameraStopper.tx" x="12948" y="717.333"/>
+  <object id="160" template="Templates/CameraStopper.tx" x="12941.3" y="720"/>
   <object id="186" template="Templates/NextMapTrigger.tx" x="12449.3" y="1092"/>
  </objectgroup>
 </map>

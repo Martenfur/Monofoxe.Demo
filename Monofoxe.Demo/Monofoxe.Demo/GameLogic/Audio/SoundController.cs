@@ -3,7 +3,7 @@ using ChaiFoxes.FMODAudio;
 using Microsoft.Xna.Framework;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Engine.Utils;
+using Monofoxe.Engine;
 
 
 namespace Monofoxe.Demo.GameLogic.Audio

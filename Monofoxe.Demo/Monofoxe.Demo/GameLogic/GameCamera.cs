@@ -1,10 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Monofoxe.Demo.GameLogic.Entities.Core;
+using Monofoxe.Engine;
+using Monofoxe.Engine.Cameras;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
-using Monofoxe.Engine.Utils.Cameras;
+using System;
 
 namespace Monofoxe.Demo.GameLogic
 {
@@ -97,7 +98,7 @@ namespace Monofoxe.Demo.GameLogic
 			}
 			// Restricting the camera.
 			
-			Camera.Position = _position.Round();
+			Camera.Position = _position.RoundV();
 			
 		}
 

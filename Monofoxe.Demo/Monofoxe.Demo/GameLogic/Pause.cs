@@ -4,7 +4,7 @@ using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
-using Monofoxe.Engine.Utils.Cameras;
+using Monofoxe.Engine.Cameras;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace Monofoxe.Demo.GameLogic
 			Resources.Effects.Blur.Parameters["radius"].SetValue(0);
 			Resources.Effects.Blur.Parameters["width"].SetValue(ScreenController.MainCamera.Size.X);
 			Resources.Effects.Blur.Parameters["height"].SetValue(ScreenController.MainCamera.Size.Y);
-
+			
 			ScreenController.MainCamera.PostprocessingMode = PostprocessingMode.Camera;
 			ScreenController.MainCamera.PostprocessorEffects.Add(Resources.Effects.Blur);
 

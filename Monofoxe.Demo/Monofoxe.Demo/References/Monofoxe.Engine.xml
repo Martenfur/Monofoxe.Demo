@@ -697,9 +697,9 @@
             Currently enabled camera.
             </summary>
         </member>
-        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentTransformMatrix">
+        <member name="P:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentView">
             <summary>
-            Current transformation matrix. Used to offset, rotate and scale graphics.
+            Current view. Used to offset, rotate and scale graphics.
             </summary>
         </member>
         <member name="F:Monofoxe.Engine.Drawing.GraphicsMgr.CurrentColor">
@@ -834,7 +834,7 @@
         </member>
         <member name="T:Monofoxe.Engine.Drawing.GraphicsMode">
             <summary>
-            Every time we want to draw primitive of a new type
+            Every time we want to draw primitive of different type
             or switch texture, we need to empty vertex buffer
             and switch graphics mode.
             </summary>
@@ -1206,6 +1206,99 @@
             Creates an instance of each ISystem implementing class.
             </summary>
         </member>
+        <member name="T:Monofoxe.Engine.Utils.Animation">
+            <summary>
+            Basic animation class. Can be used for sprite animation, 
+            UI animation, movement, and many more.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.LinearProgress">
+            <summary>
+            Linear animation progress. Always goes up from 0 to 1.
+            Not affected by easing and inversion.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Utils.Animation.Progress">
+            <summary>
+            LinearProgress affected by easing and inversion.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.Speed">
+            <summary>
+            Animation speed.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.Looping">
+            <summary>
+            If true, animation will be looped and properly time-corrected.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Utils.Animation.Running">
+            <summary>
+            Tells if the animation is running.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.Easing">
+            <summary>
+            Current easing function, which is applied to animation.
+            If null, animation will be linear.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.TimeKeeper">
+            <summary>
+            Current TimeKeeper. Can affect animation speed.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.Invert">
+            <summary>
+            If true, Progress will go from 1 to 0 insteasd of 0 to 1.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Utils.Animation.AnimationEndEvent">
+            <summary>
+            Gets called, when animation ends or loops.
+            Use this for more fine control over the animation.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Update">
+            <summary>
+            Updates the animation. Not the part of entity loop, 
+            you need to call it on your own.
+            
+            NOTE: If using in Draw method, keep in mind that each camera calls the event separately.
+            You may want to restrict it only to the first camera.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Start">
+            <summary>
+            Starts the animation and resets LinearProgress to 0.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Start(System.Boolean)">
+            <summary>
+            Starts the animation, overrides Looping and resets LinearProgress to 0.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Stop">
+            <summary>
+            Stops the animation and resets LinearProgress to 0.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Resume">
+            <summary>
+            Resumes the animation from its current progress.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Resume(System.Boolean)">
+            <summary>
+            Resumes the animation from its current progress and overrides Looping.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.Animation.Pause">
+            <summary>
+            Stops the animation without resetting current progress.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.Utils.CustomCollections.SafeSortedDictionary`2">
             <summary> 
             Safe sorted dictionary. Makes possible to safely remove from and add items to the list during enumeration.
@@ -1251,69 +1344,48 @@
             Removes old elements from the list and adds new ones.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.Utils.NumberExtensions">
+        <member name="T:Monofoxe.Engine.Utils.Easing">
             <summary>
-            Extends basic C# number types. 
+            A set of cool whooshies for transition effects. 
+            Easings accept linear value from 0 to 1 and return smoothed out version. 
+            Can be used as static functions or instantiated.
+            
+            Port of this code: https://github.com/nicolausYes/easing-functions
+            
+            Help on easings and visualization: https://easings.net/en
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Byte)">
+        <member name="F:Monofoxe.Engine.Utils.Easing.Func">
             <summary>
-            Returns true, if number is not zero.
+            Current easing function.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.SByte)">
+        <member name="M:Monofoxe.Engine.Utils.Easing.#ctor(System.Func{System.Double,System.Double})">
             <summary>
-            Returns true, if number is not zero.
+            This constructor is used to create easings. You can create your own!
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Int16)">
+        <member name="M:Monofoxe.Engine.Utils.Easing.GetEasing(System.Single)">
             <summary>
-            Returns true, if number is not zero.
+            Returns easing value for t.
+            NOTE: t should be in range from 0 to 1.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.UInt16)">
+        <member name="M:Monofoxe.Engine.Utils.Easing.GetEasing(System.Double)">
             <summary>
-            Returns true, if number is not zero.
+            Returns easing value for t.
+            NOTE: t should be in range from 0 to 1.
             </summary>
         </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Int32)">
+        <member name="T:Monofoxe.Engine.Utils.Foxe">
             <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.UInt32)">
-            <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Int64)">
-            <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.UInt64)">
-            <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Single)">
-            <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Double)">
-            <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToBool(System.Decimal)">
-            <summary>
-            Returns true, if number is not zero.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.NumberExtensions.ToInt(System.Boolean)">
-            <summary>
-            If true, returns one, otherwise - zero.
+            I'm a sneaky foxe.
+            
+            Sneaked into your game.
+            
+            Stole your entities.
+            
+            Slept on your bad architechture.
             </summary>
         </member>
         <member name="T:Monofoxe.Engine.Utils.Tilemaps.BasicTilemapComponent">
@@ -1367,47 +1439,6 @@
             or null, if index is out of tileset's bounds. 
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.Utils.Vector2Extensions">
-            <summary>
-            Vector2 extensions.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Round(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Rounds each vector's component.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Floor(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Rounds each vector's component down.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Ceiling(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Rounds each vector's component up.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.GetSafeNormalize(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Returns vector with the same direction and length of 1. 
-            If original vector is (0;0), returns zero vector.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.ToVector3(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Converts Vector2 to Vector3 with z axis of 0.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Swap(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Swaps X and Y places.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Vector2Extensions.Rotate90(Microsoft.Xna.Framework.Vector2)">
-            <summary>
-            Rotates vector by 90 degrees.
-            </summary>
-        </member>
         <member name="T:Monofoxe.Engine.Utils.Alarm">
             <summary>
             Counts down seconds. Needs to be updated manually.
@@ -1454,201 +1485,6 @@
             Updates alarm. Returns true, if alarm is being triggered.
             </summary>
         </member>
-        <member name="T:Monofoxe.Engine.Utils.Cameras.Camera">
-            <summary>
-            Game camera. Support positioning, rotating and scaling.
-            NOTE: There always should be at least one camera, 
-            otherwise Draw events won't be triggered.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.Priority">
-            <summary>
-            Priority of a camera. 
-            Higher priority = earlier drawing.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Position">
-            <summary>
-            View coordinates.
-            NOTE: They don't take into account offset and rotation.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.Size">
-            <summary>
-            View size.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Offset">
-            <summary>
-            Camera offset.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Rotation">
-            <summary>
-            View rotation. Measured in degrees.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Zoom">
-            <summary>
-            View zoom.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.PortPosition">
-            <summary>
-            Viewport coordinates. Sets where on screen view will be drawn.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.PortOffset">
-            <summary>
-            Viewport coordinates. Sets where on screen view will be drawn.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.PortScale">
-            <summary>
-            Viewport scale.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.PortRotation">
-            <summary>
-            Viewport rotation.
-            NOTE: Changing it will break mouse position!
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.Surface">
-            <summary>
-            Camera surface. Everything will be drawn on it.
-            NOTE: This reference can change to another surface!
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.BackgroundColor">
-            <summary>
-            Background color for a view surface.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Visible">
-            <summary>
-            If true, camera surface will be drawn automatically.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.Enabled">
-            <summary>
-            If false, camera won't trigger any Draw events.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.ClearBackground">
-            <summary>
-            If true, clears camera surface every step.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.TransformMatrix">
-            <summary>
-            Transformation matrix.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.Camera.FilterMode">
-            <summary>
-            Mode for filtering out certain layers.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.PostprocessorEffects">
-            <summary>
-            Shaders applied to the surface.
-            NOTE: Last shader will be applied directly during drawing of the surface.
-            If you draw it yourself, don't forget to apply last shader.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.Camera.PostprocessingMode">
-            <summary>
-            Enables usage of shaders on camera surface and layers.
-            NOTE: Additional surfaces will be created.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.Camera.Resize(System.Int32,System.Int32)">
-            <summary>
-            Resizes the view.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.Camera.Destroy">
-            <summary>
-            Removes camera from draw controller list and disposes surface.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.Camera.UpdateTransformMatrix">
-            <summary>
-            Updates camera's transform matrix.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.Camera.GetRelativeMousePosition">
-            <summary>
-            Returns mouse position relative to the camera.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.Camera.Filter(System.String,System.String)">
-            <summary>
-            Returns true, if given layer is filtered out.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.Camera.ApplyPostprocessing">
-            <summary>
-            Applies shaders to the camera surface.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Utils.Cameras.CameraMgr">
-            <summary>
-            Manages camera priorities.
-            </summary>
-        </member>
-        <member name="P:Monofoxe.Engine.Utils.Cameras.CameraMgr.Cameras">
-            <summary>
-            List of all cameras.
-            </summary>
-        </member>
-        <member name="M:Monofoxe.Engine.Utils.Cameras.CameraMgr.UpdateCameraPriority(Monofoxe.Engine.Utils.Cameras.Camera)">
-            <summary>
-            Removes camera from list and adds it again, taking in account its proirity.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Utils.Cameras.FilterMode">
-            <summary>
-            filtering modes for camera.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.FilterMode.Inclusive">
-            <summary>
-            Triggers rendering, if filter DOES contain layer.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.FilterMode.Exclusive">
-            <summary>
-            Triggers rendering, if filter DOES NOT contain layer.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.FilterMode.None">
-            <summary>
-            Renders all layers.
-            </summary>
-        </member>
-        <member name="T:Monofoxe.Engine.Utils.Cameras.PostprocessingMode">
-            <summary>
-            Postprocessing modes for camera.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.PostprocessingMode.None">
-            <summary>
-            No shaders will be applied.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.PostprocessingMode.Camera">
-            <summary>
-            Enables applying shaders to the camera surface.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Cameras.PostprocessingMode.CameraAndLayers">
-            <summary>
-            Enables applying shaders to the camera surface 
-            AND individual layers.
-            </summary>
-        </member>
         <member name="T:Monofoxe.Engine.Utils.GameMath">
             <summary>
             Contains useful math stuff. 
@@ -1667,6 +1503,16 @@
         <member name="M:Monofoxe.Engine.Utils.GameMath.DirectionRad(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
             <summary>
             Calculates direction between two points in radians.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.GameMath.DirectionToVector2(System.Single)">
+            <summary>
+            Converts direction measured in degrees to unit Vector2.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Utils.GameMath.DirectionToVector2Rad(System.Double)">
+            <summary>
+            Converts direction measured in radians to unit Vector2.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.Utils.GameMath.AngleDiff(System.Double,System.Double)">
@@ -2004,11 +1850,6 @@
         <member name="F:Monofoxe.Engine.Utils.Timer.Enabled">
             <summary>
             Timer won't update if it's disabled.
-            </summary>
-        </member>
-        <member name="F:Monofoxe.Engine.Utils.Timer.AffectedBySpeedMultiplier">
-            <summary>
-            Tells if timer is affected by GameCntrl.GameSpeedMultiplier.
             </summary>
         </member>
         <member name="M:Monofoxe.Engine.Utils.Timer.Reset">
@@ -2560,6 +2401,124 @@
             Executes Draw GUI events.
             </summary>
         </member>
+        <member name="T:Monofoxe.Engine.NumberExtensions">
+            <summary>
+            Extends basic C# number types. 
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Byte)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.SByte)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Int16)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.UInt16)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Int32)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.UInt32)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Int64)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.UInt64)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Single)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Double)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToBool(System.Decimal)">
+            <summary>
+            Returns true, if number is not zero.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.NumberExtensions.ToInt(System.Boolean)">
+            <summary>
+            If true, returns one, otherwise - zero.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.EffectExtensions">
+            <summary>
+            Effect extensions.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.EffectExtensions.SetWorldViewProjection(Microsoft.Xna.Framework.Graphics.Effect,Microsoft.Xna.Framework.Matrix,Microsoft.Xna.Framework.Matrix,Microsoft.Xna.Framework.Matrix)">
+            <summary>
+            Sets world, view and projection for an effect.
+            
+            NOTE: Effect should actually have "World", "View" and "Projection" parameters.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Vector2Extensions">
+            <summary>
+            Vector2 extensions.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.RoundV(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rounds each vector's component.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.FloorV(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rounds each vector's component down.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.CeilingV(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rounds each vector's component up.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.GetSafeNormalize(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Returns vector with the same direction and length of 1. 
+            If original vector is (0;0), returns zero vector.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.ToVector3(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Converts Vector2 to Vector3 with z axis of 0.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.Swap(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Swaps X and Y places.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Vector2Extensions.Rotate90(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Rotates vector by 90 degrees.
+            </summary>
+        </member>
         <member name="T:Monofoxe.Engine.WindowMgr">
             <summary>
             Merging of GraphicsDeviveManager and WindowManager.
@@ -2625,6 +2584,201 @@
         <member name="M:Monofoxe.Engine.WindowMgr.CenterWindow">
             <summary>
             Centers game window on the screen.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Cameras.Camera">
+            <summary>
+            Game camera. Support positioning, rotating and scaling.
+            NOTE: There always should be at least one camera, 
+            otherwise Draw events won't be triggered.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.Camera.Priority">
+            <summary>
+            Priority of a camera. 
+            Higher priority = earlier drawing.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.Position">
+            <summary>
+            View coordinates.
+            NOTE: They don't take into account offset and rotation.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.Camera.Size">
+            <summary>
+            View size.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.Offset">
+            <summary>
+            Camera offset.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.Rotation">
+            <summary>
+            View rotation. Measured in degrees.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.Zoom">
+            <summary>
+            View zoom.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.PortPosition">
+            <summary>
+            Viewport coordinates. Sets where on screen view will be drawn.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.PortOffset">
+            <summary>
+            Viewport coordinates. Sets where on screen view will be drawn.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.PortScale">
+            <summary>
+            Viewport scale.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.PortRotation">
+            <summary>
+            Viewport rotation.
+            NOTE: Changing it will break mouse position!
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.Camera.Surface">
+            <summary>
+            Camera surface. Everything will be drawn on it.
+            NOTE: This reference can change to another surface!
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.BackgroundColor">
+            <summary>
+            Background color for a view surface.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.Visible">
+            <summary>
+            If true, camera surface will be drawn automatically.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.Enabled">
+            <summary>
+            If false, camera won't trigger any Draw events.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.ClearBackground">
+            <summary>
+            If true, clears camera surface every step.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.Camera.TransformMatrix">
+            <summary>
+            Transformation matrix.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.Camera.FilterMode">
+            <summary>
+            Mode for filtering out certain layers.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.Camera.PostprocessorEffects">
+            <summary>
+            Shaders applied to the surface.
+            NOTE: Last shader will be applied directly during drawing of the surface.
+            If you draw it yourself, don't forget to apply last shader.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.Camera.PostprocessingMode">
+            <summary>
+            Enables usage of shaders on camera surface and layers.
+            NOTE: Additional surfaces will be created.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.Camera.Resize(System.Int32,System.Int32)">
+            <summary>
+            Resizes the view.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.Camera.Destroy">
+            <summary>
+            Removes camera from draw controller list and disposes surface.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.Camera.UpdateTransformMatrix">
+            <summary>
+            Updates camera's transform matrix.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.Camera.GetRelativeMousePosition">
+            <summary>
+            Returns mouse position relative to the camera.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.Camera.Filter(System.String,System.String)">
+            <summary>
+            Returns true, if given layer is filtered out.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.Camera.ApplyPostprocessing">
+            <summary>
+            Applies shaders to the camera surface.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Cameras.CameraMgr">
+            <summary>
+            Manages camera priorities.
+            </summary>
+        </member>
+        <member name="P:Monofoxe.Engine.Cameras.CameraMgr.Cameras">
+            <summary>
+            List of all cameras.
+            </summary>
+        </member>
+        <member name="M:Monofoxe.Engine.Cameras.CameraMgr.UpdateCameraPriority(Monofoxe.Engine.Cameras.Camera)">
+            <summary>
+            Removes camera from list and adds it again, taking in account its proirity.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Cameras.FilterMode">
+            <summary>
+            filtering modes for camera.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.FilterMode.Inclusive">
+            <summary>
+            Triggers rendering, if filter DOES contain layer.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.FilterMode.Exclusive">
+            <summary>
+            Triggers rendering, if filter DOES NOT contain layer.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.FilterMode.None">
+            <summary>
+            Renders all layers.
+            </summary>
+        </member>
+        <member name="T:Monofoxe.Engine.Cameras.PostprocessingMode">
+            <summary>
+            Postprocessing modes for camera.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.PostprocessingMode.None">
+            <summary>
+            No shaders will be applied.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.PostprocessingMode.Camera">
+            <summary>
+            Enables applying shaders to the camera surface.
+            </summary>
+        </member>
+        <member name="F:Monofoxe.Engine.Cameras.PostprocessingMode.CameraAndLayers">
+            <summary>
+            Enables applying shaders to the camera surface 
+            AND individual layers.
             </summary>
         </member>
     </members>

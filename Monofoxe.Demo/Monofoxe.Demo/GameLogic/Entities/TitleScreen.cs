@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Monofoxe.Demo.GameLogic.Entities.Gameplay;
+using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
-using Monofoxe.Engine;
-using Monofoxe.Engine.Utils;
 using Monofoxe.Engine.SceneSystem;
-using Monofoxe.Demo.GameLogic.Entities.Gameplay;
+using Monofoxe.Engine.Utils;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -104,7 +104,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 		{
 			var multiplier = Vector2.Lerp(multiplierStart, multiplierEnd, _animation * _animation);
 
-			return (GameMgr.WindowManager.CanvasSize * multiplier).Round();
+			return (GameMgr.WindowManager.CanvasSize * multiplier).RoundV();
 		}
 	}
 }

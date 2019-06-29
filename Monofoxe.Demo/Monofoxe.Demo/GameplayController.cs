@@ -100,7 +100,7 @@ namespace Monofoxe.Demo
 		public override void Draw()
 		{	
 			Text.CurrentFont = Resources.Fonts.Arial;
-			Text.Draw("FPS:" + GameMgr.Fps, GraphicsMgr.CurrentCamera.Position - Vector2.One * 320, Vector2.One, Vector2.Zero, 0);
+			//Text.Draw("FPS:" + GameMgr.Fps, GraphicsMgr.CurrentCamera.Position - Vector2.One * 320, Vector2.One, Vector2.Zero, 0);
 		}
 
 	}
