@@ -5,6 +5,7 @@ using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Demo.GameLogic.Entities.Core;
 
 namespace Monofoxe.Demo.GameLogic.Entities
 {
@@ -53,6 +54,7 @@ namespace Monofoxe.Demo.GameLogic.Entities
 					_animationEnabled = false;
 
 					ToggleControls(true);
+					CreateSpeechBubble();
 					DestroyEntity();
 				}
 			}
@@ -105,6 +107,21 @@ namespace Monofoxe.Demo.GameLogic.Entities
 			var multiplier = Vector2.Lerp(multiplierStart, multiplierEnd, _animation * _animation);
 
 			return (GameMgr.WindowManager.CanvasSize * multiplier).RoundV();
+		}
+
+		void CreateSpeechBubble()
+		{
+			var l = MapController.CurrentMap.MapScene["Objects"];
+
+			var player = MapController.CurrentMap.MapScene.FindEntity("player");
+
+			new SpeechBubble(
+				player.GetComponent<PositionComponent>(),
+				"I feel the sudden urge" + System.Environment.NewLine + "to go to the right.",
+				l
+			);
+
+
 		}
 	}
 }

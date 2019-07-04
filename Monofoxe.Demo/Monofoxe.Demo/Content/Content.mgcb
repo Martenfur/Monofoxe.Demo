@@ -100,3 +100,8 @@
 /processor:FontDescriptionProcessor
 /build:Fonts/Arial.spritefont
 
+#begin Fonts/CartonSix.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:Fonts/CartonSix.spritefont
+

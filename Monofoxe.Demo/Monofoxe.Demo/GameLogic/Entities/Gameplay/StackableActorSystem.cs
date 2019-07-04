@@ -537,7 +537,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				owner.Layer = frontLayer;
 			}
-			
+
+			actor.AnimationSpeed = 0;
+
 			physics.Collider.Enabled = false; // Disabling collisions.
 
 			if (actor.SyncAngleWithSpeedVector)
@@ -961,13 +963,16 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			var actor = owner.GetComponent<StackableActorComponent>();
 			var newState = ActorAnimationStates.Crouching;
 
-			if (actor.Crouching)
+			if (actor.LogicStateMachine.CurrentState != ActorStates.Dead)
 			{
-				actor.AnimationSpeed = actor.CrouchAnimationSpeed;
-			}
-			else
-			{
-				actor.AnimationSpeed = -actor.CrouchAnimationSpeed;
+				if (actor.Crouching)
+				{
+					actor.AnimationSpeed = actor.CrouchAnimationSpeed;
+				}
+				else
+				{
+					actor.AnimationSpeed = -actor.CrouchAnimationSpeed;
+				}
 			}
 
 

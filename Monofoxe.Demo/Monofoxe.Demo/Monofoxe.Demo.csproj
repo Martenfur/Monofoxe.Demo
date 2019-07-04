@@ -102,6 +102,7 @@
     <Compile Include="GameLogic\Pause.cs" />
     <Compile Include="GameLogic\ScreenController.cs" />
     <Compile Include="GameLogic\SelectionMenu.cs" />
+    <Compile Include="GameLogic\SpeechBubble.cs" />
     <Compile Include="GameLogic\Tiles\ColliderTilesetTile.cs" />
     <Compile Include="GameLogic\Tiles\TilesetTileCollisionMode.cs" />
     <Compile Include="GameLogic\Entities\Gameplay\WatermelonSpawner.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Resources\Sprites\Default.cs" />
     <Compile Include="GameplayController.cs" />
     <None Include="Content\Content.npl" />
+    <None Include="Content\Fonts\CartonSix.spritefont" />
     <None Include="packages.config" />
     <None Include="x64\libfmod.so">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -48,6 +48,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				{
 					new LevelRestartEffect(GameplayController.GUILayer, true);
 					StackableActorSystem.Kill(playerActor, true);
+					playerActor.Owner.GetComponent<PhysicsComponent>().Collider.Enabled = true;
 					_triggered = true;
 				}
 			}			

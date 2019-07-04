@@ -4,6 +4,7 @@ using Monofoxe.Demo.GameLogic.Entities.Core;
 using Monofoxe.Demo.GameLogic.Entities.Gameplay;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
+using Monofoxe.Demo.GameLogic;
 
 namespace Monofoxe.Demo.GameLogic.Entities.Templates
 {
@@ -28,6 +29,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Templates
 
 			entity.AddComponent(new StackableActorComponent());
 			entity.AddComponent(new PlayerComponent());
+			
 			
 			return entity;
 		}

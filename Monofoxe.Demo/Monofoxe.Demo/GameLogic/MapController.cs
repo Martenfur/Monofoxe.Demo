@@ -17,8 +17,8 @@ namespace Monofoxe.Demo.GameLogic
 		{
 			_mapList = new List<MapBuilder>();
 
-			_mapList.Add(new ColliderMapBuilder(Resources.Maps.Level1));
 			_mapList.Add(new ColliderMapBuilder(Resources.Maps.Level2));
+			_mapList.Add(new ColliderMapBuilder(Resources.Maps.Level1));
 		}
 
 		public static void BuildNextMap()
