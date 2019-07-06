@@ -180,6 +180,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		public double CrouchAnimationSpeed = 10f;
 		public double CrawlAnimationSpeed = 4;
 		public double SleepAnimationSpeed = 0.2f;
+		public double TalkAnimationSpeed = 4f;
 
 
 		public Vector2 WalkMaxScale = new Vector2(0.05f, -0.1f);
@@ -197,6 +198,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		public AutoAlarm SleepParticleAlarm;
 		public double SleepParticleSpawnTime = 1;
+
+		public bool Talking = false;
 
 		#endregion Animations.
 

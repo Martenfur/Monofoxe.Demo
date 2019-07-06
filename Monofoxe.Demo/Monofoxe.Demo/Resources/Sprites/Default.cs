@@ -20,6 +20,7 @@ namespace Resources.Sprites
 		public static Sprite Forest2;
 		public static Sprite Tree;
 		public static Sprite Pause;
+		public static Sprite Booth;
 		public static Sprite Sun;
 		public static Sprite Snowman;
 		public static Sprite Credits;
@@ -27,6 +28,7 @@ namespace Resources.Sprites
 		public static Sprite Foxe;
 		public static Sprite FoxeSleeping;
 		public static Sprite Watermelon;
+		public static Sprite SirGato;
 		public static Sprite Gato;
 		public static Sprite Switchblock;
 		public static Sprite MenuButton;
@@ -67,6 +69,7 @@ namespace Resources.Sprites
 			Forest2 = sprites["Background/forest2"];
 			Tree = sprites["Decorations/Tree"];
 			Pause = sprites["Interface/pause"];
+			Booth = sprites["Objects/booth"];
 			Sun = sprites["Background/sun"];
 			Snowman = sprites["Decorations/Snowman"];
 			Credits = sprites["Title/credits"];
@@ -74,6 +77,7 @@ namespace Resources.Sprites
 			Foxe = sprites["Characters/foxe"];
 			FoxeSleeping = sprites["Characters/foxe_sleeping"];
 			Watermelon = sprites["Characters/watermelon"];
+			SirGato = sprites["Characters/sir_gato"];
 			Gato = sprites["Characters/gato"];
 			Switchblock = sprites["Objects/switchblock"];
 			MenuButton = sprites["Interface/menu_button"];

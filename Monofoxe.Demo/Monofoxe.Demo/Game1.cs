@@ -70,7 +70,6 @@ namespace Monofoxe.Demo
 		{
 			AudioMgr.Update();
 			GameMgr.Update(gameTime);
-			
 			base.Update(gameTime);
 		}
 

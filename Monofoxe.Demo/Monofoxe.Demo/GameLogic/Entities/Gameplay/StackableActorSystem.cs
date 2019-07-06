@@ -30,7 +30,8 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		Crawling,
 		Stacked,
 		Dead,
-		Sleeping
+		Sleeping,
+		Talking
 	}
 
 	public class StackableActorSystem : BaseSystem
@@ -58,6 +59,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.CrouchTransition, CrouchTransitionAnimation, CrouchTransitionAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Stacked, StackedAnimation, StackedAnimationEnter);
 			actor.AnimationStateMachine.AddState(ActorAnimationStates.Sleeping, SleepingAnimation, SleepingAnimationEnter);
+			actor.AnimationStateMachine.AddState(ActorAnimationStates.Talking, TalkingAnimation, TalkingAnimationEnter);
 
 
 
@@ -769,6 +771,37 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		}
 
 
+		void TalkingAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+			ResetAnimation(actor);
+			actor.AnimationSpeed = actor.TalkAnimationSpeed;
+		}
+
+		void TalkingAnimation(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
+		{
+			var actor = owner.GetComponent<StackableActorComponent>();
+
+			var newState = stateMachine.CurrentState;
+
+			if (!actor.Talking)
+			{
+				newState = ActorAnimationStates.Idle;
+				actor.AnimationSpeed = actor.WalkAnimationSpeed;
+			}
+
+			// Animation.
+			if (UpdateAnimation(stateMachine, actor, newState))
+			{
+				return;
+			}
+
+			var sin = (float)Math.Sin(actor.Animation * Math.PI);
+			actor.SpriteScale = Vector2.One + actor.SleepMaxScale * new Vector2(Math.Abs(sin), Math.Abs(sin));
+			// Animation.
+
+		}
+
 		void IdleAnimationEnter(StateMachine<ActorAnimationStates> stateMachine, Entity owner)
 		{
 			var actor = owner.GetComponent<StackableActorComponent>();
@@ -786,6 +819,15 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				return;
 			}
 			// Sleeping.
+
+
+			// Talking.
+			if (actor.Talking)
+			{
+				stateMachine.ChangeState(ActorAnimationStates.Talking);
+				return;
+			}
+			// Talking.
 
 
 			// Stacked.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="template_sprites" tilewidth="63" tileheight="56" tilecount="10" columns="0">
+<tileset version="1.2" tiledversion="1.2.3" name="template_sprites" tilewidth="121" tileheight="111" tilecount="11" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>
   <property name="__ignoreTileset" value="true"/>
@@ -34,5 +34,8 @@
  </tile>
  <tile id="9">
   <image width="48" height="48" source="cannon.png"/>
+ </tile>
+ <tile id="10">
+  <image width="121" height="111" source="booth.png"/>
  </tile>
 </tileset>

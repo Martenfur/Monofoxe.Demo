@@ -49,6 +49,8 @@ namespace Monofoxe.Demo.GameLogic
 
 		TriangleFanPrimitive _primitive;
 
+		public bool Typing {get; private set;} = true;
+
 		public SpeechBubble(PositionComponent owner, string text, Layer layer) : base(layer)
 		{
 			Owner = owner;
@@ -100,6 +102,7 @@ namespace Monofoxe.Demo.GameLogic
 					_typeAlarm.Enabled = false;
 					TextPtr = String.Length - 1;
 					_delayAlarm.Set(1 + String.Length * 0.1);
+					Typing = false;
 				}
 			}
 
