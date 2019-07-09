@@ -24,6 +24,9 @@ namespace Resources
 
 		public static Sound FrogPickup;
 
+		public static Sound FoxeSpeech;
+		public static Sound CatSpeech;
+		
 
 		public static void Load()
 		{
@@ -55,7 +58,14 @@ namespace Resources
 			CatPickup3 = AudioMgr.LoadSound("Sounds/CatPickup3.wav");
 			
 			FrogPickup = AudioMgr.LoadSound("Sounds/FrogPickup.wav");
+
+			FoxeSpeech = AudioMgr.LoadSound("Sounds/FoxeSpeech.wav");
+			FoxeSpeech.LowPass = 0.6f;
+			FoxeSpeech.Pitch = 1.3f;
+			CatSpeech = AudioMgr.LoadSound("Sounds/CatSpeech.wav");
+			CatSpeech.LowPass = 0.6f;
 			
+
 		}
 
 		static Sound Load3DSound(string path, float minDistance, float maxDistance)

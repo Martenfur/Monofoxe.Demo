@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Monofoxe.Tiled;
+using Monofoxe.Demo.GameLogic.Entities;
 
 namespace Monofoxe.Demo.GameLogic
 {
@@ -17,21 +18,34 @@ namespace Monofoxe.Demo.GameLogic
 		{
 			_mapList = new List<MapBuilder>();
 
-			_mapList.Add(new ColliderMapBuilder(Resources.Maps.Level2));
 			_mapList.Add(new ColliderMapBuilder(Resources.Maps.Level1));
+			_mapList.Add(new ColliderMapBuilder(Resources.Maps.Level2));
 		}
 
 		public static void BuildNextMap()
 		{
 			CurrentMap.Destroy();
 			_currentMapIndex += 1;
+			if (_currentMapIndex >= _mapList.Count)
+			{
+				_currentMapIndex = 0;
+				
+			}
 			CurrentMap.Build();
+			if (_currentMapIndex == 0)
+			{
+				new TitleScreen(GameplayController.GUILayer);
+			}
 		}
 
 		public static void BuildPreviousMap()
 		{
 			CurrentMap.Destroy();
-			_currentMapIndex += 1;
+			_currentMapIndex -= 1;
+			if (_currentMapIndex < 0)
+			{
+				_currentMapIndex = _mapList.Count - 1;
+			}
 			CurrentMap.Build();
 		}
 

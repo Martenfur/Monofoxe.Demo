@@ -105,3 +105,9 @@
 /processor:FontDescriptionProcessor
 /build:Fonts/CartonSix.spritefont
 
+#begin Audio/Sounds/CatSpeech.wav
+/copy:Audio/Sounds/CatSpeech.wav
+
+#begin Audio/Sounds/FoxeSpeech.wav
+/copy:Audio/Sounds/FoxeSpeech.wav
+

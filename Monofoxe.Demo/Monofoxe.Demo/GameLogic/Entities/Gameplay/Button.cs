@@ -27,7 +27,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 		private ICollider _collider;
 
 		private float _rotation;
-		// TODO: Make collider narrower.
 		public Button(Vector2 position, float rotation, Layer layer) : base(layer)
 		{
 			_rotation = rotation;

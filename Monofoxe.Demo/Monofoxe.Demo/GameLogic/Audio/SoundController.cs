@@ -10,9 +10,9 @@ namespace Monofoxe.Demo.GameLogic.Audio
 {
 	public class SoundController : Entity
 	{
-		public static float SoundVolume = 0f;
+		public static float SoundVolume = 1f;
 
-		public static float MusicVolume = 0f;
+		public static float MusicVolume = 1f;
 
 		public static FMOD.ChannelGroup MusicGroup;
 		public static FMOD.ChannelGroup SoundGroup;
@@ -39,8 +39,8 @@ namespace Monofoxe.Demo.GameLogic.Audio
 			_playedCurrently.Clear();
 		}
 
-		public static SoundChannel PlaySound(Sound sound) =>
-			sound.Play(SoundGroup);
+		public static SoundChannel PlaySound(Sound sound, bool paused = false) =>
+			sound.Play(SoundGroup, paused);
 		
 		public static SoundChannel PlaySoundOnce(Sound sound)
 		{

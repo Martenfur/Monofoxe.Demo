@@ -34,6 +34,8 @@ namespace Monofoxe.Demo
 			GameMgr.MaxGameSpeed = 60;
 			GameMgr.MinGameSpeed = 60;
 			
+			GameMgr.WindowManager.WindowTitle = "Stackfoxe";
+		
 			Text.CurrentFont = Resources.Fonts.Arial;
 
 			ScreenController.Init();
@@ -48,6 +50,7 @@ namespace Monofoxe.Demo
 
 			GUILayer = Scene.CreateLayer("gui");
 			GUILayer.IsGUI = true;
+			GUILayer.DepthSorting = true;
 			
 			new TitleScreen(GUILayer);
 			
@@ -76,12 +79,13 @@ namespace Monofoxe.Demo
 			{
 				ScreenController.SetFullscreen(!GameMgr.WindowManager.IsFullScreen);
 			}
+			
+			#if DEBUG
 			if (Input.CheckButtonPress(Buttons.R))
 			{
 				MapController.RebuildCurrentMap();
 			}
 			
-			// TODO: REMOVE!
 			if (Input.CheckButtonPress(Buttons.E))
 			{
 				if (TimeKeeper.GlobalTimeMultiplier == 1)
@@ -93,6 +97,7 @@ namespace Monofoxe.Demo
 					TimeKeeper.GlobalTimeMultiplier = 1;
 				}
 			}
+			#endif
 			
 		}
 

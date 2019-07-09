@@ -7,9 +7,10 @@ using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
 using System;
 using System.Collections.Generic;
+using ChaiFoxes.FMODAudio;
+using System.Text.RegularExpressions;
 
-
-namespace Monofoxe.Demo.GameLogic
+namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 {
 	public class SpeechBubble : Entity
 	{
@@ -50,6 +51,14 @@ namespace Monofoxe.Demo.GameLogic
 		TriangleFanPrimitive _primitive;
 
 		public bool Typing {get; private set;} = true;
+		
+		public Sound SpeechSound = Resources.Sounds.FoxeSpeech;
+
+		public float BasePitch = 1;
+
+		SoundChannel _channel;
+
+		TimeKeeper _keeper = new TimeKeeper();
 
 		public SpeechBubble(PositionComponent owner, string text, Layer layer) : base(layer)
 		{
@@ -70,22 +79,49 @@ namespace Monofoxe.Demo.GameLogic
 
 			_primitive = new TriangleFanPrimitive();
 			_primitive.Vertices = new List<Vertex>();
+
+			_typeAlarm.TimeKeeper = _keeper;
+			_delayAlarm.TimeKeeper = _keeper;
 		}
 
-
-
+		
 		public override void Update()
 		{
+			var speedUp = (GameButtons.Select.Check() && !GameplayController.PausingEnabled);
+
+			if (speedUp)
+			{
+				_keeper.TimeMultiplier = 2.5;
+			}
+			else
+			{
+				_keeper.TimeMultiplier = 1;
+			}
+
+
 			if (_typeAlarm.Update())
 			{
+				
 				TextPtr += 1;
-
+				
 				try
 				{
-					if (String[TextPtr] == ' ')
+					if (
+						Regex.IsMatch(String[TextPtr].ToString(), "[a-zA-Z]") 
+						&& !speedUp
+					)
 					{
-						TextPtr += 1;
+						
+						_channel = Audio.SoundController.PlaySound(SpeechSound, true);
+						_channel.Pitch = SpeechSound.Pitch + (float)GameplayController.Random.NextDouble(-0.2, 0.2);
+						var black = GameplayController.GUILayer.FindEntity<LevelRestartEffect>();
+						if (black != null)
+						{
+							_channel.Volume = (float)Math.Min(1 - black.Fade, 1);
+						}
+						_channel.Resume();
 					}
+					
 
 					if (String[TextPtr] == Environment.NewLine[0])
 					{
@@ -130,7 +166,6 @@ namespace Monofoxe.Demo.GameLogic
 
 			if (_delayAlarm.Update())
 			{
-				//Objects.Destroy(this);
 				_dead = true;
 				_textRubberBand = 2f / 60f;
 			}
@@ -168,41 +203,48 @@ namespace Monofoxe.Demo.GameLogic
 				str = String.Substring(0, TextPtr + 1);
 			}
 
-			DrawSpeechBubble(_pos + BubbleOffset, _targetPos, _textSize);
+			var floatOffset = (new Vector2(
+				(float)Math.Sin(GameMgr.ElapsedTimeTotal * 2.32), 
+				(float)-Math.Cos(-GameMgr.ElapsedTimeTotal * 1.82)
+			) * 4).RoundV();
+
+			var offset = Text.CurrentFont.MeasureString(str) * Vector2.UnitY / 2 + floatOffset;
+		 
+			DrawSpeechBubble(_pos + BubbleOffset - offset, offset - floatOffset, _targetPos, _textSize);
 			
 			Text.CurrentFont = _font;
 			Text.HorAlign = TextAlign.Center;
 			Text.VerAlign = TextAlign.Center;
-			GraphicsMgr.CurrentColor = Color.Black;
+			GraphicsMgr.CurrentColor = new Color(37, 43, 45);
 
-			Text.Draw(str, _pos + BubbleOffset);
+			Text.Draw(str, _pos + BubbleOffset - offset);
 
 		}
 
 
-		void DrawSpeechBubble(Vector2 pos, Vector2 tarPos, Vector2 size)
+		void DrawSpeechBubble(Vector2 center, Vector2 offset, Vector2 tarPos, Vector2 size)
 		{
-			GraphicsMgr.CurrentColor = Color.White;
+			GraphicsMgr.CurrentColor = new Color(230, 230, 255);
 
 			_wiggleyId = 0;
 
 			var flippedSize = new Vector2(size.X, -size.Y);
 
-			TriangleShape.Draw(pos - Vector2.UnitX * 10, pos + Vector2.UnitX * 10, _targetPos, false);
+			TriangleShape.Draw(center - Vector2.UnitX * 8 + offset, center + Vector2.UnitX * 8 + offset, _targetPos, false);
 
 			_primitive.Vertices.Clear();
 			
-			DrawArc(pos - size / 2, 90);
-			DrawLine(pos - size / 2, Vector2.UnitX, size.X);
+			DrawArc(center - size / 2, 90);
+			DrawLine(center - size / 2, Vector2.UnitX, size.X);
 
-			DrawArc(pos + flippedSize / 2, 0);
-			DrawLine(pos + flippedSize / 2, Vector2.UnitY, size.Y);
+			DrawArc(center + flippedSize / 2, 0);
+			DrawLine(center + flippedSize / 2, Vector2.UnitY, size.Y);
 
-			DrawArc(pos + size / 2, 270);
-			DrawLine(pos + size / 2, -Vector2.UnitX, size.X);
+			DrawArc(center + size / 2, 270);
+			DrawLine(center + size / 2, -Vector2.UnitX, size.X);
 
-			DrawArc(pos - flippedSize / 2, 180);
-			DrawLine(pos - flippedSize / 2, -Vector2.UnitY, size.Y);
+			DrawArc(center - flippedSize / 2, 180);
+			DrawLine(center - flippedSize / 2, -Vector2.UnitY, size.Y);
 
 			_primitive.Draw();
 

@@ -3,7 +3,8 @@ using Microsoft.Xna.Framework;
 using Monofoxe.Engine;
 using Monofoxe.Engine.Drawing;
 using Monofoxe.Tiled;
-
+using System;
+using System.IO;
 
 namespace Monofoxe.Demo
 {
@@ -17,6 +18,7 @@ namespace Monofoxe.Demo
 			Content.RootDirectory = AssetMgr.ContentDir;
 			GameMgr.Init(this);
 			IsFixedTimeStep = true;
+			IsMouseVisible = false;
 		}
 
 		/// <summary>
@@ -68,8 +70,22 @@ namespace Monofoxe.Demo
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			AudioMgr.Update();
-			GameMgr.Update(gameTime);
+			#if DEBUG
+				AudioMgr.Update();
+				GameMgr.Update(gameTime);
+			#else
+				try
+				{
+					AudioMgr.Update();
+					GameMgr.Update(gameTime);
+				}
+				catch(Exception e)
+				{
+					File.WriteAllText(Environment.CurrentDirectory + "/error.log", e.Message + Environment.NewLine + e.StackTrace);
+					Exit();
+				}
+			#endif
+			
 			base.Update(gameTime);
 		}
 
@@ -79,7 +95,19 @@ namespace Monofoxe.Demo
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GameMgr.Draw(gameTime);
+			#if DEBUG
+				GameMgr.Draw(gameTime);
+			#else
+			try
+			{
+				GameMgr.Draw(gameTime);
+			}
+			catch (Exception e)
+			{
+				File.WriteAllText(Environment.CurrentDirectory + "/error.log", e.Message + Environment.NewLine + e.StackTrace);
+				Exit();
+			}
+			#endif
 
 			base.Draw(gameTime);
 		}

@@ -15,7 +15,9 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		private int _fadeDirection = 1;
 
-		private double _fadeTime = 0.5f;
+		private double _fadeInTime = 0.5f;
+		private double _fadeOutTime = 0.5f;
+
 
 		private AutoAlarm _alarm;
 
@@ -25,15 +27,29 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 
 		private bool _nextLevel;
 
+		public double Fade => _blackscreenAlpha;
+
 		public LevelRestartEffect(Layer layer, bool nextLevel = false) : base(layer)
 		{
 			_nextLevel = nextLevel;
-			_alarm = new AutoAlarm(_fadeTime);
+			_alarm = new AutoAlarm(_fadeInTime);
 			_delayAlarm = new Alarm();
 			_delayAlarm.Set(_fadeDelay);
-
+			Depth = -999;
 			GameplayController.PausingEnabled = false;
 		}
+
+		public LevelRestartEffect(Layer layer, double fadeTime, bool nextLevel = false) : base(layer)
+		{
+			_fadeInTime = fadeTime;
+			_nextLevel = nextLevel;
+			_alarm = new AutoAlarm(_fadeInTime);
+			_delayAlarm = new Alarm();
+			_delayAlarm.Set(_fadeDelay);
+			Depth = -999;
+			GameplayController.PausingEnabled = false;
+		}
+
 
 		public override void Update()
 		{
@@ -65,11 +81,14 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			}
 
 			
-			_blackscreenAlpha = _alarm.Counter / _fadeTime;
 
 			if (_fadeDirection == 1)
 			{
-				_blackscreenAlpha = 1 - _blackscreenAlpha;
+				_blackscreenAlpha = 1 - _alarm.Counter / _fadeInTime;
+			}
+			else
+			{
+				_blackscreenAlpha = _alarm.Counter / _fadeOutTime;
 			}
 
 		}

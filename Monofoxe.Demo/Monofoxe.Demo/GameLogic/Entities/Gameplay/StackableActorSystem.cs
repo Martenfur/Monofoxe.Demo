@@ -485,7 +485,6 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			) * (masterPhysics.Collider.Size.Y);
 			
 			
-			// TODO: Figure out exact formula.
 			position.Position.Y += TimeKeeper.GlobalTime((-position.Position.Y + actor.StackedTargetPosition.Y) / actor.StackPositionDelayDivider);
 			//position.Position.Y += (-position.Position.Y + actor.StackedTargetPosition.Y) / actor.StackPositionDelayDivider;
 			position.Position.X = actor.StackedTargetPosition.X;
