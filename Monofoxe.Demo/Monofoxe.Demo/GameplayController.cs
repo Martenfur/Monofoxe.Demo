@@ -6,9 +6,12 @@ using Monofoxe.Engine.Drawing;
 using Monofoxe.Engine.ECS;
 using Monofoxe.Engine.SceneSystem;
 using Monofoxe.Engine.Utils;
+using Monofoxe.Engine.Cameras;
 using Monofoxe.Tiled;
 using Monofoxe.Demo.GameLogic.Audio;
 using Monofoxe.Demo.GameLogic.Entities;
+using System.IO;
+using System;
 
 namespace Monofoxe.Demo
 {
@@ -59,6 +62,8 @@ namespace Monofoxe.Demo
 			music.AddLayer("base", Resources.Sounds.MainBaseLayer);
 			music.Play();
 			SoundController.UpdatingSounds.Add(music);
+
+			
 		}
 		
 		public override void Update()
@@ -75,12 +80,17 @@ namespace Monofoxe.Demo
 				}
 			}
 
+#if DEBUG
 			if (Input.CheckButtonPress(Buttons.F))
 			{
 				ScreenController.SetFullscreen(!GameMgr.WindowManager.IsFullScreen);
 			}
-			
-			#if DEBUG
+
+			if (Input.CheckButtonPress(Buttons.F9))
+			{
+				TakeScreenshot();
+			}
+
 			if (Input.CheckButtonPress(Buttons.R))
 			{
 				MapController.RebuildCurrentMap();
@@ -97,8 +107,31 @@ namespace Monofoxe.Demo
 					TimeKeeper.GlobalTimeMultiplier = 1;
 				}
 			}
-			#endif
-			
+#endif
+
+			}
+
+		public static void TakeScreenshot()
+		{
+			var rootDir = Environment.CurrentDirectory + "/Screenshots/";
+
+			if (!Directory.Exists(rootDir))
+			{
+				Directory.CreateDirectory(rootDir);
+			}
+
+			var index = 0;
+			while(File.Exists(rootDir + "scr" + index + ".png"))
+			{
+				index += 1;
+			}
+
+			var stream = File.Open(rootDir + "scr" + index + ".png", FileMode.CreateNew);
+
+			var surface = CameraMgr.Cameras[0].Surface;
+			surface.RenderTarget.SaveAsPng(stream, surface.Width, surface.Height);
+
+			stream.Close();
 		}
 
 		

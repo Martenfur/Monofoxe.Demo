@@ -11,6 +11,8 @@ namespace Monofoxe.Demo.GameLogic
 		public static int WindowWidth = 1000;
 		public static int WindowHeight = 600;
 		
+		static Vector2 _maxResolution = new Vector2(1920, 1080);
+
 		public static Camera MainCamera;
 
 		public static void Init()
@@ -19,7 +21,7 @@ namespace Monofoxe.Demo.GameLogic
 
 			window.Window.AllowUserResizing = false;
 			window.ApplyChanges();
-			window.CanvasMode = CanvasMode.Fill;
+			window.CanvasMode = CanvasMode.KeepAspectRatio;
 			GraphicsMgr.Sampler = SamplerState.PointClamp;
 
 			
@@ -29,6 +31,8 @@ namespace Monofoxe.Demo.GameLogic
 			MainCamera = new Camera(window.CanvasWidth, window.CanvasHeight);
 			MainCamera.BackgroundColor = new Color(117, 190, 255);
 			MainCamera.Offset = MainCamera.Size / 2;
+
+			SetFullscreen(true);
 		}
 		
 
@@ -45,7 +49,10 @@ namespace Monofoxe.Demo.GameLogic
 		
 			if (fullscreen)
 			{
-				window.CanvasSize = window.ScreenSize;
+				window.CanvasSize = new Vector2(
+					MathHelper.Min(_maxResolution.X, window.ScreenWidth), 
+					MathHelper.Min(_maxResolution.Y, window.ScreenHeight)
+				);
 			}
 			else
 			{

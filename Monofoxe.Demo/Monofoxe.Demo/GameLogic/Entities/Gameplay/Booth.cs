@@ -55,7 +55,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			"/abbey, the mountain and a lot of bandits. the irony of it/is, the bandits seem to be the most organized out of" +
 			"/everybody. and don't even get me started on the bad guys - it's/just racism through and through. if the character is a" +
 			"/mouse, they are always the good guy, but if it is a rat - they/are guaranteed to be a bandit with no good traits. like, i" +
-			"/get that these are supposed to be children’s books and this makes it/easier for the young reader to understand, but it gets" +
+			"/get that these are supposed to be children's books and this makes it/easier for the young reader to understand, but it gets" +
 			"/old after a couple of books. and there is a lot of them, you know."
 		};
 

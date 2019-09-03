@@ -1198,7 +1198,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 			{
 				ang = -GameMath.Direction(physics.Speed * new Vector2(-1, 1)) - 90;
 			}
-		
+
 			actor.CurrentSprite.Draw( 
 				actor.SpriteAnimation,
 				position.Position.RoundV() + physics.Collider.Size * Vector2.UnitY / 2 + actor.SpriteOffset * -actor.Orientation, 
@@ -1207,6 +1207,7 @@ namespace Monofoxe.Demo.GameLogic.Entities.Gameplay
 				(float)ang, 
 				Color.White
 			);
+			
 		}
 
 
